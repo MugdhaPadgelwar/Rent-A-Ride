@@ -8,27 +8,30 @@ const Car = require("../models/Car");
 const Order = require("../models/Order");
 const Rating = require("../models/Rating");
 const mongoose = require("mongoose"); 
+const { v4: uuidv4 } = require('uuid');
 
-
-const { ObjectId } = require('mongoose').Types; 
-// POST endpoint for creating a new location
-router.post("/locations", async (req, res) => {
+router.post('/locations', async (req, res) => {
   try {
     const { city, state } = req.body;
 
     // Validation
     if (!city || !state) {
       return res.status(400).json({
-        error: "City and State are required in the request body.",
+        error: 'City and State are required in the request body.',
       });
     }
 
-    // Generate a unique location_Id using ObjectId
-    const location_Id = new ObjectId().toHexString();
+    // Check if the city already exists
+    const existingLocation = await Location.findOne({ city, state });
+    if (existingLocation) {
+      return res.status(409).json({
+        error: 'City already exists for the provided state.',
+      });
+    }
 
-    // Create a new Location document
+    // Create a new Location document with provided city and state
     const newLocation = new Location({
-      location_Id,
+      location_Id: uuidv4(), // Generate a new UUID for location_Id
       city,
       state,
     });
@@ -41,11 +44,11 @@ router.post("/locations", async (req, res) => {
     console.error(error);
 
     // Check if the error is a validation error
-    if (error.name === "ValidationError") {
+    if (error.name === 'ValidationError') {
       return res.status(400).json({ error: error.message });
     }
 
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
