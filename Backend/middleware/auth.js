@@ -12,7 +12,7 @@ const isAdmin = (req, res, next) => {
 
   try {
     // Verify the token using the secret key from the environment variables
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if user is admin
     if (decoded.role !== "admin") {
