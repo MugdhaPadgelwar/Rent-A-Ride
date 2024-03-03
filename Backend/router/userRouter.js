@@ -52,4 +52,21 @@ router.post("/locations", async (req, res) => {
   }
 });
 
+
+
+router.get('/locations/all', async (req, res) => {
+  try {
+    // Retrieve all locations from the database
+    const allLocations = await Location.find();
+
+    res.status(200).json(allLocations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
 module.exports = router;
