@@ -161,7 +161,65 @@ router.post('/login', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+}); 
+
+const { authenticateUser } = require('../middleware/auth'); // Import the authentication middleware
+
+// POST endpoint for creating a new car
+router.post('/cars', authenticateUser, async (req, res) => {
+  try {
+    // Extract car details from request body
+    const {
+      user_Id,
+      car_Model,
+      car_Brand,
+      car_Year,
+      car_Image,
+      car_No_Plate,
+      car_Capacity,
+      car_Type,
+      car_FuelType,
+      car_Mileage,
+      car_Price_PerHour,
+      car_InsuranceNumber,
+      availability
+    } = req.body;
+
+    // Validation
+    if (!user_Id || !car_Model || !car_Brand || !car_Year || !car_No_Plate || !car_Capacity || !car_Type || !car_FuelType || !car_Mileage || !car_Price_PerHour || !car_InsuranceNumber || availability === undefined) {
+      return res.status(400).json({
+        error: 'All fields are required.'
+      });
+    }
+
+    // Create a new car document
+    const newCar = new Car({
+      user_Id,
+      car_Model,
+      car_Brand,
+      car_Year,
+      car_Image,
+      car_No_Plate,
+      car_Capacity,
+      car_Type,
+      car_FuelType,
+      car_Mileage,
+      car_Price_PerHour,
+      car_InsuranceNumber,
+      availability
+    });
+
+    // Save the new car document to the database
+    const savedCar = await newCar.save();
+
+    res.status(201).json(savedCar);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
+
 module.exports = router;
 
 
