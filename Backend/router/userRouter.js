@@ -68,5 +68,60 @@ router.get('/locations/all', async (req, res) => {
 
 
 
+router.post('/register', async (req, res) => {
+  try {
+    const { user_Name, email, password, role } = req.body;
 
+    // Validation
+    if (!user_Name || !email || !password || !role) {
+      return res.status(400).json({
+        error: 'Username, email, password, and role are required in the request body.',
+      });
+    }
+
+    // Check if the email is already in use
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({
+        error: 'Email is already in use.',
+      });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new User document with provided user details
+    const newUser = new User({
+      user_Id: uuidv4(), // Generate a new UUID for user_Id
+      user_Name,
+      email,
+      password: hashedPassword,
+      role,
+    });
+
+    // Save the new User document to the database
+    const savedUser = await newUser.save();
+
+    res.status(201).json(savedUser);
+  } catch (error) {
+    console.error(error);
+
+    // Check if the error is a validation error
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: error.message });
+    }
+
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
