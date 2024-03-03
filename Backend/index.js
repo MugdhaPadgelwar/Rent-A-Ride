@@ -3,7 +3,7 @@ const app = express();
 require("./database/connection");
 app.use(express.json());
 (bodyParser = require("body-parser")), (jsonwebtoken = require("jsonwebtoken"));
-const userRoutes = require("./router/userRoute");
+const userRoutes = require("./router/userRouter");
 const mongoose = require("mongoose");
 
 app.use(express.json());
