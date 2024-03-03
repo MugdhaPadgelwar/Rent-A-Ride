@@ -147,7 +147,7 @@ router.post('/login', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { userId: user.user_Id, email: user.email, role: user.role },
+      { user_Id: user.user_Id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '1h' } // Token expires in 1 hour
     );
@@ -216,6 +216,65 @@ router.post('/cars', authenticateUser, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 
+
+
+// // Search cars by location ID
+// router.get("/cars/search", async (req, res) => {
+//   try {
+//     const { locationId } = req.query;
+
+//     // Validation
+//     if (!locationId) {
+//       return res.status(400).json({
+//         error: "Location ID is required.",
+//       });
+//     }
+
+//     // Search for cars by location ID
+//     const cars = await Car.find({ location_Id: locationId });
+
+//     if (cars.length === 0) {
+//       return res.status(404).json({
+//         error: "No cars found for the provided location ID.",
+//       });
+//     }
+
+//     res.status(200).json(cars);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+// PUT endpoint to update user details
+router.put("/users", authenticateUser, async (req, res) => {
+  try {
+    const { user_Id } = req.query; // Extract userId from query parameters
+    const updateFields = req.body;
+
+    // Validation: Check if userId is provided
+    if (!user_Id) {
+      return res.status(400).json({ error: "User ID is required." });
+    }
+
+    // Find the user by userId
+    const user = await User.findById(user_Id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    // Update user details
+    Object.assign(user, updateFields);
+
+    // Save the updated user
+    const updatedUser = await user.save();
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
