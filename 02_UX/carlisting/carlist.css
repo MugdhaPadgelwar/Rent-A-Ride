@@ -1,0 +1,85 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color:	#008080;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+}
+
+aside {
+  width: 200px;
+  background-color: #ddd;
+  padding: 20px;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.car {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  width: calc(33.33% - 20px);
+  box-sizing: border-box;
+}
+
+.car img {
+  width: 100%;
+  height: auto;
+}
+
+.car-details {
+  margin-top: 10px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-category {
+  font-weight: bold;
+}
+
+.filter-options label {
+  display: block;
+}
+
+.book-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #66b2b2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.book-button:hover {
+  background-color: #004494;
+}
+
+.price {
+  text-align: right;
+  font-weight: bold;
+  color: #333;
+}
