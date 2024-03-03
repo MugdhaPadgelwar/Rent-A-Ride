@@ -8,7 +8,8 @@ const Car = require("../models/Car");
 const Order = require("../models/Order");
 const Rating = require("../models/Rating");
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require("uuid"); 
+require("dotenv").config();
 
 router.post("/locations", async (req, res) => {
   try {
@@ -111,6 +112,53 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ error: error.message });
     }
 
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 
+
+
+// POST endpoint for user login
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({
+        error: 'Email and password are required in the request body.',
+      });
+    }
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({
+        error: 'Invalid email or password.',
+      });
+    }
+
+    // Compare password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        error: 'Invalid email or password.',
+      });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.user_Id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' } // Token expires in 1 hour
+    );
+
+    res.status(200).json({
+      message: 'Login successful.',
+      token: token,
+      expiresIn: 3600, // Token expires in 1 hour (3600 seconds)
+    });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
