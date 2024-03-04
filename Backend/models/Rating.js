@@ -1,39 +1,46 @@
 var mongoose = require("mongoose"),
   bcrypt = require("bcrypt"),
   Schema = mongoose.Schema;
-  const { v4: uuidv4 } = require('uuid');
 
   const ratingSchema = new mongoose.Schema({
-    rating_Id: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-      default: uuidv4, // Set a default value using uuidv4
-    },
-    car_Id: {
-      type: String,
-      trim: true,
-      // Add a reference to the Car model for the foreign key relationship
+    car: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Car',
+      required: true,
     },
     overallRating: {
       type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
     cleanliness: {
       type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
     comfort: {
       type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
     performance: {
       type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
     fuelEfficiency: {
       type: Number,
+      min: 1,
+      max: 5,
+      required: true,
     },
     comment: {
       type: String,
+      trim: true,
     },
   });
 

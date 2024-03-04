@@ -1,59 +1,61 @@
 var mongoose = require("mongoose"),
   bcrypt = require("bcrypt"),
   Schema = mongoose.Schema;
-
-  const { v4: uuidv4 } = require('uuid');
-
   const paymentSchema = new mongoose.Schema(
     {
-      transaction_Id: {
+      transactionId: {
         type: String,
         trim: true,
       },
       paymentDateAndTime: {
         type: Date,
+        required: true,
       },
-      modeofPayment: {
+      modeOfPayment: {
         type: String,
+        enum: ['credit_card', 'debit_card', 'net_banking', 'upi', 'wallet'],
+        required: true,
       },
-      total_Amount: {
+      totalAmount: {
         type: Number,
+        required: true,
       },
       status: {
         type: String,
+        enum: ['pending', 'successful', 'failed'],
+        required: true,
       },
     },
     { _id: false }
   );
   
   const orderSchema = new mongoose.Schema({
-    order_Id: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-      default: uuidv4,
-    },
-    car_Id: {
+    carId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Car',
+      required: true,
     },
-    user_Id: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
-    location_Id: {
+    locationId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Location',
+      required: true,
     },
-    total_Price: {
+    totalPrice: {
       type: Number,
+      required: true,
     },
     payment: {
       type: paymentSchema,
+      required: true,
     },
     bookingDateAndTime: {
       type: Date,
+      required: true,
     },
     cancellationReason: {
       type: String,
