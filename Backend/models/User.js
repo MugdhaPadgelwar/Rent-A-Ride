@@ -26,7 +26,6 @@ const userSchema = new mongoose.Schema({
   locationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Location",
-    required: true,
   },
   userName: {
     type: String,
@@ -53,7 +52,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
-    maxlength: 50,
+    maxlength: 200,
   },
   address: {
     type: addressSchema,
