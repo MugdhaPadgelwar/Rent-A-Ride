@@ -46,4 +46,4 @@ const validateUser = (userData) => {
   validateRole(userData.role);
 };
 
-module.exports = { validateUser };
+module.exports = { validateUser,validateEmail,validatePassword };

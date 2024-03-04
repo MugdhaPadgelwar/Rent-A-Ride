@@ -4,7 +4,9 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { authenticateUser } = require("../middleware/auth");
+const { authenticateUser } = require("../middleware/auth"); 
+const { validateEmail } = require("../validators/userValidators"); 
+const {validatePassword } = require("../validators/userValidators");
 require("dotenv").config();
 const { validateUser } = require("../validators/userValidators");
 
@@ -93,7 +95,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({
       message: "Login successful.",
       token: token,
-      expiresIn: 3600, // Token expires in 1 hour (3600 seconds)
+      expiresIn: "1M", // Token expires in 1 Month
     });
   } catch (error) {
     console.error(error);
@@ -101,35 +103,36 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// PUT endpoint to update user details
-router.put("/update", authenticateUser, async (req, res) => {
-  try {
-    const { user_Id } = req.query; // Extract userId from query parameters
-    const updateFields = req.body;
+// // PUT endpoint to update user details
+// router.put("/update", authenticateUser, async (req, res) => {
+//   try {
+//     const { userId } = req.query; // Extract userId from query parameters
+//     const updateFields = req.body; 
 
-    // Validation: Check if userId is provided
-    if (!user_Id) {
-      return res.status(400).json({ error: "User ID is required." });
-    }
+//      // Validation: Check if userId is provided and is a valid ObjectId
+//      if (!mongoose.Types.ObjectId.isValid(userId)) {
+//       return res.status(400).json({ error: "Invalid User ID." });
+//     }
 
-    // Find the user by userId
-    const user = await User.findById(user_Id);
-    if (!user) {
-      return res.status(404).json({ error: "User not found." });
-    }
 
-    // Update user details
-    Object.assign(user, updateFields);
+//     // Find the user by userId
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ error: "User not found." });
+//     }
 
-    // Save the updated user
-    const updatedUser = await user.save();
+//     // Update user details
+//     Object.assign(user, updateFields);
 
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+//     // Save the updated user
+//     const updatedUser = await user.save();
+
+//     res.status(200).json(updatedUser);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
 
 router.post("/forgot-password", (req, res) => {
   const { email } = req.query;
