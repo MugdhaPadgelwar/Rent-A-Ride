@@ -578,5 +578,207 @@ router.delete('/orders', authenticateUser, async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+}); 
+
+
+app.get('/api/orders', async (req, res) => {
+  try {
+    // Fetch all orders from the database
+    const orders = await Order.find();
+
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 
+
+
+// PUT endpoint for updating a location
+router.put('/locations', async (req, res) => {
+  try {
+    // Extract the location ID from the query parameters
+    const locationId = req.query.locationId;
+
+    // Extract the location details from the request body
+    const { city, state, area, date_time } = req.body;
+
+    // Check if the location ID is provided
+    if (!locationId) {
+      return res.status(400).json({ error: 'Location ID is required in query parameters.' });
+    }
+
+    // Find the location by its ID
+    const location = await Location.findById(locationId);
+
+    // Check if the location exists
+    if (!location) {
+      return res.status(404).json({ message: 'Location not found with the provided ID.' });
+    }
+
+    // Update the location details if provided
+    if (city) location.city = city;
+    if (state) location.state = state;
+
+    // Ensure that location.area is initialized before updating its properties
+    if (!location.area) {
+      location.area = {}; // Initialize area object if it does not exist
+    }
+
+    if (area) {
+      if (area.pickup) location.area.pickup = area.pickup;
+      if (area.drop) location.area.drop = area.drop;
+    }
+
+    // Ensure that location.date_time is initialized before updating its properties
+    if (!location.date_time) {
+      location.date_time = {}; // Initialize date_time object if it does not exist
+    }
+
+    if (date_time) {
+      if (date_time.pickupDateAndTime) location.date_time.pickupDateAndTime = new Date(date_time.pickupDateAndTime);
+      if (date_time.dropDateAndTime) location.date_time.dropDateAndTime = new Date(date_time.dropDateAndTime);
+    }
+
+    // Save the updated location
+    await location.save();
+
+    // Return the updated location
+    res.status(200).json(location);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 
+
+// POST endpoint for creating a new rating
+router.post('/ratings', async (req, res) => {
+  try {
+    // Extract rating details from request body
+    const {
+      car_Id,
+      overallRating,
+      cleanliness,
+      comfort,
+      performance,
+      fuelEfficiency,
+      comment
+    } = req.body;
+
+    // Create a new rating document
+    const newRating = new Rating({
+      car_Id,
+      overallRating,
+      cleanliness,
+      comfort,
+      performance,
+      fuelEfficiency,
+      comment
+    });
+
+    // Save the new rating document to the database
+    const savedRating = await newRating.save();
+
+    res.status(201).json(savedRating);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// GET endpoint for retrieving a rating by its ID
+router.get('/ratings', async (req, res) => {
+  try {
+    // Extract the rating ID from the query parameters
+    const ratingId = req.query.ratingId;
+
+    // Check if the rating ID is provided
+    if (!ratingId) {
+      return res.status(400).json({ error: 'Rating ID is required in query parameters.' });
+    }
+
+    // Find the rating by its ID
+    const rating = await Rating.findOne({ rating_Id: ratingId });
+
+    // Check if the rating exists
+    if (!rating) {
+      return res.status(404).json({ message: 'Rating not found with the provided ID.' });
+    }
+
+    // Return the rating
+    res.json(rating);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// PUT endpoint for updating a rating
+router.put('/ratings', async (req, res) => {
+  try {
+    // Extract the rating ID from the query parameters
+    const ratingId = req.query.ratingId;
+
+    // Check if the rating ID is provided
+    if (!ratingId) {
+      return res.status(400).json({ error: 'Rating ID is required in query parameters.' });
+    }
+
+    // Find the rating by its ID
+    const rating = await Rating.findById(ratingId);
+
+    // Check if the rating exists
+    if (!rating) {
+      return res.status(404).json({ message: 'Rating not found with the provided ID.' });
+    }
+
+    // Extract the updated rating details from the request body
+    const { overallRating, cleanliness, comfort, performance, fuelEfficiency, comment } = req.body;
+
+    // Update the rating details if provided
+    if (overallRating !== undefined) rating.overallRating = overallRating;
+    if (cleanliness !== undefined) rating.cleanliness = cleanliness;
+    if (comfort !== undefined) rating.comfort = comfort;
+    if (performance !== undefined) rating.performance = performance;
+    if (fuelEfficiency !== undefined) rating.fuelEfficiency = fuelEfficiency;
+    if (comment !== undefined) rating.comment = comment;
+
+    // Save the updated rating
+    await rating.save();
+
+    // Return the updated rating
+    res.status(200).json(rating);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// DELETE endpoint for deleting a rating by its ID
+router.delete('/ratings', async (req, res) => {
+  try {
+    // Extract the rating ID from the query parameters
+    const ratingId = req.query.ratingId;
+
+    // Check if the rating ID is provided
+    if (!ratingId) {
+      return res.status(400).json({ error: 'Rating ID is required in query parameters.' });
+    }
+
+    // Find the rating by its ID and delete it
+    const deletedRating = await Rating.findOneAndDelete({ rating_Id: ratingId });
+
+    // Check if the rating was found and deleted
+    if (!deletedRating) {
+      return res.status(404).json({ message: 'Rating not found with the provided ID.' });
+    }
+
+    // Return the deleted rating
+    res.status(200).json(deletedRating);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 module.exports = router;
