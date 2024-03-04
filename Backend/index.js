@@ -25,11 +25,11 @@ app.use(bodyParser.json());
 
 // Import route handlers
 const userRoutes = require("./router/userRouter");
-const ratingRoutes = require("./router/ratingRoutes");
-const orderRoutes = require("./router/orderRoutes");
-const locationRoutes = require("./router/locationRoutes");
-const adminRoutes = require("./router/adminRoutes");
-const carRoutes = require("./router/carRoutes");
+const ratingRoutes = require("./router/ratingRouter");
+const orderRoutes = require("./router/orderRouter");
+const locationRoutes = require("./router/locationRouter");
+const adminRoutes = require("./router/adminRouter");
+const carRoutes = require("./router/carRouter");
 
 // Mount route handlers
 app.use("/users", userRoutes);
