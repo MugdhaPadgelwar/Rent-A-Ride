@@ -53,16 +53,18 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
 // POST endpoint for user login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Validation
-    if (!email || !password) {
-      return res.status(400).json({
-        error: "Email and password are required in the request body.",
-      });
+    try {
+      validateEmail(email); // Validate email
+      validatePassword(password); // Validate password
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
     }
 
     // Find user by email
