@@ -69,7 +69,7 @@ var mongoose = require("mongoose"),
     },
     role: {
       type: String,
-      enum: ['buyer', 'renter', 'admin'],
+      enum: ['user', 'admin'],
     },
   });
 
