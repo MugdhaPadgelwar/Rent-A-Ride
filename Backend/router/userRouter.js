@@ -343,38 +343,33 @@ router.delete('/cars', async (req, res) => {
 
 
 
+// GET endpoint for getting a car by location ID
+router.get('/cars/location', async (req, res) => {
+  try {
+    // Extract the location ID from the query parameters
+    const locationId = req.query.location_Id;
 
+    // Check if location ID is provided
+    if (!locationId) {
+      return res.status(400).json({ error: 'Location ID is required in query parameters.' });
+    }
 
+    // Find the car by its location ID
+    const car = await Car.findOne({ location_Id: locationId });
 
+    // Check if the car exists
+    if (!car) {
+      return res.status(404).json({ message: 'Car not found with the provided location ID.' });
+    }
 
+    // Return the car details
+    res.status(200).json(car);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-// // Search cars by location ID
-// router.get("/cars/search", async (req, res) => {
-//   try {
-//     const { locationId } = req.query;
-
-//     // Validation
-//     if (!locationId) {
-//       return res.status(400).json({
-//         error: "Location ID is required.",
-//       });
-//     }
-
-//     // Search for cars by location ID
-//     const cars = await Car.find({ location_Id: locationId });
-
-//     if (cars.length === 0) {
-//       return res.status(404).json({
-//         error: "No cars found for the provided location ID.",
-//       });
-//     }
-
-//     res.status(200).json(cars);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// });
 
 // PUT endpoint to update user details
 router.put("/users", authenticateUser, async (req, res) => {
