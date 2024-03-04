@@ -546,4 +546,37 @@ router.get('/orders', authenticateUser, async (req, res) => {
 });
 
 
+router.delete('/orders', authenticateUser, async (req, res) => {
+  try {
+    // Get the object_id from request body
+    const { object_id } = req.body;
+
+    // Validate object_id existence
+    if (!object_id || !mongoose.Types.ObjectId.isValid(object_id)) {
+      return res.status(400).json({ message: "Valid object_id is required in the request body" });
+    }
+
+    // Find the order in the database using the provided object_id
+    const order = await Order.findById(object_id);
+
+    // Check if the order exists
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Check if the authenticated user is authorized to delete this order
+    if (order.user_Id !== req.user.userId) {
+      return res.status(403).json({ message: "Unauthorized - You do not have permission to delete this order" });
+    }
+
+    // Delete the order from the database
+    await Order.findByIdAndDelete(object_id);
+
+    // Respond with a success message
+    res.status(200).json({ message: "Order deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 module.exports = router;
