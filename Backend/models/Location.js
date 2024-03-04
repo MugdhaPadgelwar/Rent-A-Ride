@@ -1,53 +1,51 @@
-var mongoose = require("mongoose"),
-  bcrypt = require("bcrypt"),
-  Schema = mongoose.Schema;
+var mongoose = require("mongoose");
 
-  const areaSchema = new mongoose.Schema(
-    {
-      pickup: {
-        type: String,
-        trim: true,
-      },
-      drop: {
-        type: String,
-        trim: true,
-      },
-    },
-    { _id: false }
-  );
-  
-  // Create an embedded schema for date and time
-  const dateTimeSchema = new mongoose.Schema(
-    {
-      pickupDateAndTime: {
-        type: Date,
-      },
-      dropDateAndTime: {
-        type: Date,
-      },
-    },
-    { _id: false }
-  );
-  
-  // Create the location schema
-  const locationSchema = new mongoose.Schema({
-    city: {
+const areaSchema = new mongoose.Schema(
+  {
+    pickup: {
       type: String,
       trim: true,
-      required: true,
     },
-    state: {
+    drop: {
       type: String,
       trim: true,
-      required: true,
     },
-    area: {
-      type: areaSchema,
+  },
+  { _id: false }
+);
+
+// Create an embedded schema for date and time
+const dateTimeSchema = new mongoose.Schema(
+  {
+    pickupDateAndTime: {
+      type: Date,
     },
-    dateTime: {
-      type: dateTimeSchema,
+    dropDateAndTime: {
+      type: Date,
     },
-  });
+  },
+  { _id: false }
+);
+
+// Create the location schema
+const locationSchema = new mongoose.Schema({
+  city: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  state: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+  area: {
+    type: areaSchema,
+  },
+  dateTime: {
+    type: dateTimeSchema,
+  },
+});
 // Plugin for autopopulation
 locationSchema.plugin(require("mongoose-autopopulate"));
 

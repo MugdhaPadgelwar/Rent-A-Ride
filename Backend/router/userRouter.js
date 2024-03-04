@@ -130,6 +130,7 @@ router.put("/update", authenticateUser, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 router.post("/forgot-password", (req, res) => {
   const { email } = req.query;
   const { newPassword, confirmPassword } = req.body;
