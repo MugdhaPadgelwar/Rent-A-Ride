@@ -10,13 +10,15 @@ var mongoose = require("mongoose"),
       trim: true,
       required: true,
       unique: true,
-      default: uuidv4, // Set a default value using uuidv4
+      default: uuidv4,
     },
     user_Id: {
-      type: String,
-      trim: true,
-      // Add a reference to the User model for the foreign key relationship
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+    },
+    location_Id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Location',
     },
     car_Model: {
       type: String,
