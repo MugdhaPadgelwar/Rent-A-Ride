@@ -292,7 +292,7 @@ app.post("/forgot-password", (req, res) => {
   const { newPassword, confirmPassword } = req.body;
 
   // Check if email exists in the database
-  const user = users.find((user) => user.email === email);
+  const user = User.find((user) => user.email === email);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
@@ -307,6 +307,24 @@ app.post("/forgot-password", (req, res) => {
 
   // Return success response
   res.json({ message: "Password reset successful" });
+});
+
+app.delete("/users", (req, res) => {
+  const userId = parseInt(req.query.userId);
+
+  // Find the index of the user with the given user ID
+  const index = User.findIndex((user) => user.id === userId);
+
+  // If user with the given ID is not found, return 404 Not Found
+  if (index === -1) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  // Remove the user from the array of users
+  users.splice(index, 1);
+
+  // Return success response
+  res.json({ message: "User deleted successfully" });
 });
 
 module.exports = router;
