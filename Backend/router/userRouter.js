@@ -249,10 +249,37 @@ router.get('/cars', async (req, res) => {
   }
 });
 
+// GET endpoint for getting a car by car model using query parameters
+router.get('/cars', async (req, res) => {
+  try {
+    // Extract the car model from the query parameters
+    const carModel = req.query.model;
 
+    // Check if car model is provided
+    if (!carModel) {
+      return res.status(400).json({ error: 'Car model is required in query parameters.' });
+    }
 
+    // Find the car by its model and select only specific fields
+    const car = await Car.findOne({ car_Model: carModel }, 'car_Model car_Brand car_Year car_Image');
 
+    // Check if the car exists
+    if (!car) {
+      return res.status(404).json({ message: 'Car not found with the provided model.' });
+    }
+
+    // Return only the selected fields of the car found
+    res.status(200).json(car);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
+
+
+
+
 
 
 // // Search cars by location ID
@@ -312,8 +339,7 @@ router.put("/users", authenticateUser, async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-app.post("/forgot-password", (req, res) => {
+router.post("/forgot-password", (req, res) => {
   const { email } = req.query;
   const { newPassword, confirmPassword } = req.body;
 
@@ -334,8 +360,7 @@ app.post("/forgot-password", (req, res) => {
   // Return success response
   res.json({ message: "Password reset successful" });
 });
-
-app.delete("/users", (req, res) => {
+router.delete("/users", (req, res) => {
   const userId = parseInt(req.query.userId);
 
   // Find the index of the user with the given user ID
