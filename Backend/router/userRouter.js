@@ -423,6 +423,8 @@ router.post("/forgot-password", (req, res) => {
   // Return success response
   res.json({ message: "Password reset successful" });
 });
+
+
 router.delete("/users", (req, res) => {
   const userId = parseInt(req.query.userId);
 
@@ -439,6 +441,64 @@ router.delete("/users", (req, res) => {
 
   // Return success response
   res.json({ message: "User deleted successfully" });
+});
+ 
+
+// DELETE endpoint for deleting the image of a user by user ID
+router.delete('/users/image', async (req, res) => {
+  try {
+    // Extract the user ID from the request body
+    const userId = req.body.userId;
+
+    // Check if the user ID is provided
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required in the request body.' });
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Delete the user's image
+    user.user_image = undefined;
+    await user.save();
+
+    // Return a success message
+    res.status(200).json({ message: 'User image deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/user', async (req, res) => {
+  try {
+    // Extract the user ID from the request body
+    const userId = req.body.user_Id;
+
+    // Check if user ID is provided
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required in the request body.' });
+    }
+
+    // Find user by ID
+    const user = await User.findById(userId);
+
+    // Check if user is found
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return user data
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = router;
