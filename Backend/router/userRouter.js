@@ -3,21 +3,17 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
+
 const { authenticateUser } = require("../middleware/auth");
 require("dotenv").config();
+const { validateUser } = require("../validators/userValidators");
 
 router.post("/register", async (req, res) => {
   try {
-    const { user_Name, email, password, role } = req.body;
+    // Validate request body
+    validateUser(req.body);
 
-    // Validation
-    if (!user_Name || !email || !password || !role) {
-      return res.status(400).json({
-        error:
-          "Username, email, password, and role are required in the request body.",
-      });
-    }
+    const { userName, email, password, role } = req.body;
 
     // Check if the email is already in use
     const existingUser = await User.findOne({ email });
@@ -32,8 +28,7 @@ router.post("/register", async (req, res) => {
 
     // Create a new User document with provided user details
     const newUser = new User({
-      user_Id: uuidv4(), // Generate a new UUID for user_Id
-      user_Name,
+      userName,
       email,
       password: hashedPassword,
       role,
@@ -47,7 +42,10 @@ router.post("/register", async (req, res) => {
     console.error(error);
 
     // Check if the error is a validation error
-    if (error.name === "ValidationError") {
+    if (
+      error.name === "ValidationError" ||
+      error.message.startsWith("ValidationError")
+    ) {
       return res.status(400).json({ error: error.message });
     }
 
@@ -87,7 +85,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { user_Id: user.user_Id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1M" } // Token expires in 1 month 
+      { expiresIn: "1M" } // Token expires in 1 month
     );
 
     res.status(200).json({
