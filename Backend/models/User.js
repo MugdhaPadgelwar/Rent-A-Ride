@@ -23,9 +23,10 @@ const addressSchema = new mongoose.Schema(
 
 // Create the user schema
 const userSchema = new mongoose.Schema({
-  location: {
+  locationId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Location",
+    required: true,
   },
   userName: {
     type: String,
@@ -53,7 +54,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
     maxlength: 50,
-    // Note: You should consider using a more secure way to store passwords, like bcrypt
   },
   address: {
     type: addressSchema,

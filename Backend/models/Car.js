@@ -6,7 +6,7 @@ const carSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
-  location: {
+  locationId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "Location",
