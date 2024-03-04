@@ -227,7 +227,33 @@ router.post("/cars", authenticateUser, async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
+
+});  
+
+// GET endpoint for getting all cars
+router.get('/cars', async (req, res) => {
+  try {
+    // Fetch all cars from the database
+    const cars = await Car.find();
+
+    // Check if there are no cars found
+    if (!cars || cars.length === 0) {
+      return res.status(404).json({ message: 'No cars found.' });
+    }
+
+    // Return the list of cars
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
+
+
+
+});
+
 
 // // Search cars by location ID
 // router.get("/cars/search", async (req, res) => {
