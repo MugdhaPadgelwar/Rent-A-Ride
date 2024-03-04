@@ -122,7 +122,7 @@ router.delete("/delete", authenticateUser, async (req, res) => {
   }
 });
 
-app.get("/all", async (req, res) => {
+router.get("/all", async (req, res) => {
   try {
     // Fetch all orders from the database
     const orders = await Order.find();
