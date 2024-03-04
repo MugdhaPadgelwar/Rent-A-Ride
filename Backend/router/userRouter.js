@@ -168,6 +168,7 @@ router.post("/cars", authenticateUser, async (req, res) => {
     // Extract car details from request body
     const {
       user_Id,
+      location_Id,
       car_Model,
       car_Brand,
       car_Year,
@@ -185,6 +186,7 @@ router.post("/cars", authenticateUser, async (req, res) => {
     // Validation
     if (
       !user_Id ||
+      !location_Id||
       !car_Model ||
       !car_Brand ||
       !car_Year ||
@@ -205,6 +207,7 @@ router.post("/cars", authenticateUser, async (req, res) => {
     // Create a new car document
     const newCar = new Car({
       user_Id,
+      location_Id,
       car_Model,
       car_Brand,
       car_Year,
