@@ -26,31 +26,24 @@ var mongoose = require("mongoose"),
     { _id: false }
   );
   
-  // Create the order schema
   const orderSchema = new mongoose.Schema({
     order_Id: {
       type: String,
       trim: true,
       required: true,
       unique: true,
-      default: uuidv4, // Set a default value using uuidv4
+      default: uuidv4,
     },
     car_Id: {
-      type: String,
-      trim: true,
-      // Add a reference to the Car model for the foreign key relationship
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Car',
     },
     user_Id: {
-      type: String,
-      trim: true,
-      // Add a reference to the User model for the foreign key relationship
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
     location_Id: {
-      type: String,
-      trim: true,
-      // Add a reference to the Location model for the foreign key relationship
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Location',
     },
     total_Price: {
@@ -69,7 +62,6 @@ var mongoose = require("mongoose"),
       type: Date,
     },
   });
-
 // Add plugin to set order_id as primary key
 orderSchema.plugin(require("mongoose-autopopulate"));
 
