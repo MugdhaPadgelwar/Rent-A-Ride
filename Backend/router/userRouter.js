@@ -473,30 +473,77 @@ router.delete('/users/image', async (req, res) => {
   }
 });
 
-router.get('/user', async (req, res) => {
+// Apply the middleware to the '/orders' route
+router.post('/orders', authenticateUser, async (req, res) => {
   try {
-    // Extract the user ID from the request body
-    const userId = req.body.user_Id;
+    // Destructure details from the request body
+    const {
+      user_Id,
+      car_Id,
+      location_Id,
+      total_Price,
+      payment,
+      bookingDateAndTime,
+      cancellationReason,
+      cancellationDateAndTime,
+    } = req.body;
 
-    // Check if user ID is provided
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID is required in the request body.' });
+    // Create a new order instance
+    const newOrder = new Order({
+      order_Id: uuidv4(),
+      user_Id: req.user.userId, // Access userId from the authenticated user
+      car_Id,
+      location_Id,
+      total_Price,
+      payment,
+      bookingDateAndTime,
+      cancellationReason,
+      cancellationDateAndTime,
+    });
+
+    // Save the order to the database
+    const savedOrder = await newOrder.save();
+
+    // Respond with the created order
+    res.status(201).json(savedOrder);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}); 
+
+
+// Apply the middleware to the '/order' route
+router.get('/orders', authenticateUser, async (req, res) => {
+  try {
+    // Get the order_id from query parameters
+    const order_id = req.query.order_id;
+
+    // Validate order_id existence
+    if (!order_id) {
+      return res.status(400).json({ message: "order_id is required in the query parameters" });
     }
 
-    // Find user by ID
-    const user = await User.findById(userId);
+    // Find the order in the database using the provided order_id
+    const order = await Order.findOne({ order_Id: order_id });
 
-    // Check if user is found
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    // Check if the order exists
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
     }
 
-    // Return user data
-    res.json(user);
+    // Check if the authenticated user is authorized to view this order
+    if (order.user_Id !== req.user.userId) {
+      return res.status(403).json({ message: "Unauthorized - You do not have permission to view this order" });
+    }
+
+    // Respond with the order details
+    res.status(200).json(order);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 module.exports = router;
