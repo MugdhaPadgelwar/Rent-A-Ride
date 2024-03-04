@@ -250,7 +250,7 @@ router.get('/cars', async (req, res) => {
 });
 
 // GET endpoint for getting a car by car model using query parameters
-router.get('/cars', async (req, res) => {
+router.get('/cars/name', async (req, res) => {
   try {
     // Extract the car model from the query parameters
     const carModel = req.query.model;
@@ -261,7 +261,7 @@ router.get('/cars', async (req, res) => {
     }
 
     // Find the car by its model and select only specific fields
-    const car = await Car.findOne({ car_Model: carModel }, 'car_Model car_Brand car_Year car_Image');
+    const car = await Car.findOne({ car_Model: carModel }).select('car_Model car_Brand car_Year car_Image');
 
     // Check if the car exists
     if (!car) {
@@ -275,6 +275,69 @@ router.get('/cars', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// PUT endpoint for updating car details (e.g., car price) by car ID passed through query parameters
+router.put('/cars', async (req, res) => {
+  try {
+    // Extract the car ID from the query parameters
+    const carId = req.query.carId;
+
+    // Extract the new car price from the request body
+    const { car_Price_PerHour } = req.body;
+
+    // Check if the car ID is provided
+    if (!carId) {
+      return res.status(400).json({ error: 'Car ID is required in query parameters.' });
+    }
+
+    // Check if the new car price is provided
+    if (!car_Price_PerHour) {
+      return res.status(400).json({ error: 'New car price is required.' });
+    }
+
+    // Find the car by its ID and update its price
+    const updatedCar = await Car.findByIdAndUpdate(carId, { car_Price_PerHour }, { new: true });
+
+    // Check if the car exists
+    if (!updatedCar) {
+      return res.status(404).json({ message: 'Car not found.' });
+    }
+
+    // Return the updated car
+    res.status(200).json(updatedCar);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// DELETE endpoint for deleting a car by car ID passed through query parameters
+router.delete('/cars', async (req, res) => {
+  try {
+    // Extract the car ID from the query parameters
+    const carId = req.query.carId;
+
+    // Check if the car ID is provided
+    if (!carId) {
+      return res.status(400).json({ error: 'Car ID is required in query parameters.' });
+    }
+
+    // Find the car by its ID and delete it
+    const deletedCar = await Car.findByIdAndDelete(carId);
+
+    // Check if the car exists
+    if (!deletedCar) {
+      return res.status(404).json({ message: 'Car not found.' });
+    }
+
+    // Return a success message
+    res.status(200).json({ message: 'Car deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 
