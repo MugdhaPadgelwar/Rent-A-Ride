@@ -8,7 +8,8 @@ const Car = require("../models/Car");
 const Order = require("../models/Order");
 const Rating = require("../models/Rating");
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid"); 
+const { v4: uuidv4 } = require("uuid");
+const { authenticateUser } = require("../middleware/auth");
 require("dotenv").config();
 
 router.post("/locations", async (req, res) => {
@@ -53,9 +54,7 @@ router.post("/locations", async (req, res) => {
   }
 });
 
-
-
-router.get('/locations/all', async (req, res) => {
+router.get("/locations/all", async (req, res) => {
   try {
     // Retrieve all locations from the database
     const allLocations = await Location.find();
@@ -63,20 +62,19 @@ router.get('/locations/all', async (req, res) => {
     res.status(200).json(allLocations);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-
-
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     const { user_Name, email, password, role } = req.body;
 
     // Validation
     if (!user_Name || !email || !password || !role) {
       return res.status(400).json({
-        error: 'Username, email, password, and role are required in the request body.',
+        error:
+          "Username, email, password, and role are required in the request body.",
       });
     }
 
@@ -84,7 +82,7 @@ router.post('/register', async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({
-        error: 'Email is already in use.',
+        error: "Email is already in use.",
       });
     }
 
@@ -108,24 +106,23 @@ router.post('/register', async (req, res) => {
     console.error(error);
 
     // Check if the error is a validation error
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       return res.status(400).json({ error: error.message });
     }
 
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}); 
-
+});
 
 // POST endpoint for user login
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Validation
     if (!email || !password) {
       return res.status(400).json({
-        error: 'Email and password are required in the request body.',
+        error: "Email and password are required in the request body.",
       });
     }
 
@@ -133,7 +130,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({
-        error: 'Invalid email or password.',
+        error: "Invalid email or password.",
       });
     }
 
@@ -141,7 +138,7 @@ router.post('/login', async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({
-        error: 'Invalid email or password.',
+        error: "Invalid email or password.",
       });
     }
 
@@ -149,24 +146,24 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign(
       { user_Id: user.user_Id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' } // Token expires in 1 hour
+      { expiresIn: "1h" } // Token expires in 1 hour
     );
 
     res.status(200).json({
-      message: 'Login successful.',
+      message: "Login successful.",
       token: token,
       expiresIn: 3600, // Token expires in 1 hour (3600 seconds)
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
-}); 
+});
 
-const { authenticateUser } = require('../middleware/auth'); // Import the authentication middleware
+// Import the authentication middleware
 
 // POST endpoint for creating a new car
-router.post('/cars', authenticateUser, async (req, res) => {
+router.post("/cars", authenticateUser, async (req, res) => {
   try {
     // Extract car details from request body
     const {
@@ -182,13 +179,26 @@ router.post('/cars', authenticateUser, async (req, res) => {
       car_Mileage,
       car_Price_PerHour,
       car_InsuranceNumber,
-      availability
+      availability,
     } = req.body;
 
     // Validation
-    if (!user_Id || !car_Model || !car_Brand || !car_Year || !car_No_Plate || !car_Capacity || !car_Type || !car_FuelType || !car_Mileage || !car_Price_PerHour || !car_InsuranceNumber || availability === undefined) {
+    if (
+      !user_Id ||
+      !car_Model ||
+      !car_Brand ||
+      !car_Year ||
+      !car_No_Plate ||
+      !car_Capacity ||
+      !car_Type ||
+      !car_FuelType ||
+      !car_Mileage ||
+      !car_Price_PerHour ||
+      !car_InsuranceNumber ||
+      availability === undefined
+    ) {
       return res.status(400).json({
-        error: 'All fields are required.'
+        error: "All fields are required.",
       });
     }
 
@@ -206,7 +216,7 @@ router.post('/cars', authenticateUser, async (req, res) => {
       car_Mileage,
       car_Price_PerHour,
       car_InsuranceNumber,
-      availability
+      availability,
     });
 
     // Save the new car document to the database
@@ -215,8 +225,9 @@ router.post('/cars', authenticateUser, async (req, res) => {
     res.status(201).json(savedCar);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
+
 });  
 
 // GET endpoint for getting all cars
@@ -239,6 +250,9 @@ router.get('/cars', async (req, res) => {
 });
 
 
+
+
+});
 
 
 // // Search cars by location ID
@@ -299,15 +313,44 @@ router.put("/users", authenticateUser, async (req, res) => {
   }
 });
 
+app.post("/forgot-password", (req, res) => {
+  const { email } = req.query;
+  const { newPassword, confirmPassword } = req.body;
+
+  // Check if email exists in the database
+  const user = User.find((user) => user.email === email);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  // Check if newPassword and confirmPassword match
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ error: "Passwords do not match" });
+  }
+
+  // Update user's password in the database
+  user.password = newPassword;
+
+  // Return success response
+  res.json({ message: "Password reset successful" });
+});
+
+app.delete("/users", (req, res) => {
+  const userId = parseInt(req.query.userId);
+
+  // Find the index of the user with the given user ID
+  const index = User.findIndex((user) => user.id === userId);
+
+  // If user with the given ID is not found, return 404 Not Found
+  if (index === -1) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  // Remove the user from the array of users
+  users.splice(index, 1);
+
+  // Return success response
+  res.json({ message: "User deleted successfully" });
+});
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
