@@ -2,9 +2,6 @@ var mongoose = require("mongoose"),
   bcrypt = require("bcrypt"),
   Schema = mongoose.Schema;
 
-  const { v4: uuidv4 } = require('uuid');
-
-  // Create an embedded schema for area
   const areaSchema = new mongoose.Schema(
     {
       pickup: {
@@ -34,25 +31,20 @@ var mongoose = require("mongoose"),
   
   // Create the location schema
   const locationSchema = new mongoose.Schema({
-    location_Id: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-      default: uuidv4, // Set a default value using uuidv4
-    },
     city: {
       type: String,
       trim: true,
+      required: true,
     },
     state: {
       type: String,
       trim: true,
+      required: true,
     },
     area: {
       type: areaSchema,
     },
-    date_time: {
+    dateTime: {
       type: dateTimeSchema,
     },
   });
