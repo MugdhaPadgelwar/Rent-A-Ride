@@ -49,4 +49,4 @@ const validateUser = (userData) => {
 
 };
 
-module.exports = { validateUser };
+module.exports = { validateUser,validateEmail,validatePassword };
