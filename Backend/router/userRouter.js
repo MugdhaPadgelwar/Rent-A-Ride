@@ -11,8 +11,8 @@ router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.put("/update", userController.update);
 router.put("/forget-password", userController.forgetPassword);
-router.get("/user/id", userController.getUserById);
-router.delete("/delete/id", userController.deleteByUserId);
-router.get("/delete/image", userController.deleteImageById);
+router.get("/getUserById", userController.getUserById);
+router.delete("/deleteByUserId", userController.deleteByUserId);
+router.get("/deleteImageById ", userController.deleteImageById);
 
 module.exports = router;

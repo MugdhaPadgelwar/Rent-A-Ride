@@ -4,32 +4,49 @@ const router = express.Router();
 const Order = require("../models/Order");
 
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
 const { authenticateUser } = require("../middleware/auth");
 require("dotenv").config();
+const {
+  userIdValidation,
+  carIdValidation,
+  locationIdValidation,
+  totalPriceValidation,
+  paymentValidation,
+  bookingDateAndTimeValidation,
+  cancellationReasonValidation,
+  cancellationDateAndTimeValidation,
+} = require('../validators/orderValidators'); // Adjust the path as necessary
 
-// Apply the middleware to the '/orders' route
-router.post("/add", authenticateUser, async (req, res) => {
+router.post("/placed", async (req, res) => {
   try {
     // Destructure details from the request body
     const {
-      user_Id,
-      car_Id,
-      location_Id,
-      total_Price,
+      userId, // Add userId to the request body
+      carId,
+      locationId,
+      totalPrice,
       payment,
       bookingDateAndTime,
       cancellationReason,
       cancellationDateAndTime,
     } = req.body;
 
+    // Validation
+    userIdValidation(userId); // Validate userId
+    carIdValidation(carId);
+    locationIdValidation(locationId);
+    totalPriceValidation(totalPrice);
+    paymentValidation(payment);
+    bookingDateAndTimeValidation(bookingDateAndTime);
+    cancellationReasonValidation(cancellationReason);
+    cancellationDateAndTimeValidation(cancellationDateAndTime);
+
     // Create a new order instance
     const newOrder = new Order({
-      order_Id: uuidv4(),
-      user_Id: req.user.userId, // Access userId from the authenticated user
-      car_Id,
-      location_Id,
-      total_Price,
+      userId,
+      carId,
+      locationId,
+      totalPrice,
       payment,
       bookingDateAndTime,
       cancellationReason,
@@ -40,15 +57,16 @@ router.post("/add", authenticateUser, async (req, res) => {
     const savedOrder = await newOrder.save();
 
     // Respond with the created order
-    res.status(201).json(savedOrder);
+    res.status(201).json({ message: "Order created successfully", order: savedOrder });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(400).json({ error: error.message });
   }
 });
 
+
 // Apply the middleware to the route
-router.get("/getById", authenticateUser, async (req, res) => {
+/*router.get("/getById", authenticateUser, async (req, res) => {
   try {
     // Get the order_id from query parameters
     const order_id = req.query.order_id;
@@ -73,6 +91,38 @@ router.get("/getById", authenticateUser, async (req, res) => {
       return res.status(403).json({
         message: "Unauthorized - You do not have permission to view this order",
       });
+    }
+
+    // Respond with the order details
+    res.status(200).json(order);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+*/
+
+router.get("/getById", async (req, res) => {
+  try {
+    // Get the orderId from query parameters
+    const orderId = req.query.orderId;
+
+    // Validate orderId existence
+    if (!orderId) {
+      return res
+        .status(400)
+        .json({ message: "orderId is required in the query parameters" });
+    }
+
+    // Find the order in the database using the provided orderId
+    const order = await Order.findOne({ _id: orderId })
+      .populate("carId")
+      .populate("userId")
+      .populate("locationId");
+
+    // Check if the order exists
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
     }
 
     // Respond with the order details
