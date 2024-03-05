@@ -91,9 +91,9 @@ const login = async (req, res) => {
     }
     // Generate JWT token
     const token = jwt.sign(
-      { user_Id: user.user_Id, email: user.email, role: user.role },
+      { email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // Token expires in 1 month
+      { expiresIn: "1h" } // Token expires in 1 hour
     );
 
     res.status(200).json({
@@ -181,7 +181,7 @@ const getUserById =
   (isAdmin,
   async (req, res) => {
     try {
-      const { userId } = req.query; // Extract userId from the query parameters
+      const { userId } = req.query;
 
       // Validate userId existence
       validateUserId(userId);

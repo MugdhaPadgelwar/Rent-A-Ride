@@ -200,7 +200,7 @@ router.delete("/delete", async (req, res) => {
 });
 
 // GET endpoint for getting a car by location ID
-router.get("/location", async (req, res) => {
+router.get("car/locationId", async (req, res) => {
   try {
     // Extract the location ID from the query parameters
     const locationId = req.query.location_Id;
