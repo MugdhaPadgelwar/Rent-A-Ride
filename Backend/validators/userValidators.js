@@ -39,14 +39,22 @@ const validateRole = (role) => {
   }
 };
 
-
+const validateUserId = (userId) => {
+  if (!userId || typeof userId !== "string") {
+    throw new Error("userId must be a non-empty string");
+  }
+};
 
 const validateUser = (userData) => {
   validateUserName(userData.userName);
   validateEmail(userData.email);
   validatePassword(userData.password);
   validateRole(userData.role);
-
 };
 
-module.exports = { validateUser,validateEmail,validatePassword };
+module.exports = {
+  validateUser,
+  validateEmail,
+  validatePassword,
+  validateUserId,
+};
