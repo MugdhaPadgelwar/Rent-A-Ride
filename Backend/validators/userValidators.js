@@ -39,11 +39,14 @@ const validateRole = (role) => {
   }
 };
 
+
+
 const validateUser = (userData) => {
   validateUserName(userData.userName);
   validateEmail(userData.email);
   validatePassword(userData.password);
   validateRole(userData.role);
+
 };
 
 module.exports = { validateUser,validateEmail,validatePassword };

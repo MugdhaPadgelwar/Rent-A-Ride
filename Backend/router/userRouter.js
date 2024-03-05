@@ -4,9 +4,14 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const { isAdmin } = require("../middleware/auth");
+const { authenticateUser } = require("../middleware/auth");
+
+
 const { authenticateUser } = require("../middleware/auth"); 
 const { validateEmail } = require("../validators/userValidators"); 
 const {validatePassword } = require("../validators/userValidators");
+
 require("dotenv").config();
 const { validateUser } = require("../validators/userValidators");
 
@@ -89,13 +94,47 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       { user_Id: user.user_Id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1M" } // Token expires in 1 month
+      { expiresIn: "1h" } // Token expires in 1 month
     );
 
     res.status(200).json({
       message: "Login successful.",
       token: token,
       expiresIn: "1M", // Token expires in 1 Month
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+router.put("/update", authenticateUser, async (req, res) => {
+  try {
+    const { userId } = req.query; // Extract userId from query parameters
+    const updateFields = req.body; // Extract fields to update from the request body
+
+    // Check if userId is provided
+    if (!userId) {
+      return res.status(400).json({ error: "userId is required in the query parameters" });
+    }
+
+    // Check if the authenticated user is authorized to update this user's information
+    if (req.user && req.user.user_Id && req.user.user_Id.toString() !== userId) {
+      return res.status(403).json({ message: "Unauthorized - You do not have permission to update this user" });
+    }
+
+    // Update user information in the database
+    const updatedUser = await User.findOneAndUpdate({ _id: userId }, updateFields, { new: true });
+
+    // Check if the user exists
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User information updated successfully",
+      user: updatedUser,
     });
   } catch (error) {
     console.error(error);
@@ -134,6 +173,7 @@ router.post("/login", async (req, res) => {
 //   }
 // });
 
+
 router.post("/forgot-password", (req, res) => {
   const { email } = req.query;
   const { newPassword, confirmPassword } = req.body;
@@ -156,7 +196,67 @@ router.post("/forgot-password", (req, res) => {
   res.json({ message: "Password reset successful" });
 });
 
-router.delete("/delete", (req, res) => {
+
+const validateUserId = (userId) => {
+  if (!userId || typeof userId !== 'string') {
+    throw new Error("userId must be a non-empty string");
+  }
+};
+router.get("/users_id", isAdmin, async (req, res) => {
+  try {
+    const { userId } = req.query; // Extract userId from the query parameters
+
+    // Validate userId existence
+    validateUserId(userId);
+
+    // Find the user in the database using the provided userId
+    const user = await User.findOne({ _id: userId });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Respond with the user details
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.delete("/users_id", isAdmin, async (req, res) => {
+  try {
+    const { userId } = req.query; // Extract userId from the query parameters
+
+    // Validate userId existence and type using the validation function
+    validateUserId(userId);
+
+    // Find the user in the database using the provided userId
+    const userToDelete = await User.findOne({ _id: userId });
+
+    // If user with the given ID is not found, return 404 Not Found
+    if (!userToDelete) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Check if the authenticated user is authorized to delete this user
+    if (req.user.userId !== userId && req.user.role !== 'admin') {
+      return res.status(403).json({ message: "Unauthorized - You do not have permission to delete this user" });
+    }
+
+    // Remove the user from the database
+    await User.deleteOne({ _id: userId });
+
+    // Return success response
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+/*router.delete("/delete", (req, res) => {
   const userId = parseInt(req.query.userId);
 
   // Find the index of the user with the given user ID
@@ -173,7 +273,7 @@ router.delete("/delete", (req, res) => {
   // Return success response
   res.json({ message: "User deleted successfully" });
 });
-
+*/
 // DELETE endpoint for deleting the image of a user by user ID
 router.delete("/image/delete", async (req, res) => {
   try {
@@ -208,3 +308,5 @@ router.delete("/image/delete", async (req, res) => {
 });
 
 module.exports = router;
+
+

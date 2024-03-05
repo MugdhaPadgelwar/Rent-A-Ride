@@ -31,8 +31,12 @@ const authenticateUser = (req, res, next) => {
       // Verify the token (assuming token is passed without "Bearer" prefix)
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+
       // If verification is successful, attach the user information to the request object
       req.user = decoded;
+
+
+
 
       // Proceed to the route handler
       return next();
@@ -44,3 +48,10 @@ const authenticateUser = (req, res, next) => {
     return res.status(401).json({ message: "No token provided" });
   }
 };
+
+
+
+
+
+
+module.exports = { isAdmin, authenticateUser };
