@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 // Import middleware
 const { authenticateUser, isAdmin } = require("../middleware/auth");
 
+const User = require("../models/User");
 // Import validators
 const {
   validateEmail,
@@ -98,7 +99,7 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Login successful.",
       token: token,
-      expiresIn: "1M", // Token expires in 1 Month
+      expiresIn: 3600, // Token expires in 1 Month
     });
   } catch (error) {
     console.error(error);
