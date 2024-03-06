@@ -10,6 +10,7 @@ const { isAdmin } = require("../middleware/auth");
 
 const adminController = require("../controller/adminController");
 
+router.use(isAdmin);
 router.get("/users/list", isAdmin, adminController.getAllUsers);
 
 module.exports = router;

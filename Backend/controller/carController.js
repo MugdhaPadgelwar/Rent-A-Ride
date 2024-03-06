@@ -1,7 +1,7 @@
 //Import Model
 const Car = require("../models/Car");
 
-const { verifyToken } = require("../middleware/auth");
+const { verifyToken, isAdmin } = require("../middleware/auth");
 
 require("dotenv").config();
 const {
@@ -90,23 +90,25 @@ const add =
   });
 
 // GET endpoint for getting all cars
-const getAllCars = async (req, res) => {
-  try {
-    // Fetch all cars from the database
-    const cars = await Car.find();
+const getAllCars =
+  (isAdmin,
+  async (req, res) => {
+    try {
+      // Fetch all cars from the database
+      const cars = await Car.find();
 
-    // Check if there are no cars found
-    if (!cars || cars.length === 0) {
-      return res.status(404).json({ message: "No cars found." });
+      // Check if there are no cars found
+      if (!cars || cars.length === 0) {
+        return res.status(404).json({ message: "No cars found." });
+      }
+
+      // Return the list of cars
+      res.status(200).json(cars);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-
-    // Return the list of cars
-    res.status(200).json(cars);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  });
 
 // GET endpoint for getting cars by car model using query parameters
 const getByModelName = async (req, res) => {
