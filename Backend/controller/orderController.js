@@ -4,7 +4,6 @@ const { authenticateUser, isAdmin } = require("../middleware/auth");
 //Import Model
 const Order = require("../models/Order");
 
-const { authenticateUser } = require("../middleware/auth");
 require("dotenv").config();
 const {
   userIdValidation,
