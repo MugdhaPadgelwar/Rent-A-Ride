@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Import middleware
-const { authenticateUser, isAdmin } = require("../middleware/auth");
+const { verifyToken } = require("../middleware/auth");
 
 const User = require("../models/User");
 // Import validators
@@ -108,7 +108,7 @@ const login = async (req, res) => {
 };
 
 const update =
-  (authenticateUser,
+  (verifyToken,
   async (req, res) => {
     try {
       const { userId } = req.query; // Extract userId from query parameters
@@ -178,7 +178,7 @@ const forgetPassword = (req, res) => {
 };
 
 const getUserById =
-  (
+  (verifyToken,
   async (req, res) => {
     try {
       const { userId } = req.query;
@@ -202,65 +202,69 @@ const getUserById =
     }
   });
 
-  const deleteByUserId = async (req, res) => {
+const deleteByUserId =
+  (verifyToken,
+  async (req, res) => {
     try {
       const { userId } = req.query; // Extract userId from the query parameters
-  
+
       // Validate userId existence and type using the validation function
       // Assuming validateUserId is a function you've implemented elsewhere
       validateUserId(userId);
-  
+
       // Find the user in the database using the provided userId
       const userToDelete = await User.findOne({ _id: userId });
-  
+
       // If user with the given ID is not found, return 404 Not Found
       if (!userToDelete) {
         return res.status(404).json({ message: "User not found" });
       }
-  
+
       // Remove the user from the database
       await User.deleteOne({ _id: userId });
-  
+
       // Return success response
       res.json({ message: "User deleted successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  };
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 // DELETE endpoint for deleting the image of a user by user ID
-const deleteImageById = async (req, res) => {
-  try {
-    // Extract the user ID from the request body
-    const userId = req.body.userId;
+const deleteImageById =
+  (verifyToken,
+  async (req, res) => {
+    try {
+      // Extract the user ID from the request body
+      const userId = req.body.userId;
 
-    // Check if the user ID is provided
-    if (!userId) {
-      return res
-        .status(400)
-        .json({ error: "User ID is required in the request body." });
+      // Check if the user ID is provided
+      if (!userId) {
+        return res
+          .status(400)
+          .json({ error: "User ID is required in the request body." });
+      }
+
+      // Find the user by ID
+      const user = await User.findById(userId);
+
+      // Check if the user exists
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+
+      // Delete the user's image
+      user.user_image = undefined;
+      await user.save();
+
+      // Return a success message
+      res.status(200).json({ message: "User image deleted successfully." });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-
-    // Find the user by ID
-    const user = await User.findById(userId);
-
-    // Check if the user exists
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
-
-    // Delete the user's image
-    user.user_image = undefined;
-    await user.save();
-
-    // Return a success message
-    res.status(200).json({ message: "User image deleted successfully." });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  });
 
 module.exports = {
   register,

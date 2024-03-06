@@ -1,46 +1,53 @@
-const isAdmin = (req, res, next) => {
-  // Get the token from the request headers
-  const { authorization: token } = req.headers;
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 
-  // Check if token exists
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
-  }
-
-  try {
-    // Verify the token using the secret key from the environment variables
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // Attach the decoded payload to the request object
-    req.user = decoded;
-
-    // Call the next middleware
-    next();
-  } catch (error) {
-    return res.status(401).json({ message: "Invalid token" });
-  }
-};
-
-const authenticateUser = (req, res, next) => {
-  // Get the token from the request headers
+// Middleware to verify the JWT token
+const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
 
-  // If the token exists
-  if (token) {
-    try {
-      // Verify the token (assuming token is passed without "Bearer" prefix)
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      // If verification is successful, attach the user information to the request object
-      req.user = decoded;
-      // Proceed to the route handler
-      return next();
-    } catch (error) {
-      return res.status(401).json({ message: "Invalid token" });
+  if (!token) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized: No token provided",
+    });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      console.error(err);
+      // Handle unauthorized error
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized: Invalid token",
+      });
     }
-  } else {
-    // If no token is provided, return unauthorized
-    return res.status(401).json({ message: "No token provided" });
+
+    req.decoded = decoded;
+    next();
+  });
+};
+
+// Middleware to check if the user is an admin
+const isAdmin = async (req, res, next) => {
+  try {
+    const username = req.decoded.userName;
+    const user = await User.findOne({ username });
+
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Permission denied. Only admins can perform this action.",
+      });
+    }
+
+    next();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 };
 
-module.exports = { isAdmin, authenticateUser };
+module.exports = { verifyToken, isAdmin };

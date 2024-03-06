@@ -1,6 +1,8 @@
 //Import Model
 const Car = require("../models/Car");
 
+const { verifyToken } = require("../middleware/auth");
+
 require("dotenv").config();
 const {
   validateUserId,
@@ -16,74 +18,76 @@ const {
   validateCarMileage,
   validateCarPricePerHour,
   validateCarInsuranceNumber,
-  validateAvailability, 
+  validateAvailability,
   validateCarId,
 } = require("../validators/carValidators");
 
 // POST endpoint for creating a new car
-const add = async (req, res) => {
-  try {
-    // Extract car details from request body
-    const {
-      userId,
-      locationId,
-      carModel,
-      carBrand,
-      carYear,
-      carImage,
-      carNoPlate,
-      carCapacity,
-      carType,
-      carFuelType,
-      carMileage,
-      carPricePerHour,
-      carInsuranceNumber,
-      availability,
-    } = req.body;
+const add =
+  (verifyToken,
+  async (req, res) => {
+    try {
+      // Extract car details from request body
+      const {
+        userId,
+        locationId,
+        carModel,
+        carBrand,
+        carYear,
+        carImage,
+        carNoPlate,
+        carCapacity,
+        carType,
+        carFuelType,
+        carMileage,
+        carPricePerHour,
+        carInsuranceNumber,
+        availability,
+      } = req.body;
 
-    // Validation
-    validateUserId(userId);
-    validateLocationId(locationId);
-    validateCarModel(carModel);
-    validateCarBrand(carBrand);
-    validateCarYear(carYear);
-    validateCarImage(carImage);
-    validateCarNoPlate(carNoPlate);
-    validateCarCapacity(carCapacity);
-    validateCarType(carType);
-    validateCarFuelType(carFuelType);
-    validateCarMileage(carMileage);
-    validateCarPricePerHour(carPricePerHour);
-    validateCarInsuranceNumber(carInsuranceNumber);
-    validateAvailability(availability);
+      // Validation
+      validateUserId(userId);
+      validateLocationId(locationId);
+      validateCarModel(carModel);
+      validateCarBrand(carBrand);
+      validateCarYear(carYear);
+      validateCarImage(carImage);
+      validateCarNoPlate(carNoPlate);
+      validateCarCapacity(carCapacity);
+      validateCarType(carType);
+      validateCarFuelType(carFuelType);
+      validateCarMileage(carMileage);
+      validateCarPricePerHour(carPricePerHour);
+      validateCarInsuranceNumber(carInsuranceNumber);
+      validateAvailability(availability);
 
-    // Create a new car document
-    const newCar = new Car({
-      userId,
-      locationId,
-      carModel,
-      carBrand,
-      carYear,
-      carImage,
-      carNoPlate,
-      carCapacity,
-      carType,
-      carFuelType,
-      carMileage,
-      carPricePerHour,
-      carInsuranceNumber,
-      availability,
-    });
+      // Create a new car document
+      const newCar = new Car({
+        userId,
+        locationId,
+        carModel,
+        carBrand,
+        carYear,
+        carImage,
+        carNoPlate,
+        carCapacity,
+        carType,
+        carFuelType,
+        carMileage,
+        carPricePerHour,
+        carInsuranceNumber,
+        availability,
+      });
 
-    // Save the new car document to the database
-    const savedCar = await newCar.save();
+      // Save the new car document to the database
+      const savedCar = await newCar.save();
 
-    res.status(201).json(savedCar);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+      res.status(201).json(savedCar);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
 
 // GET endpoint for getting all cars
 const getAllCars = async (req, res) => {
@@ -136,72 +140,76 @@ const getByModelName = async (req, res) => {
 };
 
 // PUT endpoint for updating car details by car ID passed through query parameters
-const updateCars = async (req, res) => {
-  try {
-    // Extract the car ID from the query parameters
-    const carId = req.query.carId;
-
-    // Extract the new car price from the request body
-    const { carPricePerHour } = req.body;
-
-    // Validate new car price
+const updateCars =
+  (verifyToken,
+  async (req, res) => {
     try {
-      validateCarPricePerHour(carPricePerHour);
+      // Extract the car ID from the query parameters
+      const carId = req.query.carId;
+
+      // Extract the new car price from the request body
+      const { carPricePerHour } = req.body;
+
+      // Validate new car price
+      try {
+        validateCarPricePerHour(carPricePerHour);
+      } catch (error) {
+        return res.status(400).json({ error: error.message });
+      }
+
+      // Check if the car ID is provided
+      if (!carId) {
+        return res
+          .status(400)
+          .json({ error: "Car ID is required in query parameters." });
+      }
+
+      // Find the car by its ID and update its price
+      const updatedCar = await Car.findByIdAndUpdate(
+        carId,
+        { carPricePerHour },
+        { new: true }
+      );
+
+      // Check if the car exists
+      if (!updatedCar) {
+        return res.status(404).json({ message: "Car not found." });
+      }
+
+      // Return the updated car
+      res.status(200).json(updatedCar);
     } catch (error) {
-      return res.status(400).json({ error: error.message });
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-
-    // Check if the car ID is provided
-    if (!carId) {
-      return res
-        .status(400)
-        .json({ error: "Car ID is required in query parameters." });
-    }
-
-    // Find the car by its ID and update its price
-    const updatedCar = await Car.findByIdAndUpdate(
-      carId,
-      { carPricePerHour },
-      { new: true }
-    );
-
-    // Check if the car exists
-    if (!updatedCar) {
-      return res.status(404).json({ message: "Car not found." });
-    }
-
-    // Return the updated car
-    res.status(200).json(updatedCar);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  });
 
 // DELETE endpoint for deleting a car by car ID passed through request body
-const deleteCars = async (req, res) => {
-  try {
-    // Extract the car ID from the request body
-    const { carId } = req.body;
+const deleteCars =
+  (verifyToken,
+  async (req, res) => {
+    try {
+      // Extract the car ID from the request body
+      const { carId } = req.body;
 
-    // Validate car ID
-    validateCarId(carId);
+      // Validate car ID
+      validateCarId(carId);
 
-    // Find the car by its ID and delete it
-    const deletedCar = await Car.findByIdAndDelete(carId);
+      // Find the car by its ID and delete it
+      const deletedCar = await Car.findByIdAndDelete(carId);
 
-    // Check if the car exists
-    if (!deletedCar) {
-      return res.status(404).json({ message: "Car not found." });
+      // Check if the car exists
+      if (!deletedCar) {
+        return res.status(404).json({ message: "Car not found." });
+      }
+
+      // Return a success message
+      res.status(200).json({ message: "Car deleted successfully." });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-
-    // Return a success message
-    res.status(200).json({ message: "Car deleted successfully." });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
+  });
 
 const getCarByLocationId = async (req, res) => {
   try {
@@ -229,13 +237,11 @@ const getCarByLocationId = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   add,
   getAllCars,
   getByModelName,
   updateCars,
   deleteCars,
-  getCarByLocationId, 
+  getCarByLocationId,
 };
