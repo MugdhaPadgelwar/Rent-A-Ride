@@ -30,10 +30,9 @@ const verifyToken = (req, res, next) => {
 // Middleware to check if the user is an admin
 const isAdmin = async (req, res, next) => {
   try {
-    const username = req.decoded.userName;
-    const user = await User.findOne({ username });
+    const decoded = req.decoded;
 
-    if (!user || user.role !== "admin") {
+    if (!decoded || decoded.role !== "admin") {
       return res.status(403).json({
         success: false,
         message: "Permission denied. Only admins can perform this action.",
