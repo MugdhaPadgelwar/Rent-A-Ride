@@ -16,7 +16,8 @@ const {
   validateCarMileage,
   validateCarPricePerHour,
   validateCarInsuranceNumber,
-  validateAvailability,
+  validateAvailability, 
+  validateCarId,
 } = require("../validators/carValidators");
 
 // POST endpoint for creating a new car
@@ -202,11 +203,10 @@ const deleteCars = async (req, res) => {
   }
 };
 
-// GET endpoint for getting a car by location ID
 const getCarByLocationId = async (req, res) => {
   try {
-    // Extract the location ID from the query parameters
-    const locationId = req.query.locationId;
+    // Extract the location ID from the request body
+    const { locationId } = req.body;
 
     // Validate location ID
     validateLocationId(locationId);
@@ -229,11 +229,13 @@ const getCarByLocationId = async (req, res) => {
   }
 };
 
+
+
 module.exports = {
   add,
   getAllCars,
   getByModelName,
   updateCars,
   deleteCars,
-  getCarByLocationId,
+  getCarByLocationId, 
 };

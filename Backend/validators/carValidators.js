@@ -6,6 +6,13 @@ const validateUserId = (userId) => {
   // Add additional validation rules for user ID if needed
 };
 
+// Validation function for user ID
+const validateCarId = (carId) => {
+  if (!carId) {
+    throw new Error("Car ID is required.");
+  }
+  // Add additional validation rules for user ID if needed
+};
 // Validation function for location ID
 const validateLocationId = (locationId) => {
   if (!locationId) {
@@ -134,5 +141,6 @@ module.exports = {
   validateCarMileage,
   validateCarPricePerHour,
   validateCarInsuranceNumber,
-  validateAvailability,
+  validateAvailability, 
+  validateCarId,
 };

@@ -4,126 +4,82 @@ const { authenticateUser, isAdmin } = require("../middleware/auth");
 //Import Model
 const Location = require("../models/Location");
 
-const postadd = async (req, res) => {
+ // post the location details if provided 
+
+ const postLocation = async (req, res) => {
   try {
-    const { city, state } = req.body;
-
-    // Validation
-    if (!city || !state) {
-      return res.status(400).json({
-        error: "City and State are required in the request body.",
-      });
-    }
-
-    // Check if the city already exists
-    const existingLocation = await Location.findOne({ city, state });
-    if (existingLocation) {
-      return res.status(409).json({
-        error: "City already exists for the provided state.",
-      });
-    }
-
-    // Create a new Location document with provided city and state
-    const newLocation = new Location({
-      city,
-      state,
-    });
-
-    // Save the new Location document to the database
-    const savedLocation = await newLocation.save();
-
-    res.status(201).json(savedLocation);
-  } catch (error) {
-    console.error(error);
-
-    // Check if the error is a validation error
-    if (error.name === "ValidationError") {
-      return res.status(400).json({ error: error.message });
-    }
-
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-const getAlllocation = async (req, res) => {
-  try {
-    // Retrieve all locations from the database
-    const allLocations = await Location.find();
-
-    res.status(200).json(allLocations);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// PUT endpoint for updating a location
-const updatelocation = async (req, res) => {
-  try {
-    // Extract the location ID from the query parameters
-    const locationId = req.query.locationId;
-
     // Extract the location details from the request body
     const { city, state, area, dateTime } = req.body;
 
-    // Check if the location ID is provided
+    // Extract pickup and drop times from the dateTime object
+    const { pickupDateAndTime, dropDateAndTime } = dateTime;
+
+    // Create a new location object
+    const newLocation = new Location({
+      city,
+      state,
+      area,
+      dateTime: {
+        pickupDateAndTime,
+        dropDateAndTime,
+      },
+    });
+
+    // Save the new location to the database
+    const savedLocation = await newLocation.save();
+
+    // Return the newly created location
+    res.status(201).json(savedLocation);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}; 
+
+const updateLocation = async (req, res) => {
+  try {
+    // Extract the location ID from the request body
+    const { locationId, city, state, area, dateTime } = req.body;
+
+    // If locationId is not provided, return a 400 Bad Request response
     if (!locationId) {
-      return res
-        .status(400)
-        .json({ error: "Location ID is required in query parameters." });
+      return res.status(400).json({ message: "Location ID is required in the request body" });
     }
 
-    // Find the location by its ID
-    const location = await Location.findById(locationId);
+    // Find the location in the database by its ID
+    let location = await Location.findById(locationId);
 
-    // Check if the location exists
+    // If the location doesn't exist, return a 404 Not Found response
     if (!location) {
-      return res
-        .status(404)
-        .json({ message: "Location not found with the provided ID." });
+      return res.status(404).json({ message: "Location not found" });
     }
 
-    // Update the location details if provided
-    if (city) location.city = city;
-    if (state) location.state = state;
+    // Extract pickup and drop times from the dateTime object
+    const { pickupDateAndTime, dropDateAndTime } = dateTime;
 
-    // Ensure that location.area is initialized before updating its properties
-    if (!location.area) {
-      location.area = {}; // Initialize area object if it does not exist
-    }
+    // Update the location object with the new details
+    location.city = city || location.city;
+    location.state = state || location.state;
+    location.area = area || location.area;
+    location.dateTime.pickupDateAndTime = pickupDateAndTime || location.dateTime.pickupDateAndTime;
+    location.dateTime.dropDateAndTime = dropDateAndTime || location.dateTime.dropDateAndTime;
 
-    if (area) {
-      if (area.pickup) location.area.pickup = area.pickup;
-      if (area.drop) location.area.drop = area.drop;
-    }
-
-    // Ensure that location.date_time is initialized before updating its properties
-    if (!location.dateTime) {
-      location.dateTime = {}; // Initialize date_time object if it does not exist
-    }
-
-    if (dateTime) {
-      if (dateTime.pickupDateAndTime)
-        location.dateTime.pickupDateAndTime = new Date(
-          dateTime.pickupDateAndTime
-        );
-      if (dateTime.dropDateAndTime)
-        location.dateTime.dropDateAndTime = new Date(dateTime.dropDateAndTime);
-    }
-
-    // Save the updated location
-    await location.save();
+    // Save the updated location to the database
+    const updatedLocation = await location.save();
 
     // Return the updated location
-    res.status(200).json(location);
+    res.status(200).json(updatedLocation);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
+
+
+
+    
 module.exports = {
-  postadd,
-  getAlllocation,
-  updatelocation,
+  postLocation, 
+  updateLocation,
 };

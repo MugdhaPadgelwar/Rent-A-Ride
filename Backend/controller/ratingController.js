@@ -16,7 +16,7 @@ const {
 const addRating = async (req, res) => {
   try {
     const {
-      car,
+      carId,
       overallRating,
       cleanliness,
       comfort,
@@ -34,7 +34,7 @@ const addRating = async (req, res) => {
 
     // Create a new rating document
     const newRating = new Rating({
-      car,
+      carId,
       overallRating,
       cleanliness,
       comfort,
