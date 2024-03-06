@@ -9,7 +9,7 @@ require("dotenv").config();
 const { authenticateUser, isAdmin } = require("../middleware/auth");
 
 const userController = require("../controller/userController");
-router.use(authenticateUser);
+
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.put("/update", userController.update);

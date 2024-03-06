@@ -30,6 +30,7 @@ const orderRoutes = require("./router/orderRouter");
 const locationRoutes = require("./router/locationRouter");
 const adminRoutes = require("./router/adminRouter");
 const carRoutes = require("./router/carRouter");
+const citiesRoutes = require("./router/citiesRouter");
 
 // Mount route handlers
 app.use("/users", userRoutes);
@@ -38,6 +39,7 @@ app.use("/orders", orderRoutes);
 app.use("/locations", locationRoutes);
 app.use("/admin", adminRoutes);
 app.use("/cars", carRoutes);
+app.use("/cities", citiesRoutes);
 
 // Start the server and listen for incoming requests
 app.listen(port, () => {
