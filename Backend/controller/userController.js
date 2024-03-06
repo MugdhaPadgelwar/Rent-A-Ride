@@ -178,7 +178,7 @@ const forgetPassword = (req, res) => {
 };
 
 const getUserById =
-  (isAdmin,
+  (
   async (req, res) => {
     try {
       const { userId } = req.query;
@@ -202,41 +202,32 @@ const getUserById =
     }
   });
 
-const deleteByUserId =
-  (isAdmin,
-  async (req, res) => {
+  const deleteByUserId = async (req, res) => {
     try {
       const { userId } = req.query; // Extract userId from the query parameters
-
+  
       // Validate userId existence and type using the validation function
+      // Assuming validateUserId is a function you've implemented elsewhere
       validateUserId(userId);
-
+  
       // Find the user in the database using the provided userId
       const userToDelete = await User.findOne({ _id: userId });
-
+  
       // If user with the given ID is not found, return 404 Not Found
       if (!userToDelete) {
         return res.status(404).json({ message: "User not found" });
       }
-
-      // Check if the authenticated user is authorized to delete this user
-      if (req.user.userId !== userId && req.user.role !== "admin") {
-        return res.status(403).json({
-          message:
-            "Unauthorized - You do not have permission to delete this user",
-        });
-      }
-
+  
       // Remove the user from the database
       await User.deleteOne({ _id: userId });
-
+  
       // Return success response
       res.json({ message: "User deleted successfully" });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  });
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
 
 // DELETE endpoint for deleting the image of a user by user ID
 const deleteImageById = async (req, res) => {

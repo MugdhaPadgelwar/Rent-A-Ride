@@ -11,7 +11,7 @@ const {
   locationIdValidation,
   totalPriceValidation,
   paymentValidation,
-  bookingDateAndTimeValidation,
+  bookingDateAndTimeValidation, 
   cancellationReasonValidation,
   cancellationDateAndTimeValidation,
 } = require("../validators/orderValidators.js"); // Adjust the path as necessary
@@ -25,9 +25,7 @@ const placedOrder = async (req, res) => {
       locationId,
       totalPrice,
       payment,
-      bookingDateAndTime,
-      cancellationReason,
-      cancellationDateAndTime,
+      bookingDateAndTime
     } = req.body;
 
     // Validation
@@ -37,8 +35,6 @@ const placedOrder = async (req, res) => {
     totalPriceValidation(totalPrice);
     paymentValidation(payment);
     bookingDateAndTimeValidation(bookingDateAndTime);
-    cancellationReasonValidation(cancellationReason);
-    cancellationDateAndTimeValidation(cancellationDateAndTime);
 
     // Create a new order instance
     const newOrder = new Order({
@@ -47,9 +43,7 @@ const placedOrder = async (req, res) => {
       locationId,
       totalPrice,
       payment,
-      bookingDateAndTime,
-      cancellationReason,
-      cancellationDateAndTime,
+      bookingDateAndTime
     });
 
     // Save the order to the database
@@ -67,14 +61,14 @@ const placedOrder = async (req, res) => {
 
 const orderById = async (req, res) => {
   try {
-    // Get the orderId from query parameters
-    const orderId = req.query.orderId;
+    // Get the orderId from request body
+    const { orderId } = req.body;
 
     // Validate orderId existence
     if (!orderId) {
       return res
         .status(400)
-        .json({ message: "orderId is required in the query parameters" });
+        .json({ message: "orderId is required in the request body" });
     }
 
     // Find the order in the database using the provided orderId
@@ -95,6 +89,7 @@ const orderById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 const allorders = async (req, res) => {
   try {
@@ -117,6 +112,12 @@ const cancleOrder = async (req, res) => {
       return res.status(400).json({ error: "Order ID is required." });
     }
 
+    // Validate cancellation reason
+    cancellationReasonValidation(req.body.cancellationReason);
+
+    // Validate cancellation date and time
+    cancellationDateAndTimeValidation(req.body.cancellationDateAndTime);
+
     // Check if the order exists
     const order = await Order.findById(orderId);
     if (!order) {
@@ -132,7 +133,6 @@ const cancleOrder = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
 module.exports = {
   placedOrder,
   orderById,

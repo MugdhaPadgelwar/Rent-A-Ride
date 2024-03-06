@@ -42,7 +42,50 @@ const addCities = async (req, res) => {
 
     res.status(500).json({ error: "Internal Server Error" });
   }
+}; 
+
+
+const deleteCityById = async (req, res) => {
+  try {
+    const { cityId } = req.body; // Extract cityId from the request body
+
+    if (!cityId) {
+      return res.status(400).json({ message: "City ID is required" });
+    }
+
+    // Find the city in the database using the provided cityId
+    const cityToDelete = await Cities.findById(cityId);
+
+    // If city with the given ID is not found, return 404 Not Found
+    if (!cityToDelete) {
+      return res.status(404).json({ message: "City not found" });
+    }
+
+    // Remove the city from the database
+    await Cities.deleteOne({ _id: cityId });
+
+    // Return success response
+    res.json({ message: "City deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const getAllCities = async (req, res) => {
+  try {
+    // Query the database to retrieve all cities
+    const cities = await Cities.find();
+
+    // Send the retrieved cities as a response
+    res.json(cities);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 module.exports = {
-  addCities,
+  addCities, 
+  deleteCityById, 
+  getAllCities,
 };

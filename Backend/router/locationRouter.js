@@ -7,8 +7,8 @@ require("dotenv").config();
 
 const locationController = require("../controller/locationController");
 
-router.post("/addLocation", locationController.postadd);
-router.get("/allLocation", locationController.getAlllocation);
-router.put("/updateLocation", locationController.updatelocation);
+
+router.post("/postLocation", locationController.postLocation); 
+router.put("/updateLocation", locationController.updateLocation);
 
 module.exports = router;
