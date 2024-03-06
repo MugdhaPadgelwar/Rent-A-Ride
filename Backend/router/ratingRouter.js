@@ -8,9 +8,11 @@ require("dotenv").config();
 const ratingController = require("../controller/ratingController");
 
 const { verifyToken } = require("../middleware/auth");
+
+router.get("/id", ratingController.getRatingById);
+//protected routes
 router.use(verifyToken);
 router.post("/add", ratingController.addRating);
-router.get("/id", ratingController.getRatingById);
 router.put("/update", ratingController.updateById);
 router.delete("/delete", ratingController.deleteById);
 

@@ -177,30 +177,28 @@ const forgetPassword = (req, res) => {
   res.json({ message: "Password reset successful" });
 };
 
-const getUserById =
-  (verifyToken,
-  async (req, res) => {
-    try {
-      const { userId } = req.query;
+const getUserById = async (req, res) => {
+  try {
+    const { userId } = req.query;
 
-      // Validate userId existence
-      validateUserId(userId);
+    // Validate userId existence
+    validateUserId(userId);
 
-      // Find the user in the database using the provided userId
-      const user = await User.findOne({ _id: userId });
+    // Find the user in the database using the provided userId
+    const user = await User.findOne({ _id: userId });
 
-      // Check if the user exists
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-
-      // Respond with the user details
-      res.status(200).json(user);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-  });
+
+    // Respond with the user details
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 const deleteByUserId =
   (verifyToken,

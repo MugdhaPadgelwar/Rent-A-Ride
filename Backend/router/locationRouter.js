@@ -6,9 +6,11 @@ const router = express.Router();
 require("dotenv").config();
 
 const locationController = require("../controller/locationController");
+const { verifyToken } = require("../middleware/auth");
 
-
-router.post("/postLocation", locationController.postLocation); 
+//protected routes
+router.use(verifyToken);
+router.post("/postLocation", locationController.postLocation);
 router.put("/updateLocation", locationController.updateLocation);
 
 module.exports = router;

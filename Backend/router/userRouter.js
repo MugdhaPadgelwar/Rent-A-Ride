@@ -6,15 +6,18 @@ const router = express.Router();
 require("dotenv").config();
 
 // Import middleware
-const { authenticateUser, isAdmin } = require("../middleware/auth");
 
 const userController = require("../controller/userController");
+const { verifyToken } = require("../middleware/auth");
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.put("/update", userController.update);
 router.put("/forget-password", userController.forgetPassword);
 router.get("/user_id", userController.getUserById);
+
+//protected routes
+router.use(verifyToken);
+router.put("/update", userController.update);
 router.delete("/delete_id", userController.deleteByUserId);
 router.delete("/delete_image", userController.deleteImageById);
 

@@ -6,15 +6,17 @@ const router = express.Router();
 require("dotenv").config();
 
 // Import middleware
-// const { authenticateUser, isAdmin } = require("../middleware/auth");
+const { verifyToken } = require("../middleware/auth");
 
 const carController = require("../controller/carController");
-// router.use(authenticateUser);
-router.post("/add", carController.add);
+
 router.get("/all", carController.getAllCars);
 router.get("/modelName", carController.getByModelName);
+router.get("/getCarByLocationId", carController.getCarByLocationId);
+
+router.use(verifyToken);
+router.post("/add", carController.add);
 router.put("/updateCars", carController.updateCars);
 router.delete("/deleteCars", carController.deleteCars);
-router.get("/getCarByLocationId", carController.getCarByLocationId);
 
 module.exports = router;

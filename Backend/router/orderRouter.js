@@ -7,9 +7,14 @@ require("dotenv").config();
 
 const orderController = require("../controller/orderController");
 
+const { verifyToken } = require("../middleware/auth");
+
+router.get("/allorders", orderController.allorders);
+
+//protected routes
+router.use(verifyToken);
 router.post("/placed", orderController.placedOrder);
 router.get("/orderById", orderController.orderById);
 router.delete("/cancel", orderController.cancleOrder);
-router.get("/allorders", orderController.allorders);
 
 module.exports = router;
