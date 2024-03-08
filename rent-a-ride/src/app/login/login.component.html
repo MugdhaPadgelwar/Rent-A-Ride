@@ -1,0 +1,50 @@
+<!-- Main container for the sign-in form -->
+<div id="main">
+  <!-- Wrapper div for styling purposes -->
+  <div class="wrapper">
+    <!-- Title of the sign-in form -->
+    <div class="title">Sign In</div>
+    <!-- Form for user sign-in -->
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <!-- Field for entering email address -->
+      <div class="field">
+        <input type="text" formControlName="email" required />
+        <label>Email Address</label>
+        <!-- Error messages for invalid email input -->
+        <div *ngIf="signinForm.get('email')?.invalid && (signinForm.get('email')?.dirty || signinForm.get('email')?.touched)" class="error-message">
+          <div *ngIf="signinForm.get('email')?.errors?.['required']">Email is required</div>
+          <div *ngIf="signinForm.get('email')?.errors?.['email']">Invalid email address</div>
+        </div>
+      </div>
+      <!-- Field for entering password -->
+      <div class="field">
+        <input type="password" formControlName="password" required />
+        <label>Password</label>
+        <!-- Error message for invalid password input -->
+        <div *ngIf="signinForm.get('password')?.invalid && (signinForm.get('password')?.dirty || signinForm.get('password')?.touched)" class="error-message">
+          <div *ngIf="signinForm.get('password')?.errors?.['required']">Password is required</div>
+        </div>
+      </div>
+      <!-- Content section for additional options -->
+      <div class="content">
+        <!-- Checkbox for "Remember me" option -->
+        <div class="checkbox">
+          <input type="checkbox" formControlName="rememberMe" />
+          <label for="remember-me">Remember me</label>
+        </div>
+        <!-- Link for forgot password -->
+        <div class="pass-link">
+          <a href="#">Forgot password?</a>
+        </div>
+      </div>
+      <!-- Field for the submit button -->
+      <div class="field">
+        <input type="submit" value="Login" [disabled]="signinForm.invalid" />
+      </div>
+      <!-- Link for signup -->
+      <div class="signup-link">
+        Not registered yet? <a href="#">Signup now</a>
+      </div>
+    </form>
+  </div>
+</div>
