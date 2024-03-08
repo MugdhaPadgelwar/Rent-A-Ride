@@ -1,0 +1,61 @@
+/********** Template CSS **********/
+:root {
+    --primary: #F77D0A;
+    --secondary: #2B2E4A;
+    --light: #F4F5F8;
+    --dark: #1C1E32;
+}
+
+/* Add or modify styles as needed for the new HTML structure */
+
+.filters {
+    /* Style for the filter container */
+    margin-bottom: 20px;
+}
+
+.filters label {
+    /* Style for filter labels */
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.filters select {
+    /* Style for filter select boxes */
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+/* Additional styles for the car listing section */
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.rent-item {
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    background: var(--light);
+    transition: .5s;
+    height: 100%;
+}
+
+.rent-item img {
+    width: 100%;
+    height: auto;
+    max-height: 150px; /* Adjust the maximum height as needed */
+}
+
+.rent-item h4 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: var(--dark);
+}
+
+.rent-item a {
+    margin-top: 10px;
+}
+
+/* Adjust other styles based on the new HTML structure */

@@ -1,0 +1,50 @@
+<!-- Main container -->
+<div id="main">
+  <!-- Form wrapper -->
+  <div class="wrapper">
+    <!-- Title -->
+    <div class="title">Sign Up</div>
+    <!-- Registration form -->
+    <form (ngSubmit)="submitForm()" #signupForm="ngForm">
+      <!-- User Name field -->
+      <div class="field">
+        <input type="text" name="userName" required [(ngModel)]="userName" #userNameInput="ngModel" (blur)="validateUsername()" />
+        <label>User Name</label>
+        <!-- Error messages for User Name -->
+        <div *ngIf="usernameRequiredError" class="error">User Name is required.</div>
+        <div *ngIf="usernameFormatError" class="error">Invalid User Name format.</div>
+        <div *ngIf="startsWithUnderscoreError" class="error">User Name should not start with an underscore.</div>
+      </div>
+      <!-- Email field -->
+      <div class="field">
+        <input type="text" name="email" required [(ngModel)]="email" #emailInput="ngModel" (blur)="validateEmail()" />
+        <label>Email Address</label>
+        <!-- Error messages for Email -->
+        <div *ngIf="emailRequiredError" class="error">Email is required.</div>
+        <div *ngIf="emailPatternError" class="error">Enter a valid email address.</div>
+        <div *ngIf="endsWithDotComError" class="error">Email should end with '.com'.</div>
+      </div>
+      <!-- Password field -->
+      <div class="field">
+        <input type="password" name="password" required [(ngModel)]="password" #passwordInput="ngModel" (blur)="validatePassword()" />
+        <label>Password</label>
+        <!-- Error messages for Password -->
+        <div *ngIf="passwordRequiredError" class="error">Password is required.</div>
+        <div *ngIf="minLengthError" class="error">Password should be at least 8 characters.</div>
+        <div *ngIf="maxLengthError" class="error">Password should be at most 20 characters.</div>
+        <div *ngIf="missingSpecialCharError" class="error">Password should contain at least one special character.</div>
+        <div *ngIf="missingCapitalLetterError" class="error">Password should contain at least one capital letter.</div>
+        <div *ngIf="consecutiveNumbersError" class="error">Password should not contain consecutive 3 numbers.</div>
+      </div>
+      <!-- Register button -->
+      <div class="field">
+        <input type="submit" value="Register" [class.active]="isFormValid()" [disabled]="isButtonDisabled()" />
+      </div>
+      <!-- Sign-in link -->
+      <div class="signup-link">
+        Already registered? <a href="#">SignIn now</a>
+      </div>
+    </form>
+  </div>
+</div>
+
