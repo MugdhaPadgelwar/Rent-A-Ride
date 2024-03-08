@@ -1,0 +1,90 @@
+/* Imports */
+/* I removed the imports as they were not defined in the provided CSS code */
+
+/* WooCommerce Order Overview */
+.woocommerce-order-overview {
+  background: #f8f8f8;
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.woocommerce-order-overview:before,
+.woocommerce-order-overview:after {
+  background: -webkit-linear-gradient(transparent 0, transparent 0),
+    -webkit-linear-gradient(135deg, #f8f8f8 33.33%, transparent 33.33%),
+    -webkit-linear-gradient(45deg, #f8f8f8 33.33%, transparent 33.33%);
+  content: "";
+  display: block;
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background-size: 0 100%, 16px 16px, 16px 16px;
+}
+
+.woocommerce-order-overview:after {
+  top: auto;
+  bottom: -16px;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.woocommerce-order-overview li {
+  padding: 1em 1.618em;
+  font-size: 0.8em;
+  width: 25%;
+  text-transform: uppercase;
+  border-right: 1px dotted #e3e3e3;
+  text-align: center;
+}
+
+.woocommerce-order-overview li:last-child {
+  border-right: none;
+}
+
+/* WooCommerce Customer Details */
+.woocommerce-table--customer-details {
+  border: none;
+}
+
+.woocommerce-table--customer-details tbody th {
+  background: #f8f8f8;
+  padding-left: 25px;
+}
+
+.woocommerce-table--customer-details tbody td {
+  background: #fdfdfd;
+  padding-left: 25px;
+  text-align: left !important;
+}
+
+/* WooCommerce Order Details Table */
+.shop_table.woocommerce-table--order-details {
+  box-shadow: 0 0 5px rgba(#39b44a, 0.1);
+  border: solid black;
+}
+
+.shop_table.woocommerce-table--order-details thead {
+  background: #000;
+  color: #fff;
+}
+
+.shop_table.woocommerce-table--order-details th {
+  border-bottom: none;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.shop_table.woocommerce-table--order-details th.product-name {
+  text-align: left;
+}
+
+.shop_table.woocommerce-table--order-details tbody td {
+  border-color: #f0f2f7;
+}
