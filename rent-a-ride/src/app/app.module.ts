@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   BrowserModule,
   provideClientHydration,
@@ -7,53 +7,34 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { SignupComponent } from './signup/signup.component';
-import { FormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ProductDetailPageComponent } from './product-detail-page/product-detail-page.component';
+import { BookingSuccessComponent } from './booking-success/booking-success.component';
+import { FeedBackComponent } from './feed-back/feed-back.component';
 import { BannerComponent } from './banner/banner.component';
-import { SearchComponent } from './search/search.component';
-import { CarlistingComponent } from './carlisting/carlisting.component';
+import { CarListingComponent } from './car-listing/car-listing.component';
+import { HomeComponent } from './home/home.component';
 import { CityComponent } from './city/city.component';
-
-import { UserprofileComponent } from './userprofile/userprofile.component';
-import { EditprofileComponent } from './editprofile/editprofile.component';
-import { MyBookingComponent } from './my-booking/my-booking.component';
-import { PreviousBookingComponent } from './previous-booking/previous-booking.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { OrderSummaryComponent } from './order-summary/order-summary.component';
-import { FormsModule } from '@angular/forms';
-
+import { FooterComponent } from './footer/footer.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    HomeComponent,
-    NavbarComponent,
-    FooterComponent,
+    EditProfileComponent,
+    ProductDetailPageComponent,
+    BookingSuccessComponent,
+    FeedBackComponent,
     BannerComponent,
+    CarListingComponent,
+    HomeComponent,
+    CityComponent,
+    FooterComponent,
+    NavbarComponent,
     SearchComponent,
-    CarlistingComponent,
-    CityComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-  ],
-  providers: [
-    provideClientHydration()
-    UserprofileComponent,
-    EditprofileComponent,
-    MyBookingComponent,
-    PreviousBookingComponent,
-    CheckoutComponent,
-    OrderSummaryComponent,
-  ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
 })

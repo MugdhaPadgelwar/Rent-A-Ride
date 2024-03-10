@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="main">
+    <div
+      class="profile-pic"
+      (mouseenter)="showEditBtn = true"
+      (mouseleave)="showEditBtn = false"
+    >
+      <img [src]="profile.imageUrl" alt="Profile Picture" />
+      <button *ngIf="showEditBtn" class="edit-btn" (click)="editProfile()">
+        ✎
+      </button>
+    </div>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label>Username:</label><br />
+        <input type="text" formControlName="username" />
+      </div>
+      <div class="input-group">
+        <label>Email:</label><br />
+        <input type="email" formControlName="email" />
+      </div>
+      <div class="input-group">
+        <label>Phone No:</label><br />
+        <input type="tel" formControlName="phoneNo" />
+      </div>
+      <div class="input-group">
+        <label>Date of Birth:</label><br />
+        <input type="date" formControlName="dob" />
+      </div>
+      <div class="input-group">
+        <label>Gender:</label><br />
+        <select formControlName="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Address:</label><br />
+        <input type="text" formControlName="address" />
+      </div>
+      <div class="input-group">
+        <label>City:</label><br />
+        <input type="text" formControlName="city" />
+      </div>
+      <div class="input-group">
+        <label>State:</label><br />
+        <input type="text" formControlName="state" />
+      </div>
+      <div class="input-group">
+        <label>Pincode:</label><br />
+        <input type="text" formControlName="pincode" />
+      </div>
+      <button type="button" (click)="editProfile()" *ngIf="!showEditBtn">
+        Edit Profile
+      </button>
+      <button type="submit" *ngIf="showEditBtn">Save Profile</button>
+    </form>
+  </div>
+</div>
