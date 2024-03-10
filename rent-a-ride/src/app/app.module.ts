@@ -4,6 +4,9 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +21,8 @@ import { CityComponent } from './city/city.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,16 @@ import { SearchComponent } from './search/search.component';
     NavbarComponent,
     SearchComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    GoogleMapsModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatToolbarModule,
+    MatInputModule,
+  ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
 })
