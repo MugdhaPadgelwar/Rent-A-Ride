@@ -18,6 +18,7 @@ import { CityComponent } from './city/city.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,11 @@ import { SearchComponent } from './search/search.component';
     FooterComponent,
     NavbarComponent,
     SearchComponent,
+    
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports:
+   [ FormsModule,BrowserModule, AppRoutingModule, ReactiveFormsModule,  ],
+  
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
 })
