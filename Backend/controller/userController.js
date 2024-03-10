@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 
 // Import middleware
 const { verifyToken } = require("../middleware/auth");
+const nodemailer = require("nodemailer");
+const UserToken = require("../models/UserToken");
 
 const User = require("../models/User");
 // Import validators
@@ -155,26 +157,94 @@ const update =
     }
   });
 
-const forgetPassword = (req, res) => {
-  const { email } = req.query;
-  const { newPassword, confirmPassword } = req.body;
+const forgetPassword = async (req, res, next) => {
+  const email = req.body.email;
 
-  // Check if email exists in the database
-  const user = User.find((user) => user.email === email);
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
+  try {
+    // Find user by email
+    const user = await User.findOne({
+      email: { $regex: email, $options: "i" },
+    });
+
+    // If user not found, create and return a custom 404 error
+    if (!user) {
+      return next(createError(404, "User not found"));
+    }
+
+    // Payload for JWT token
+    const payload = {
+      email: user.email,
+    };
+
+    // Expiry time for JWT token (in seconds)
+    const expiryTime = 300;
+
+    // Sign JWT token with payload and secret key
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: expiryTime,
+    });
+
+    // Save token in the database
+    const newToken = new UserToken({
+      userId: user._id,
+      token: token,
+    });
+
+    try {
+      // Attempt to save the token
+      await newToken.save();
+
+      // Configure nodemailer transporter
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "shrutishrivastav938@gmail.com",
+          pass: "zicl ejeq evob rugp",
+        },
+      });
+
+      // Email options
+      const resetButtonLink = `${process.env.LIVE_URL}/reset-password?token=${token}`;
+      const mailOptions = {
+        from: "shrutishrivastav938@gmail.com",
+        to: user.email,
+        subject: "Password Reset Instructions",
+        html: `
+           <html> 
+           <head> 
+               <title>Password Reset Request</title> 
+           </head> 
+           <body> 
+               <h1>Password reset request</h1> 
+               <p>Dear ${user.userName},</p> 
+               <p>We have received a request to reset your password for your account. To complete the password reset process, please click on the button below:</p>
+               <a href="${process.env.LIVE_URL}/reset-password/${token}" style="text-decoration: none;">
+              <button style="background-color: #4CAF50; color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; padding: 14px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                Reset Password
+              </button>
+               </a>
+               <p>Please note that this link is only valid for 5 minutes. If you did not request a password reset, please discard this message.</p>
+               <p>Thank you</p> 
+           </body>
+       </html>
+                `,
+      };
+
+      // Send email
+      await transporter.sendMail(mailOptions);
+
+      // Send response
+      res
+        .status(200)
+        .json({ success: true, message: "Password reset instructions sent" });
+    } catch (error) {
+      // If an error occurs during sending email, handle it
+      return next(error);
+    }
+  } catch (error) {
+    // If an error occurs during finding user or saving token, handle it
+    return next(error);
   }
-
-  // Check if newPassword and confirmPassword match
-  if (newPassword !== confirmPassword) {
-    return res.status(400).json({ error: "Passwords do not match" });
-  }
-
-  // Update user's password in the database
-  user.password = newPassword;
-
-  // Return success response
-  res.json({ message: "Password reset successful" });
 };
 
 const getUserById = async (req, res) => {
