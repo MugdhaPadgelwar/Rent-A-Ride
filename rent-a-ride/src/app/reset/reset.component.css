@@ -1,0 +1,68 @@
+.reset-password-box {
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .reset-password-heading {
+    text-align: center;
+  }
+  
+  .instructions {
+    text-align: center;
+  }
+  
+  .password-form {
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .password-input,
+  .confirm-password-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+  }
+   
+
+  .reset-password-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 0 auto; 
+    margin-top: 50px; 
+    background-color: white;
+  } 
+   
+  #body {
+    display: grid;
+    place-items: center;
+    background: #010101; /* Fallback background color */
+    background: linear-gradient(135deg, #010101, #eb8028); /* Gradient background */ 
+    height: 100vh;
+    width: 100vw;
+}

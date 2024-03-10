@@ -48,6 +48,9 @@ const isAdmin = async (req, res, next) => {
       message: "Internal Server Error",
     });
   }
-};
+}; 
 
-module.exports = { verifyToken, isAdmin };
+module.exports = { verifyToken, isAdmin }; 
+
+
+

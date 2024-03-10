@@ -43,7 +43,14 @@ const validateUserId = (userId) => {
   if (!userId || typeof userId !== "string") {
     throw new Error("userId must be a non-empty string");
   }
+}; 
+
+const createError = (status, message) => {
+  const error = new Error(message);
+  error.status = status;
+  return error;
 };
+
 
 const validateUser = (userData) => {
   validateUserName(userData.userName);
@@ -56,5 +63,6 @@ module.exports = {
   validateUser,
   validateEmail,
   validatePassword,
-  validateUserId,
+  validateUserId, 
+  createError,
 };

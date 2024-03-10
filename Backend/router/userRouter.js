@@ -12,8 +12,10 @@ const { verifyToken } = require("../middleware/auth");
 
 router.post("/register", userController.register);
 router.post("/login", userController.login);
-router.put("/forget-password", userController.forgetPassword);
-router.get("/user_id", userController.getUserById);
+router.post("/forget-password", userController.forgetPassword);
+router.get("/user_id", userController.getUserById);  
+router.post("/resetpassword",userController.resetpassword),
+
 
 //protected routes
 router.use(verifyToken);

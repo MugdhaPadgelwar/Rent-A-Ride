@@ -1,0 +1,33 @@
+<div id="body">
+  <div class="reset-password-box">
+    <h1 class="reset-password-heading">Reset Password</h1>
+    <p>Please use a strong password</p>
+    <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()" class="password-form">
+      <div class="form-group">
+        <input type="password" class="password-input" placeholder="New Password" formControlName="password">
+        <ng-container *ngIf="resetPasswordForm.get('password')">
+          <div *ngIf="resetPasswordForm.get('password')?.errors?.['required'] && (resetPasswordForm.get('password')?.dirty || resetPasswordForm.get('password')?.touched)" class="error-message">
+            Password is required
+          </div>
+          <div *ngIf="resetPasswordForm.get('password')?.errors?.['minlength'] && (resetPasswordForm.get('password')?.dirty || resetPasswordForm.get('password')?.touched)" class="error-message">
+            Password must be at least 8 characters long
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group">
+        <input type="password" class="confirm-password-input" placeholder="Confirm Password" formControlName="confirmPassword">
+        <ng-container *ngIf="resetPasswordForm.get('confirmPassword')">
+          <div *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['required'] && (resetPasswordForm.get('confirmPassword')?.dirty || resetPasswordForm.get('confirmPassword')?.touched)" class="error-message">
+            Confirm Password is required
+          </div>
+          <div *ngIf="resetPasswordForm.get('confirmPassword')?.errors?.['passwordMismatch'] && (resetPasswordForm.get('confirmPassword')?.dirty || resetPasswordForm.get('confirmPassword')?.touched)" class="error-message">
+            Password doesn't matched
+          </div>
+        </ng-container>
+      </div>
+      <div class="button-container">
+        <button type="submit" class="submit-button" [disabled]="resetPasswordForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

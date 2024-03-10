@@ -20,7 +20,7 @@
     background: #fff; /* Background color */
     border-radius: 15px; /* Border radius */
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1); /* Box shadow */
-    height: 600px; /* Height of the wrapper */
+    height: 500px; /* Height of the wrapper */
 }
 
 /* Styles for the title */
@@ -48,7 +48,7 @@
     margin-top: 20px; /* Top margin */
     position: relative; /* Position */
     margin-bottom: 50px; /* Bottom margin */
-    margin-top: 50px; /* Top margin */
+    /* Top margin */
 }
 
 /* Styles for input fields */
@@ -105,8 +105,10 @@ form .content {
 /* Styles for checkbox */
 form .content .checkbox {
     display: flex; /* Display as flex */
-    align-items: center; /* Align items */
-    justify-content: center; /* Justify content */
+    /* Justify content */  
+    margin-right: 180px; 
+    margin-bottom: 40px;
+
 }
 
 /* Styles for checkboxes and labels */
@@ -124,7 +126,9 @@ form .content label {
 
 /* Styles for password link */
 form .content .pass-link {
-    color: ""; /* Password link color */
+    color: ""; /* Password link color */ 
+    margin-left: 20px; 
+    margin-bottom: 40px;
 }
 
 /* Styles for submit button */
@@ -138,12 +142,13 @@ form .field input[type="submit"] {
     cursor: pointer; /* Cursor style */
     background: #010101; /* Fallback background color */
     background: linear-gradient(135deg, #010101, #eb8028); /* Gradient background */
-    transition: all 0.3s ease; /* Transition */
+    transition: all 0.3s ease; /* Transition */ 
+    
 }
 
 /* Styles for active submit button */
 form .field input[type="submit"]:active {
-    transform: scale(0.95); /* Scale down on click */
+    transform: scale(0.95); /* Scale down on click */ 
 }
 
 /* Styles for signup link */
@@ -161,4 +166,8 @@ form .signup-link a {
   form .pass-link a:hover,
   form .signup-link a:hover {
     text-decoration: underline; /* Decoration */
+  } 
+
+.error-message {
+    color: red;
   }
