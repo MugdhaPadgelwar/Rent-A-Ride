@@ -23,6 +23,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { ResetComponent } from './reset/reset.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     FooterComponent,
     NavbarComponent,
     SearchComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    ResetComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
