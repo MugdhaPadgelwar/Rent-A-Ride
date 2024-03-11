@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookingSuccessComponent } from './booking-success/booking-success.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailPageComponent } from './product-detail-page/product-detail-page.component';
-import { CarListingComponent } from './car-listing/car-listing.component'; // Adjust the path
+import { CarListingComponent } from './car-listing/car-listing.component';
 import { CityComponent } from './city/city.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
@@ -12,6 +12,9 @@ import { ResetComponent } from './reset/reset.component';
 import { RentCarComponent } from './renter/renter.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { TransactionPageComponent } from './transaction-page/transaction-page.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { BookingDetailsComponent } from './booking-details/booking-details.component';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -61,6 +64,22 @@ const routes: Routes = [
   {
     path: 'editprofile',
     component: EditProfileComponent,
+  },
+  {
+    path: 'admin-transaction-page',
+    component: TransactionPageComponent,
+  },
+  {
+    path: 'admin-user-details',
+    component: UserDetailsComponent,
+  },
+  {
+    path: 'booking-details',
+    component: BookingDetailsComponent,
+  },
+  {
+    path: 'transaction-details',
+    component: TransactionPageComponent,
   },
 ];
 

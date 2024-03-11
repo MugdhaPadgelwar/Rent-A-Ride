@@ -1,23 +1,33 @@
 /* Import necessary modules */
-import { Component, OnInit } from '@angular/core'; 
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
-/* Component decorator */
+/**
+ * Component for renting a car.
+ */
 @Component({
   selector: 'app-renter',
   templateUrl: './renter.component.html',
-  styleUrls: ['./renter.component.css']
+  styleUrls: ['./renter.component.css'],
 })
 export class RentCarComponent implements OnInit {
-  /* Define FormGroup variable for car form */
+  /** Define FormGroup variable for car form */
   carForm!: FormGroup;
 
-  /* Constructor with dependency injection of FormBuilder */
-  constructor(private formBuilder: FormBuilder) { }
+  /**
+   * Constructor with dependency injection of FormBuilder.
+   * @param formBuilder FormBuilder instance for building form controls.
+   */
+  constructor(private formBuilder: FormBuilder) {}
 
-  /* Initialize the component */
+  /** Initialize the component */
   ngOnInit(): void {
-    /* Create the carForm FormGroup and define form controls with validators */
+    /** Create the carForm FormGroup and define form controls with validators */
     this.carForm = this.formBuilder.group({
       carModel: ['', Validators.required], // Car model input
       carBrand: ['', Validators.required], // Car brand input
@@ -29,11 +39,18 @@ export class RentCarComponent implements OnInit {
       carFuelType: ['', Validators.required], // Car fuel type input
       carMileage: ['', Validators.required], // Car mileage input
       carPricePerHour: ['', Validators.required], // Car price per hour input
-      carInsuranceNumber: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]] // Car insurance number input
+      carInsuranceNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(20),
+        ],
+      ], // Car insurance number input
     });
   }
 
-  /* Function to handle form submission */
+  /** Function to handle form submission */
   onSubmit() {
     if (this.carForm.valid) {
       console.log('Form submitted successfully!'); // Log success message if form is valid
@@ -43,9 +60,13 @@ export class RentCarComponent implements OnInit {
     }
   }
 
-  /* Custom validator function for car number plate */
+  /**
+   * Custom validator function for car number plate.
+   * @param control AbstractControl instance representing the form control.
+   * @returns Validation result for car number plate.
+   */
   validateCarNoPlate(control: AbstractControl): { [key: string]: any } | null {
     const regex = /^[A-Z]{2}\s\d{2}\s[A-Z]{1,2}\s\d{4}$/i; // Regular expression for car number plate format
-    return regex.test(control.value) ? null : { 'invalidCarNoPlate': true }; // Return validation result
+    return regex.test(control.value) ? null : { invalidCarNoPlate: true }; // Return validation result
   }
 }

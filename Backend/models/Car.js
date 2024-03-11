@@ -68,8 +68,8 @@ const carSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 5, // Adjust the minimum length as needed
-    maxlength: 20, // Adjust the maximum length as needed
+    minlength: 5,
+    maxlength: 20,
   },
   availability: {
     type: Boolean,

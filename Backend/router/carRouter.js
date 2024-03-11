@@ -14,7 +14,6 @@ router.get("/all", carController.getAllCars);
 router.get("/modelName", carController.getByModelName);
 router.get("/getCarByLocationId", carController.getCarByLocationId);
 
-//protected routes
 router.use(verifyToken);
 router.post("/add", carController.add);
 router.put("/updateCars", carController.updateCars);

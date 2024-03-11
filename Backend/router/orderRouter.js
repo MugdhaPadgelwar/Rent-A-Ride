@@ -11,7 +11,6 @@ const { verifyToken } = require("../middleware/auth");
 
 router.get("/allorders", orderController.allorders);
 
-//protected routes
 router.use(verifyToken);
 router.post("/placed", orderController.placedOrder);
 router.get("/orderById", orderController.orderById);

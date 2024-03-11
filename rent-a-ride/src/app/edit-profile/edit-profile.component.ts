@@ -7,12 +7,19 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 
+/**
+ * Component for editing user profile.
+ */
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
+  /**
+   * Validator function to allow only digits in the input.
+   * @returns Validator function for checking if the input contains only digits.
+   */
   onlyDigits(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const value = control.value;
@@ -22,12 +29,20 @@ export class EditProfileComponent implements OnInit {
       return null;
     };
   }
+
+  /** Form group for user profile edit form. */
   form: FormGroup = new FormGroup({});
 
+  /** Flag to indicate if the form has been submitted. */
   submitted = false;
 
+  /**
+   * Constructor to initialize the EditProfileComponent.
+   * @param formBuilder FormBuilder instance for building form controls.
+   */
   constructor(private formBuilder: FormBuilder) {}
 
+  /** Lifecycle hook called after component initialization. */
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       fullname: ['', Validators.required],
@@ -58,10 +73,15 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Getter method to access form controls.
+   * @returns Object containing form controls.
+   */
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
   }
 
+  /** Function to handle form submission. */
   onSubmit(): void {
     this.submitted = true;
 
@@ -72,6 +92,7 @@ export class EditProfileComponent implements OnInit {
     console.log(JSON.stringify(this.form.value, null, 2));
   }
 
+  /** Function to reset the form. */
   onReset(): void {
     this.submitted = false;
     this.form.reset();
