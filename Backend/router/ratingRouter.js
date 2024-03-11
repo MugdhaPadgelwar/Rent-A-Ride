@@ -10,7 +10,7 @@ const ratingController = require("../controller/ratingController");
 const { verifyToken } = require("../middleware/auth");
 
 router.get("/id", ratingController.getRatingById);
-//protected routes
+
 router.use(verifyToken);
 router.post("/add", ratingController.addRating);
 router.put("/update", ratingController.updateById);

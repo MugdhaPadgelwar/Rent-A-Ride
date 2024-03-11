@@ -15,7 +15,6 @@ router.post("/login", userController.login);
 router.post("/forget-password", userController.forgetPassword);
 router.get("/user_id", userController.getUserById);
 
-//protected routes
 router.use(verifyToken);
 router.put("/update", userController.update);
 router.delete("/delete_id", userController.deleteByUserId);
