@@ -34,6 +34,7 @@ import { CarManagementComponent } from './car-management/car-management.componen
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,14 @@ import { RentCarComponent } from './renter/renter.component';
     FooterComponent,
     NavbarComponent,
     SearchComponent,
+
+    
+  ],
+  imports:
+   [ FormsModule,BrowserModule, AppRoutingModule, ReactiveFormsModule,  ],
+  
+  providers: [provideClientHydration()],
+
     ForgotPasswordComponent,
     LoginComponent,
     ResetComponent,
@@ -69,6 +78,7 @@ import { RentCarComponent } from './renter/renter.component';
     MatInputModule,
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
