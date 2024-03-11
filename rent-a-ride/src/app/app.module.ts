@@ -4,9 +4,7 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
@@ -21,7 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { ResetComponent } from './reset/reset.component';
@@ -32,7 +30,6 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { CarManagementComponent } from './car-management/car-management.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
-
 
 @NgModule({
   declarations: [
@@ -48,14 +45,6 @@ import { RentCarComponent } from './renter/renter.component';
     FooterComponent,
     NavbarComponent,
     SearchComponent,
-
-    
-  ],
-  imports:
-   [ FormsModule,BrowserModule, AppRoutingModule, ReactiveFormsModule,  ],
-  
-  providers: [provideClientHydration()],
-
     ForgotPasswordComponent,
     LoginComponent,
     ResetComponent,
@@ -67,15 +56,13 @@ import { RentCarComponent } from './renter/renter.component';
     RentCarComponent,
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    GoogleMapsModule,
-    MatFormFieldModule,
     CommonModule,
-    MatToolbarModule,
-    MatInputModule,
   ],
+
   providers: [provideClientHydration(), provideAnimationsAsync()],
 
   bootstrap: [AppComponent],

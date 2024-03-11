@@ -2,7 +2,7 @@
 #main {
   display: grid;
   place-items: center;
-  background-color: white; 
+  background-color: white;
   height: 100vh; /* Full viewport height */
   width: 100vw; /* Full viewport width */
 }
