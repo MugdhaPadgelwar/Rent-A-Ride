@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
+import { RentCarComponent } from './renter/renter.component';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -20,7 +21,7 @@ const routes: Routes = [
     component: BookingSuccessComponent,
   },
   {
-    path: 'sign-up',
+    path: 'signup',
     component: SignupComponent,
   },
   {
@@ -42,6 +43,14 @@ const routes: Routes = [
   {
     path: 'reset-password/:token',
     component: ResetComponent,
+  },
+  {
+    path: 'renter',
+    component: RentCarComponent,
+  },
+  {
+    path: 'detailproduct',
+    component: ProductDetailPageComponent,
   },
 ];
 
