@@ -348,4 +348,8 @@ h6,
 .container-fluid.bg-light p {
   font-size: 16px;
   color: var(--dark);
+} 
+
+.error-message {
+  color: red;
 }
