@@ -1,59 +1,168 @@
-<div class="container">
-  <div class="main">
-    <div
-      class="profile-pic"
-      (mouseenter)="showEditBtn = true"
-      (mouseleave)="showEditBtn = false"
-    >
-      <img [src]="profile.imageUrl" alt="Profile Picture" />
-      <button *ngIf="showEditBtn" class="edit-btn" (click)="editProfile()">
-        ✎
+<div class="register-form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input
+        type="text"
+        formControlName="fullname"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }"
+      />
+      @if (submitted && f['fullname'].errors) {
+      <div class="invalid-feedback">
+        @if (f['fullname'].errors['required']) {
+        <div>Fullname is required</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input
+        type="text"
+        formControlName="username"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+      />
+      @if (submitted && f['username'].errors) {
+      <div class="invalid-feedback">
+        @if (f['username'].errors['required']) {
+        <div>Username is required</div>
+        } @if (f['username'].errors['minlength']) {
+        <div>Username must be at least 6 characters</div>
+        } @if (f['username'].errors['maxlength']) {
+        <div>Username must not exceed 20 characters</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Phone No</label>
+      <input
+        type="text"
+        formControlName="phoneno"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['phoneno'].errors }"
+      />
+      @if (submitted && f['phoneno'].errors) {
+      <div class="invalid-feedback">
+        @if (f['phoneno'].errors['required']) {
+        <div>Username is required</div>
+        } @if (f['phoneno'].errors['minlength']) {
+        <div>Phone No must have 10 digits</div>
+        } @if (f['phoneno'].errors['maxlength']) {
+        <div>Phone No must have 10 digits</div>
+        } @if (f['phoneno'].errors['onlyDigits']) {
+        <div>Phone No must contain only digits</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+      />
+      @if (submitted && f['email'].errors) {
+      <div class="invalid-feedback">
+        @if (f['email'].errors['required']) {
+        <div>Email is required</div>
+        } @if (f['email'].errors['email']) {
+        <div>Email is invalid</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <input
+        type="text"
+        formControlName="gender"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Date of Birth</label>
+      <input
+        type="date"
+        formControlName="dob"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }"
+      />
+      @if (submitted && f['dob'].errors) {
+      <div class="invalid-feedback">
+        @if (f['dob'].errors['required']) {
+        <div>DOB is required</div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <input
+        type="text"
+        formControlName="address"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>City</label>
+      <input
+        type="text"
+        formControlName="city"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <input
+        type="text"
+        formControlName="state"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['state'].errors }"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Zip</label>
+      <input
+        type="text"
+        formControlName="zip"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f['zip'].errors }"
+      />
+    </div>
+
+    <!-- Display global form errors -->
+    <div *ngIf="submitted && form.invalid" class="error-msg">
+      <div *ngIf="form.errors?.['required']">
+        Please fill in all required fields.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-warning float-right"
+      >
+        Reset
       </button>
     </div>
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-      <div class="input-group">
-        <label>Username:</label><br />
-        <input type="text" formControlName="username" />
-      </div>
-      <div class="input-group">
-        <label>Email:</label><br />
-        <input type="email" formControlName="email" />
-      </div>
-      <div class="input-group">
-        <label>Phone No:</label><br />
-        <input type="tel" formControlName="phoneNo" />
-      </div>
-      <div class="input-group">
-        <label>Date of Birth:</label><br />
-        <input type="date" formControlName="dob" />
-      </div>
-      <div class="input-group">
-        <label>Gender:</label><br />
-        <select formControlName="gender">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Address:</label><br />
-        <input type="text" formControlName="address" />
-      </div>
-      <div class="input-group">
-        <label>City:</label><br />
-        <input type="text" formControlName="city" />
-      </div>
-      <div class="input-group">
-        <label>State:</label><br />
-        <input type="text" formControlName="state" />
-      </div>
-      <div class="input-group">
-        <label>Pincode:</label><br />
-        <input type="text" formControlName="pincode" />
-      </div>
-      <button type="button" (click)="editProfile()" *ngIf="!showEditBtn">
-        Edit Profile
-      </button>
-      <button type="submit" *ngIf="showEditBtn">Save Profile</button>
-    </form>
-  </div>
+  </form>
 </div>

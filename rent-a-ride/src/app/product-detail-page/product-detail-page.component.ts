@@ -8,6 +8,15 @@ declare var Razorpay: any;
   styleUrls: ['./product-detail-page.component.css'],
 })
 export class ProductDetailPageComponent {
+  productRating: string = '4.8(56)';
+  price: string = '150 Rs';
+  brand: string = 'Toyota';
+  model: string = 'Corolla';
+  capacity: string = '5 passengers';
+  type: string = 'Manual';
+  fuelType: string = 'Petrol';
+  mileage: string = '30 mpg';
+  year: string = '2023';
   payNow() {
     const options = {
       description: 'Sample Razorpay demo',
