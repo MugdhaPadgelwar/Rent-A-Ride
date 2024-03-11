@@ -4,6 +4,9 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +21,19 @@ import { CityComponent } from './city/city.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
-import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { ResetComponent } from './reset/reset.component';
+import { SignupComponent } from './signup/signup.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { TransactionPageComponent } from './transaction-page/transaction-page.component';
+import { CarManagementComponent } from './car-management/car-management.component';
+import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { RentCarComponent } from './renter/renter.component';
+
 
 @NgModule({
   declarations: [
@@ -34,12 +49,36 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     NavbarComponent,
     SearchComponent,
+
     
   ],
   imports:
    [ FormsModule,BrowserModule, AppRoutingModule, ReactiveFormsModule,  ],
   
   providers: [provideClientHydration()],
+
+    ForgotPasswordComponent,
+    LoginComponent,
+    ResetComponent,
+    SignupComponent,
+    UserDetailsComponent,
+    TransactionPageComponent,
+    CarManagementComponent,
+    BookingDetailsComponent,
+    RentCarComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    GoogleMapsModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatToolbarModule,
+    MatInputModule,
+  ],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,168 @@
+/* Styles for the main container */
+#main {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
+}
+
+/* Text selection styles */
+::selection {
+  background: #eb8028;
+  color: #fff;
+}
+
+/* Styles for the wrapper containing the form */
+.wrapper {
+  width: 500px;
+  background: #fff;
+  border-radius: 15px;
+  height: 600px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the title of the form */
+.wrapper .title {
+  font-size: 35px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 100px;
+  color: #fff;
+  user-select: none;
+  border-radius: 15px 15px 0 0;
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
+}
+
+/* Styles for the form */
+.wrapper form {
+  padding: 10px 30px 50px 30px;
+}
+
+/* Styles for form fields */
+.wrapper form .field {
+  height: 50px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+/* Styles for form inputs */
+.wrapper form .field input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding-left: 20px;
+  border: 1px solid lightgrey;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+/* Styles for focused or valid form inputs */
+.wrapper form .field input:focus,
+form .field input:valid {
+  border-color: #eb8028;
+}
+
+/* Styles for form labels */
+.wrapper form .field label {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  color: #999999;
+  font-weight: 400;
+  font-size: 17px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+/* Styles for labels when input is focused or valid */
+form .field input:focus ~ label,
+form .field input:valid ~ label {
+  top: 0%;
+  font-size: 16px;
+  color: #eb8028;
+  background: #fff;
+  transform: translateY(-50%);
+}
+
+/* Styles for form content */
+form .content {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Styles for checkboxes */
+form .content .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form .content input {
+  width: 15px;
+  height: 15px;
+  background: red;
+}
+
+form .content label {
+  color: #262626;
+  user-select: none;
+  padding-left: 5px;
+}
+
+form .content .pass-link {
+  color: "";
+}
+
+/* Styles for the submit button */
+form .field input[type="submit"] {
+  color: #fff;
+  border: none;
+  padding-left: 0;
+  margin-top: -10px;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
+  transition: all 0.3s ease;
+}
+
+/* Styles for the submit button when active */
+form .field input[type="submit"]:active {
+  transform: scale(0.95);
+}
+
+/* Styles for the signup link */
+form .signup-link {
+  color: #262626;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Styles for the password error messages */
+form .pass-link a,
+form .signup-link a {
+  color: #eb8028;
+  text-decoration: none;
+}
+
+form .pass-link a:hover,
+form .signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for error messages */
+.error-message {
+  color: red;
+}

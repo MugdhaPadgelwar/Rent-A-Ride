@@ -1,0 +1,98 @@
+<div id="main">
+  <div class="wrapper">
+    <!-- Title -->
+    <div class="title">Sign Up</div>
+    <!-- Signup Form -->
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <!-- Username Field -->
+      <div class="field">
+        <input type="text" formControlName="username" required />
+        <label>User Name</label>
+        <!-- Username Error Messages -->
+        <div
+          *ngIf="
+            signupForm.get('username')?.invalid &&
+            (signupForm.get('username')?.dirty ||
+              signupForm.get('username')?.touched)
+          "
+          class="error-message"
+        >
+          <div *ngIf="signupForm.get('username')?.errors?.['required']">
+            User name is required
+          </div>
+          <div *ngIf="signupForm.get('username')?.errors?.['minlength']">
+            User name must be at least 4 characters
+          </div>
+          <div *ngIf="signupForm.get('username')?.errors?.['maxlength']">
+            User name must not exceed 20 characters
+          </div>
+          <div *ngIf="signupForm.get('username')?.errors?.['invalidUsername']">
+            User name cannot start with an underscore
+          </div>
+        </div>
+      </div>
+      <!-- Email Field -->
+      <div class="field">
+        <input type="email" formControlName="email" required />
+        <label>Email Address</label>
+        <!-- Email Error Messages -->
+        <div
+          *ngIf="
+            signupForm.get('email')?.invalid &&
+            (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)
+          "
+          class="error-message"
+        >
+          <div *ngIf="signupForm.get('email')?.errors?.['required']">
+            Email is required
+          </div>
+          <div *ngIf="signupForm.get('email')?.errors?.['email']">
+            Invalid email address
+          </div>
+        </div>
+      </div>
+      <!-- Password Field -->
+      <div class="field">
+        <input type="password" formControlName="password" required />
+        <label>Password</label>
+        <!-- Password Error Messages -->
+        <div
+          *ngIf="
+            signupForm.get('password')?.invalid &&
+            (signupForm.get('password')?.dirty ||
+              signupForm.get('password')?.touched)
+          "
+          class="error-message"
+        >
+          <div *ngIf="signupForm.get('password')?.errors?.['required']">
+            Password is required
+          </div>
+          <div *ngIf="signupForm.get('password')?.errors?.['minlength']">
+            Password must be at least 8 characters
+          </div>
+          <div *ngIf="signupForm.get('password')?.errors?.['maxlength']">
+            Password must not exceed 200 characters
+          </div>
+          <div *ngIf="signupForm.get('password')?.errors?.['invalidPassword']">
+            Password must contain at least one capital letter, one special
+            character, and no consecutive digits
+          </div>
+        </div>
+      </div>
+      <!-- Register Button -->
+      <div class="field">
+        <input
+          type="submit"
+          style="margin-top: 20px"
+          value="Register"
+          [disabled]="signupForm.invalid"
+          (click)="showAlert()"
+        />
+      </div>
+      <!-- Signup Link -->
+      <div class="signup-link">
+        Already registered? <a routerLink="/signin">SignIn now</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="body">
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#"><h1>Payments Details Page</h1></a>
+    </nav> 
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Left Section -->
+        <section class="left-section">
+            <div class="car-details">Car Details</div>
+            <div class="booking-details">Booking Details</div>
+            <div class="user-details">User Details</div>
+            <div class="transaction-details">Payments Details</div>
+        </section>
+        <!-- Right Section -->
+        <section class="right-section">
+            <!-- Search Container -->
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+            <!-- Transaction Summary Table -->
+            <table class="transaction-summary">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Car Id</th>
+                        <th>Transaction Id</th>
+                        <th>Transaction Mode</th>
+                        <th>Status</th>
+                        <th>Transaction Date and Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows with data here -->
+                    <tr *ngFor="let transaction of transactions">
+                        <td>{{ transaction.userId }}</td>
+                        <td>{{ transaction.carId }}</td>
+                        <td>{{ transaction.transactionId }}</td>
+                        <td>{{ transaction.transactionMode }}</td>
+                        <td>{{ transaction.status }}</td>
+                        <td>{{ transaction.dateTime }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
