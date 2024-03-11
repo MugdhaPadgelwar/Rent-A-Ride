@@ -1,0 +1,43 @@
+<div class="body">
+    <nav>
+        <a href="#"><h1>User Details Page</h1></a>
+    </nav> 
+    <div class="container">
+        <section class="left-section">
+            <div class="car-details">Car Details</div>
+            <div class="booking-details">Booking Details</div>
+            <div class="user-details">User Details</div>
+            <div class="transaction-details">Payments Details</div>
+        </section>
+        <section class="right-section">
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+            <table class="User-summary">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let user of users">
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>{{ user.gender }}</td>
+                            <td>{{ user.age }}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
