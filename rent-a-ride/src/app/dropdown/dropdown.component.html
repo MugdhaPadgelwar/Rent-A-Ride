@@ -1,0 +1,13 @@
+<div class="dropdown">
+  <a (click)="toggleDropdown()">
+    <img
+      class="profile-user"
+      src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295398_1280.png"
+      alt="Description of the image"
+  /></a>
+  <ul [ngClass]="{ active: dropdownActive }">
+    <li><a href="#">Edit Profile</a></li>
+    <li><a href="#">My Booking</a></li>
+    <li><a href="#">Log Out</a></li>
+  </ul>
+</div>

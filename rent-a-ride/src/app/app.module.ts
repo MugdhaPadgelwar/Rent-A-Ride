@@ -30,6 +30,8 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { CarManagementComponent } from './car-management/car-management.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { RentCarComponent } from './renter/renter.component';
     CarManagementComponent,
     BookingDetailsComponent,
     RentCarComponent,
+    ErrorPageComponent,
+    DropdownComponent,
   ],
   imports: [
     FormsModule,
