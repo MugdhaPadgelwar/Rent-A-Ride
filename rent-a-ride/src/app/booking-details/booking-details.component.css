@@ -1,7 +1,9 @@
+/* Global styles */
 body {
     font-family: Arial, sans-serif; 
 }  
 
+/* Navigation styles */
 nav {
     background-color: #2b2e4a;
     padding: 10px;
@@ -12,52 +14,63 @@ nav a {
     text-decoration: none;
 }
 
+/* Container styles */
 .container {
     display: flex;
     justify-content: space-between;
     margin: 20px;
 }
 
+/* Left section styles */
 .left-section {
     width: 20%;
 }
 
+/* Right section styles */
 .right-section {
     width: 70%; 
 }
 
+/* Search container styles */
 .search-container {
     margin-bottom: 20px;
 }
 
+/* Search box styles */
 .search-box {
     width: 50%;
     padding: 10px;
 }
 
+/* Search button styles */
 .search-button {
     padding: 10px;
 }
 
+/* Table styles */
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
+/* Table cell styles */
 th, td {
     border: 1px solid black;
     padding: 15px;
     text-align: left;
 }
 
+/* Table header styles */
 th {
     background-color: #f2f2f2;
 }
 
+/* Alternate row background color */
 tr:nth-child(even) {
     background-color: #f2f2f2;
 } 
 
+/* Detail sections styles */
 .car-details,
 .booking-details,
 .user-details,

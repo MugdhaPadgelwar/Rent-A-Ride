@@ -1,0 +1,150 @@
+<!-- Main container -->
+<div id="main">
+    <!-- Wrapper -->
+    <div class="wrapper">
+      <!-- Title -->
+      <h3>RENT IN CAR</h3>
+      <!-- Form -->
+      <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+        <!-- Row 1: Car Model and Car Brand -->
+        <div class="row">
+          <!-- Column 1: Car Model -->
+          <div class="col">
+            <label for="carModel">Car Model:</label>
+            <input type="text" id="carModel" formControlName="carModel" placeholder="Enter car model" required>
+            <!-- Error messages for Car Model -->
+            <div *ngIf="carForm.get('carModel')?.invalid && (carForm.get('carModel')?.dirty || carForm.get('carModel')?.touched)">
+              <div *ngIf="carForm.get('carModel')?.errors?.['required']" class="error-message">Car model is required</div>
+            </div>
+          </div>
+          <!-- Column 2: Car Brand -->
+          <div class="col">
+            <label for="carBrand">Car Brand:</label>
+            <input type="text" id="carBrand" formControlName="carBrand" placeholder="Enter car brand" required>
+            <!-- Error messages for Car Brand -->
+            <div *ngIf="carForm.get('carBrand')?.invalid && (carForm.get('carBrand')?.dirty || carForm.get('carBrand')?.touched)">
+              <div *ngIf="carForm.get('carBrand')?.errors?.['required']" class="error-message">Car brand is required</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Row 2: Car Year and Car Image URL -->
+        <div class="row">
+          <!-- Column 1: Car Year -->
+          <div class="col">
+            <label for="carYear">Car Year:</label>
+            <input type="number" id="carYear" formControlName="carYear" placeholder="Enter car year" required>
+            <!-- Error messages for Car Year -->
+            <div *ngIf="carForm.get('carYear')?.invalid && (carForm.get('carYear')?.dirty || carForm.get('carYear')?.touched)">
+              <div *ngIf="carForm.get('carYear')?.errors?.['required']" class="error-message">Car year is required</div>
+            </div>
+          </div>
+          <!-- Column 2: Car Image URL -->
+          <div class="col">
+            <label for="carImage">Car Image URL:</label>
+            <input type="text" id="carImage" formControlName="carImage" placeholder="Enter car image URL" required>
+            <!-- Error messages for Car Image URL -->
+            <div *ngIf="carForm.get('carImage')?.invalid && (carForm.get('carImage')?.dirty || carForm.get('carImage')?.touched)">
+              <div *ngIf="carForm.get('carImage')?.errors?.['required']" class="error-message">Car image URL is required</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Row 3: Car Number Plate and Car Capacity -->
+        <div class="row">
+          <!-- Column 1: Car Number Plate -->
+          <div class="col">
+            <label for="carNoPlate">Car Number Plate:</label>
+            <input type="text" id="carNoPlate" formControlName="carNoPlate" placeholder="Enter car number plate" required>
+            <!-- Error messages for Car Number Plate -->
+            <div *ngIf="carForm.get('carNoPlate')?.invalid && (carForm.get('carNoPlate')?.dirty || carForm.get('carNoPlate')?.touched)">
+              <div *ngIf="carForm.get('carNoPlate')?.errors?.['required']" class="error-message">Car number plate is required</div>
+              <div *ngIf="carForm.get('carNoPlate')?.errors?.['pattern']" class="error-message">Invalid car number plate format</div>
+            </div>
+          </div>
+          <!-- Column 2: Car Capacity -->
+          <div class="col">
+            <label for="carCapacity">Car Capacity:</label>
+            <input type="number" id="carCapacity" formControlName="carCapacity" placeholder="Enter car capacity" required>
+            <!-- Error messages for Car Capacity -->
+            <div *ngIf="carForm.get('carCapacity')?.invalid && (carForm.get('carCapacity')?.dirty || carForm.get('carCapacity')?.touched)">
+              <div *ngIf="carForm.get('carCapacity')?.errors?.['required']" class="error-message">Car capacity is required</div>
+              <div *ngIf="carForm.get('carCapacity')?.errors?.['pattern']" class="error-message">Invalid car capacity</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Row 4: Car Type and Car Fuel Type -->
+        <div class="row">
+          <!-- Column 1: Car Type -->
+          <div class="col">
+            <label for="carType">Car Type:</label>
+            <select id="carType" formControlName="carType" required>
+              <option value="automatic">Automatic</option>
+              <option value="manual">Manual</option>
+            </select>
+            <!-- Error messages for Car Type -->
+            <div *ngIf="carForm.get('carType')?.invalid && (carForm.get('carType')?.dirty || carForm.get('carType')?.touched)">
+              <div *ngIf="carForm.get('carType')?.errors?.['required']" class="error-message">Car type is required</div>
+            </div>
+          </div>
+          <!-- Column 2: Car Fuel Type -->
+          <div class="col">
+            <label for="carFuelType">Car Fuel Type:</label>
+            <select id="carFuelType" formControlName="carFuelType" required>
+              <option value="diesel">Diesel</option>
+              <option value="petrol">Petrol</option>
+              <option value="electric">Electric</option>
+            </select>
+            <!-- Error messages for Car Fuel Type -->
+            <div *ngIf="carForm.get('carFuelType')?.invalid && (carForm.get('carFuelType')?.dirty || carForm.get('carFuelType')?.touched)">
+              <div *ngIf="carForm.get('carFuelType')?.errors?.['required']" class="error-message">Car fuel type is required</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Row 5: Car Mileage and Car Price per Hour -->
+        <div class="row">
+          <!-- Column 1: Car Mileage -->
+          <div class="col">
+            <label for="carMileage">Car Mileage:</label>
+            <input type="number" id="carMileage" formControlName="carMileage" placeholder="Enter car mileage" required>
+            <!-- Error messages for Car Mileage -->
+            <div *ngIf="carForm.get('carMileage')?.invalid && (carForm.get('carMileage')?.dirty || carForm.get('carMileage')?.touched)">
+              <div *ngIf="carForm.get('carMileage')?.errors?.['required']" class="error-message">Car mileage is required</div>
+            </div>
+          </div>
+          <!-- Column 2: Car Price per Hour -->
+          <div class="col">
+            <label for="carPricePerHour">Car Price per Hour:</label>
+            <input type="number" id="carPricePerHour" formControlName="carPricePerHour" placeholder="Enter car price per hour" required>
+            <!-- Error messages for Car Price per Hour -->
+            <div *ngIf="carForm.get('carPricePerHour')?.invalid && (carForm.get('carPricePerHour')?.dirty || carForm.get('carPricePerHour')?.touched)">
+              <div *ngIf="carForm.get('carPricePerHour')?.errors?.['required']" class="error-message">Car price per hour is required</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Row 6: Car Insurance Number -->
+        <div class="row">
+          <!-- Column 1: Car Insurance Number -->
+          <div class="col">
+            <label for="carInsuranceNumber">Car Insurance Number:</label>
+            <input type="text" id="carInsuranceNumber" formControlName="carInsuranceNumber" placeholder="Enter car insurance number" required>
+            <!-- Error messages for Car Insurance Number -->
+            <div *ngIf="carForm.get('carInsuranceNumber')?.invalid && (carForm.get('carInsuranceNumber')?.dirty || carForm.get('carInsuranceNumber')?.touched)">
+              <div *ngIf="carForm.get('carInsuranceNumber')?.errors?.['required']" class="error-message">Car insurance number is required</div>
+              <div *ngIf="carForm.get('carInsuranceNumber')?.errors?.['minlength']" class="error-message">Minimum length is 5 characters</div>
+              <div *ngIf="carForm.get('carInsuranceNumber')?.errors?.['maxlength']" class="error-message">Maximum length is 20 characters</div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Button for form submission -->
+        <div class="wrap">
+          <button type="submit" class="submit-link" [disabled]="carForm.invalid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

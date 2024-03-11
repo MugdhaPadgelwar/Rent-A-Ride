@@ -1,63 +1,77 @@
+/* Body Styles */
 body {
     font-family: Arial, sans-serif; 
 }  
 
+/* Navigation Styles */
 nav {
     background-color: #2b2e4a;
     padding: 10px;
 }
 
+/* Navigation Link Styles */
 nav a {
     color: #f77d0a;
     text-decoration: none;
 }
 
+/* Container Styles */
 .container {
     display: flex;
     justify-content: space-between;
     margin: 20px;
 }
 
+/* Left Section Styles */
 .left-section {
     width: 20%;
 }
 
+/* Right Section Styles */
 .right-section {
     width: 70%; 
 }
 
+/* Search Container Styles */
 .search-container {
     margin-bottom: 20px;
 }
 
+/* Search Box Styles */
 .search-box {
     width: 50%;
     padding: 10px;
 }
 
+/* Search Button Styles */
 .search-button {
     padding: 10px;
 }
 
+/* Table Styles */
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
+/* Table Header and Data Cell Styles */
 th, td {
     border: 1px solid black;
     padding: 15px;
     text-align: left;
 }
 
+/* Table Header Styles */
 th {
     background-color: #f2f2f2;
 }
 
+/* Even Row Styles */
 tr:nth-child(even) {
     background-color: #f2f2f2;
 } 
 
+/* Section Styles */
 .car-details,
 .booking-details,
 .user-details,

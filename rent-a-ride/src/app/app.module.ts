@@ -32,6 +32,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { TransactionPageComponent } from './transaction-page/transaction-page.component';
 import { CarManagementComponent } from './car-management/car-management.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { RentCarComponent } from './renter/renter.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
     TransactionPageComponent,
     CarManagementComponent,
     BookingDetailsComponent,
+    RentCarComponent,
   ],
   imports: [
     BrowserModule,

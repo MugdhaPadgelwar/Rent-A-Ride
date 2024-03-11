@@ -1,11 +1,20 @@
+/**
+ * Import necessary modules.
+ */
 import { Component } from '@angular/core';
 
+/**
+ * Define the component with metadata.
+ */
 @Component({
   selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.css'
+  templateUrl: './user-details.component.html', // Template URL
+  styleUrl: './user-details.component.css' // CSS Style URL
 })
 export class UserDetailsComponent {
+  /**
+   * Array containing user details.
+   */
   users: any[] = [
     { id: 1, name: 'John Doe', email: 'john.doe@example.com', phone: '1234567890', gender: 'Male', age: 30 },
     { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', phone: '9876543210', gender: 'Female', age: 25 },

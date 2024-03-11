@@ -1,13 +1,21 @@
+/**
+ * Import necessary modules.
+ */
 import { Component } from '@angular/core';
 
+/**
+ * Define the component with metadata.
+ */
 @Component({
   selector: 'app-transaction-page',
-  templateUrl: './transaction-page.component.html',
-  styleUrl: './transaction-page.component.css'
+  templateUrl: './transaction-page.component.html', // Template URL
+  styleUrl: './transaction-page.component.css' // CSS Style URL
 })
 export class TransactionPageComponent { 
- 
 
+  /**
+   * Array containing transaction details.
+   */
   transactions: any[] = [
     { userId: 1, carId: 'ABC123', transactionId: 'T001', transactionMode: 'Online', status: 'Completed', dateTime: '2022-01-01 12:00:00' },
     { userId: 2, carId: 'DEF456', transactionId: 'T002', transactionMode: 'Offline', status: 'Pending', dateTime: '2022-02-05 09:30:00' },

@@ -1,0 +1,91 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    background: #f3f3f3;
+    margin: 0;
+}
+.nav {
+    /* Your navbar styles here */
+    height: 50px; /* For example, adjust as needed */
+}
+.main {
+    background-color: #2b2e4a;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.2s;
+    width: 800px; /* Adjust the width as needed */
+    max-width: 600px;
+    height:720px; /* Set a maximum width for larger screens */
+    text-align: center;
+    margin-top: 50px; /* Adjust the top margin to leave space for the navbar */
+    margin-bottom: 50px; /* Adjust the bottom margin to leave space for the footer */
+}
+
+h3 {
+    color: #e67e22;
+}
+
+label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.col {
+    flex: 1;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+a.submit-link {
+    display: inline-block;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from anchor */
+    background-color:#e67e22;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
+a.submit-link:hover {
+    background-color: #e67e22;
+}
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.error-message{ 
+    color: red;
+
+}

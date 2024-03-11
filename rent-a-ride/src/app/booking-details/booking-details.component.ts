@@ -1,11 +1,18 @@
+/* Importing necessary modules */
 import { Component } from '@angular/core';
 
+/* Declaring the component */
 @Component({
+  /* Component selector */
   selector: 'app-booking-details',
+  /* HTML template URL */
   templateUrl: './booking-details.component.html',
+  /* CSS style URL */
   styleUrl: './booking-details.component.css'
 })
+/* Class definition */
 export class BookingDetailsComponent {
+  /* Booking details data */
   bookings = [
     { userId: 1, carId: 'ABC123', pickUpSpot: 'Location A', pickUpTime: '2024-03-10 09:00:00', dropOffSpot: 'Location B', dropOffTime: '2024-03-12 10:00:00', transactionId: 'T001' },
     { userId: 2, carId: 'DEF456', pickUpSpot: 'Location C', pickUpTime: '2024-03-11 10:00:00', dropOffSpot: 'Location D', dropOffTime: '2024-03-13 11:00:00', transactionId: 'T002' },
