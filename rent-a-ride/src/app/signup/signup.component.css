@@ -4,7 +4,8 @@
   place-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: white;
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
 }
 
 /* Text selection styles */
@@ -31,7 +32,8 @@
   color: #f77d0a; /* Text color */
   user-select: none;
   border-radius: 15px 15px 0 0;
-  background-color: #2b2e4a;
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
 }
 
 /* Styles for the form */
@@ -131,8 +133,8 @@ form .field input[type="submit"] {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
-  background-color: #2b2e4a;
-
+  background: #010101;
+  background: linear-gradient(135deg, #010101, #eb8028);
   transition: all 0.3s ease;
 }
 
