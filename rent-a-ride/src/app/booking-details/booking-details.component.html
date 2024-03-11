@@ -1,0 +1,55 @@
+<div class="body">
+    <!-- Navigation section -->
+    <nav>
+        <a href="#"><h1>Booking Details Page</h1></a>
+    </nav> 
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Left section -->
+        <section class="left-section">
+            <!-- Different sections -->
+            <div class="car-details">Car Details</div>
+            <div class="booking-details">Booking Details</div>
+            <div class="user-details">User Details</div>
+            <div class="transaction-details">Payments Details</div>
+        </section>
+
+        <!-- Right section -->
+        <section class="right-section">
+            <!-- Search container -->
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+
+            <!-- Transaction summary table -->
+            <table class="transaction-summary">
+                <thead>
+                    <!-- Table header -->
+                    <tr>
+                        <th>User Id</th>
+                        <th>Car Id</th>
+                        <th>Pick up Spot</th>
+                        <th>Pick up Time</th>
+                        <th>Drop off Spot</th>
+                        <th>Drop off Time</th> 
+                        <th>Transaction id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body rows -->
+                    <tr *ngFor="let booking of bookings">
+                        <td>{{ booking.userId }}</td>
+                        <td>{{ booking.carId }}</td>  
+                        <td>{{ booking.pickUpSpot }}</td> 
+                        <td>{{ booking.pickUpTime }}</td> 
+                        <td>{{ booking.dropOffSpot }}</td> 
+                        <td>{{ booking.dropOffTime }}</td> 
+                        <td>{{ booking.transactionId }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

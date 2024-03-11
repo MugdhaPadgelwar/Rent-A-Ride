@@ -1,0 +1,56 @@
+<div class="body">
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#"><h1>Car Details Page</h1></a>
+    </nav> 
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Left Section -->
+        <section class="left-section">
+            <div class="car-details">Car Details</div>
+            <div class="booking-details">Booking Details</div>
+            <div class="user-details">User Details</div>
+            <div class="transaction-details">Payments Details</div>
+        </section>
+        <!-- Right Section -->
+        <section class="right-section">
+            <!-- Search Container -->
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+            <!-- Car Summary Table -->
+            <table class="car-summary">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Car Id</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Car No Plate</th> 
+                        <th>Capacity</th>
+                        <th>Type</th>
+                        <th>Fuel Type</th>
+                        <th>Price/hour</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows with data here -->
+                    <tr *ngFor="let car of cars">
+                        <td>{{ car.userId }}</td>
+                        <td>{{ car.carId }}</td>
+                        <td>{{ car.brand }}</td>
+                        <td>{{ car.model }}</td>
+                        <td>{{ car.year }}</td>
+                        <td>{{ car.carNoPlate }}</td>
+                        <td>{{ car.capacity }}</td>
+                        <td>{{ car.type }}</td>
+                        <td>{{ car.fuelType }}</td>
+                        <td>{{ car.pricePerHour }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

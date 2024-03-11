@@ -2,12 +2,7 @@
 #main {
   display: grid;
   place-items: center;
-  background: #010101; /* Fallback background color */
-  background: linear-gradient(
-    135deg,
-    #010101,
-    #eb8028
-  ); /* Gradient background */
+  background-color: white; 
   height: 100vh; /* Full viewport height */
   width: 100vw; /* Full viewport width */
 }
@@ -33,15 +28,10 @@
   font-weight: 600; /* Font weight */
   text-align: center; /* Text alignment */
   line-height: 100px; /* Line height */
-  color: #fff; /* Text color */
+  color: #f77d0a; /* Text color */
   user-select: none; /* Prevent text selection */
   border-radius: 15px 15px 0 0; /* Border radius */
-  background: #010101; /* Fallback background color */
-  background: linear-gradient(
-    135deg,
-    #010101,
-    #eb8028
-  ); /* Gradient background */
+  background-color: #2b2e4a;
 }
 
 /* Styles for the form */
@@ -114,7 +104,7 @@ form .content {
 form .content .checkbox {
   display: flex; /* Display as flex */
   /* Justify content */
-  margin-right: 180px;
+  margin-right: 150px;
   margin-bottom: 40px;
 }
 
@@ -147,12 +137,7 @@ form .field input[type="submit"] {
   font-size: 20px; /* Font size */
   font-weight: 500; /* Font weight */
   cursor: pointer; /* Cursor style */
-  background: #010101; /* Fallback background color */
-  background: linear-gradient(
-    135deg,
-    #010101,
-    #eb8028
-  ); /* Gradient background */
+  background-color: #1c1e32;
   transition: all 0.3s ease; /* Transition */
 }
 

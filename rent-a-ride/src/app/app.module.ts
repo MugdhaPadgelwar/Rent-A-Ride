@@ -27,6 +27,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 import { ResetComponent } from './reset/reset.component';
 import { SignupComponent } from './signup/signup.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { TransactionPageComponent } from './transaction-page/transaction-page.component';
+import { CarManagementComponent } from './car-management/car-management.component';
+import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { RentCarComponent } from './renter/renter.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +52,11 @@ import { SignupComponent } from './signup/signup.component';
     LoginComponent,
     ResetComponent,
     SignupComponent,
+    UserDetailsComponent,
+    TransactionPageComponent,
+    CarManagementComponent,
+    BookingDetailsComponent,
+    RentCarComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +68,7 @@ import { SignupComponent } from './signup/signup.component';
     MatToolbarModule,
     MatInputModule,
   ],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
