@@ -1,4 +1,4 @@
-body {
+.body {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,7 +12,7 @@ body {
     /* Your navbar styles here */
     height: 50px; /* For example, adjust as needed */
 }
-.main {
+#main {
     background-color: #2b2e4a;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -20,7 +20,7 @@ body {
     transition: transform 0.2s;
     width: 800px; /* Adjust the width as needed */
     max-width: 600px;
-    height:720px; /* Set a maximum width for larger screens */
+    height:730px; /* Set a maximum width for larger screens */
     text-align: center;
     margin-top: 50px; /* Adjust the top margin to leave space for the navbar */
     margin-bottom: 50px; /* Adjust the bottom margin to leave space for the footer */
@@ -86,6 +86,7 @@ a.submit-link:hover {
     align-items: center;
 } 
 .error-message{ 
-    color: red;
+    color: red; 
+    margin-right: 60px;
 
 }
