@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
 import { RentCarComponent } from './renter/renter.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -51,6 +53,14 @@ const routes: Routes = [
   {
     path: 'detailproduct',
     component: ProductDetailPageComponent,
+  },
+  {
+    path: 'errorpage',
+    component: ErrorPageComponent,
+  },
+  {
+    path: 'editprofile',
+    component: EditProfileComponent,
   },
 ];
 
