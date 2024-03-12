@@ -1,6 +1,7 @@
 // external imports
 const express = require("express");
-const router = express.Router();
+const router = express.Router(); 
+
 
 // Load environment variables
 require("dotenv").config();
@@ -8,14 +9,65 @@ require("dotenv").config();
 // Import middleware
 
 const userController = require("../controller/userController");
-const { verifyToken } = require("../middleware/auth");
+const { verifyToken } = require("../middleware/auth"); 
+
+
 
 /**
  * @swagger
- * /users/register:
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         locationId:
+ *           type: string
+ *           description: ID of the user's location.
+ *         userName:
+ *           type: string
+ *           description: Username of the user.
+ *           minLength: 4
+ *           maxLength: 20
+ *         email:
+ *           type: string
+ *           description: Email address of the user.
+ *           format: email
+ *         password:
+ *           type: string
+ *           description: Password for the user account.
+ *           minLength: 8
+ *           maxLength: 200
+ *         address:
+ *           type: object
+ *           description: User's address information.
+ *         mobileNumber:
+ *           type: string
+ *           description: User's mobile number.
+ *         age:
+ *           type: integer
+ *           description: User's age.
+ *         gender:
+ *           type: string
+ *           enum: [male, female, other]
+ *           description: User's gender.
+ *         userImage:
+ *           type: string
+ *           description: URL of the user's profile image.
+ *         role:
+ *           type: string
+ *           enum: [user, admin]
+ *           description: Role of the user. Can be "user" or "admin".
+ *           required: true
+ */
+
+/**
+ * @swagger
+ * /register:
  *   post:
  *     summary: Register a new user
- *     description: Allows for the registration of a new user with a username, email, password, and role. It checks if the email is already in use, hashes the password, and saves the new user to the database.
+ *     description: Register a new user in the system.
+ *     tags:
+ *       - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -24,63 +76,57 @@ const { verifyToken } = require("../middleware/auth");
  *             type: object
  *             properties:
  *               userName:
- *                 type: string
- *                 description: The user's username.
+ *                 $ref: '#/components/schemas/User/properties/userName'
  *               email:
- *                 type: string
- *                 format: email
- *                 description: The user's email address. Must be unique.
+ *                 $ref: '#/components/schemas/User/properties/email'
  *               password:
- *                 type: string
- *                 format: password
- *                 description: The user's password. Will be hashed before storage.
+ *                 $ref: '#/components/schemas/User/properties/password'
  *               role:
- *                 type: string
- *                 description: The user's role within the system.
+ *                 $ref: '#/components/schemas/User/properties/role'
  *     responses:
- *       201:
- *         description: User registered successfully. Returns the created user object.
+ *       '201':
+ *         description: Successfully registered user
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/user'
- *       400:
- *         description: Invalid input, object invalid. Possible validation error.
- *       409:
- *         description: Email is already in use.
- *       500:
- *         description: Internal Server Error
- * components:
- *   schemas:
- *     user:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *           description: The user ID.
- *         userName:
- *           type: string
- *           description: The user's username.
- *         email:
- *           type: string
- *           format: email
- *           description: The user's email address.
- *         password:
- *           type: string
- *           format: password
- *           description: The user's hashed password.
- *         role:
- *           type: string
- *           description: The user's role within the system.
+ *             example:
+ *               userName: "JohnDoe"
+ *               email: "johndoe@example.com"
+ *               password: "hashedPassword"
+ *               role: "user"
+ *       '400':
+ *         description: Invalid input. Check the request body for errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Validation Error: Invalid username format"
+ *       '409':
+ *         description: Conflict. Email is already in use.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Email is already in use."
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Internal Server Error"
  */
-router.post("/register", userController.register);
+
+
+router.post("/register", userController.register); 
+
+
+
 
 /**
  * @swagger
- * /users/login:
+ * /login:
  *   post:
  *     summary: User login
- *     description: Authenticates a user by email and password, and returns a JWT token upon successful authentication.
+ *     description: Login with email and password.
+ *     tags:
+ *       - Users
  *     requestBody:
  *       required: true
  *       content:
@@ -90,126 +136,49 @@ router.post("/register", userController.register);
  *             properties:
  *               email:
  *                 type: string
- *                 format: email
- *                 description: The user's email address.
+ *                 description: Email address of the user.
  *               password:
  *                 type: string
- *                 format: password
- *                 description: The user's password.
+ *                 description: Password for the user account.
  *     responses:
- *       200:
- *         description: Login successful. Returns JWT token and token expiration time.
+ *       '200':
+ *         description: Successful login
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Login successful.
- *                 token:
- *                   type: string
- *                   description: JWT token for authenticated session.
- *                 expiresIn:
- *                   type: integer
- *                   description: Time in seconds until token expiration.
- *                   example: 3600
- *       400:
- *         description: Invalid input, object invalid. Possible validation error.
- *       401:
- *         description: Invalid email or password.
- *       500:
- *         description: Internal Server Error
+ *             example:
+ *               message: "Login successful."
+ *               token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." # JWT token
+ *               expiresIn: 3600 # Token expires in 1 hour
+ *       '400':
+ *         description: Invalid input. Check the request body for errors.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Invalid email or password."
+ *       '401':
+ *         description: Unauthorized. Invalid email or password.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Invalid email or password."
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: "Internal Server Error"
  */
-router.post("/login", userController.login);
+
+router.post("/login", userController.login); 
+
+
+
 
 router.post("/forget-password", userController.forgetPassword);
 router.get("/user_id", userController.getUserById);
 
 router.use(verifyToken);
-/**
- * @swagger
- * /users/update:
- *   put:
- *     summary: Update user information
- *     description: Allows for updating user information. Requires a valid JWT token for authorization and userId in the query parameters.
- *     security:
- *       - bearerAuth: [] # References the security scheme defined above
- *     parameters:
- *       - in: query
- *         name: userId
- *         required: true
- *         schema:
- *           type: string
- *         description: The ID of the user to update.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                 type: string
- *                 description: The user's new username.
- *               email:
- *                 type: string
- *                 format: email
- *                 description: The user's new email address.
- *               password:
- *                 type: string
- *                 format: password
- *                 description: The user's new password.
- *               role:
- *                 type: string
- *                 description: The user's new role within the system.
- *             additionalProperties: false
- *     responses:
- *       200:
- *         description: User information updated successfully. Returns the updated user object.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/user'
- *       400:
- *         description: userId is required in the query parameters.
- *       403:
- *         description: Unauthorized - You do not have permission to update this user.
- *       404:
- *         description: User not found.
- *       401:
- *         description: Unauthorized- No token provided or Unauthorized- Invalid token.
- *       500:
- *         description: Internal Server Error
- * components:
- *   securitySchemes:
- *     bearerAuth: # Name of the security scheme
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT
- *   schemas:
- *     user:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *           description: The user ID.
- *         userName:
- *           type: string
- *           description: The user's username.
- *         email:
- *           type: string
- *           format: email
- *           description: The user's email address.
- *         password:
- *           type: string
- *           format: password
- *           description: The user's hashed password.
- *         role:
- *           type: string
- *           description: The user's role within the system.
- *       additionalProperties: false
- */
+
 router.put("/update", userController.update);
 router.delete("/delete_id", userController.deleteByUserId);
 router.delete("/delete_image", userController.deleteImageById);
