@@ -4,6 +4,7 @@
  * This component is responsible for handling the signup form.
  * It validates user inputs for username, email, and password fields.
  */
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -21,7 +22,7 @@ export class SignupComponent {
    * Initializes the signup form with validators for username, email, and password fields.
    * @param formBuilder FormBuilder instance for creating the form group
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private http:HttpClient) {
     this.signupForm = this.formBuilder.group({
       username: [
         '',
@@ -67,6 +68,16 @@ export class SignupComponent {
   onSubmit() {
     if (this.signupForm.valid) {
       console.log('Form submitted successfully!');
+      console.log(this.signupForm.value);
+      const userData = {
+        userName:this.signupForm.value.username,
+        email:this.signupForm.value.email,
+        password:this.signupForm.value.password,
+        role:'user'
+      }
+      this.http.post('http://localhost:3001/users/register',userData).subscribe()
+      
+
     } else {
       console.log('Form is invalid. Please fix the errors.');
     }

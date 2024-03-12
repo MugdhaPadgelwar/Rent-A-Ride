@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -13,7 +14,7 @@ export class LoginComponent {
    * Constructor to initialize form builder and create the sign-in form.
    * @param formBuilder FormBuilder service for building reactive forms
    */
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient) {
     // Initialize the sign-in form with form controls and validators
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], // Email field with required and email validators
@@ -33,6 +34,24 @@ export class LoginComponent {
       console.log('Email:', this.signinForm.value.email);
       console.log('Password:', this.signinForm.value.password);
       console.log('Remember Me:', this.signinForm.value.rememberMe);
+      const loginData ={
+        email:this.signinForm.value.email,
+        password:this.signinForm.value.password
+      }
+      this.http.post('http://localhost:3001/users/login',loginData).subscribe(
+        (res:any)=>{
+          const token = res.token
+          console.log(token);
+          if(token){
+            localStorage.setItem('userToken',token)
+          }
+          
+        },
+        (error)=>{
+          console.log(error);
+          
+        }
+      )
     } else {
       console.log('Form is invalid. Please fix the errors.');
     }

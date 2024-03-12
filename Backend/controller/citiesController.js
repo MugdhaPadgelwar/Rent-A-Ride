@@ -4,7 +4,7 @@ const { isAdmin, verifyToken } = require("../middleware/auth");
 const Cities = require("../models/City");
 
 const addCities =
-  (isAdmin,
+  (verifyToken,isAdmin,
   async (req, res) => {
     try {
       const { city, state } = req.body;

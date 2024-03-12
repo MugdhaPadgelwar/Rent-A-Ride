@@ -11,7 +11,8 @@ const getAllUsers =
   async (req, res) => {
     try {
       // Fetch all users from the database
-      const users = await User.find({}, { password: 0 }); // Exclude password from the response
+      const users = await User.find({role:"user"}, { password: 0 }); // Exclude password from the response
+
 
       // Return the list of users
       res.status(200).json(users);

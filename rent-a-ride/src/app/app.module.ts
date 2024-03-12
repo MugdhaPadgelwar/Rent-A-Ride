@@ -30,6 +30,7 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { CarManagementComponent } from './car-management/car-management.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { RentCarComponent } from './renter/renter.component';
     AppRoutingModule,
     ReactiveFormsModule, 
     FormsModule,
-   
+    HttpClientModule,
     CommonModule,
   
   ],
