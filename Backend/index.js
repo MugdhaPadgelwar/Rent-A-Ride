@@ -39,7 +39,53 @@ app.use("/orders", orderRoutes);
 app.use("/locations", locationRoutes);
 app.use("/admin", adminRoutes);
 app.use("/cars", carRoutes);
-app.use("/cities", citiesRoutes);
+app.use("/cities", citiesRoutes); 
+
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express'); 
+
+// External dependencies
+
+
+
+
+// Database connection
+const { connectToDatabase } = require("./database/connection");
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Express API for your project',
+      version: '1.0.0',
+      description: 'Description of your API',
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/licenses/MIT',
+      },
+      contact: {
+        name: 'Your Name',
+        url: 'https://yourwebsite.com',
+        email: 'your@email.com',
+      },
+    },
+    servers: [
+      {
+        url: 'http://localhost:3001',
+        description: 'Development server',
+      },
+    ],
+  }, 
+   // Specify the path to your API routes
+   apis: ['./router/*.js'],
+  };
+  
+  const swaggerSpec = swaggerJSDoc(swaggerOptions);
+  
+  console.log('Swagger UI setup complete');
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 
 // Start the server and listen for incoming requests
 app.listen(port, () => {
