@@ -15,6 +15,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { TransactionPageComponent } from './transaction-page/transaction-page.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
+import { CarManagementComponent } from './car-management/car-management.component';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -66,8 +67,8 @@ const routes: Routes = [
     component: EditProfileComponent,
   },
   {
-    path: 'admin-transaction-page',
-    component: TransactionPageComponent,
+    path: 'admin-car-details',
+    component: CarManagementComponent,
   },
   {
     path: 'admin-user-details',

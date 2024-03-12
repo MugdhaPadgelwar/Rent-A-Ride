@@ -59,9 +59,6 @@ const citiesController = require("../controller/citiesController");
  *           example: 0
  */
 
-// Import middleware
-const { verifyToken, isAdmin } = require("../middleware/auth");
-
 router.use(verifyToken, isAdmin);
 
 /**
