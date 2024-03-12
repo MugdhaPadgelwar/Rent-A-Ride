@@ -60,7 +60,8 @@ import { RentCarComponent } from './renter/renter.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, 
+    FormsModule,
    
     CommonModule,
   

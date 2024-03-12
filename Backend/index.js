@@ -40,31 +40,7 @@ const carRoutes = require("./router/carRouter");
 const citiesRoutes = require("./router/citiesRouter");
 
 
-// define swaggerDefination
-const swaggerDefinition = {
-  openapi: '3.0.0',
-  info: {
-    title: 'Rent-Ride Express APIs',
-    version: '1.0.0',
-  },
-  servers:[
-    {
-      url:'http://localhost:3001',
-      description:"development server"
-    }
-  ],
 
-};
-// options for swagger 
-const options = {
-  swaggerDefinition,
-
-  // Paths to files containing OpenAPI definitions
-  apis: ['./router/*.js'],
-};
-const swaggerSpec = swaggerJSDoc(options);
-// middleware for swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // Mount route handlers
@@ -74,7 +50,52 @@ app.use("/orders", orderRoutes);
 app.use("/locations", locationRoutes);
 app.use("/admin", adminRoutes);
 app.use("/cars", carRoutes);
-app.use("/cities", citiesRoutes);
+app.use("/cities", citiesRoutes); 
+
+
+
+// External dependencies
+
+
+
+
+// Database connection
+const { connectToDatabase } = require("./database/connection");
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Express API for your project',
+      version: '1.0.0',
+      description: 'Description of your API',
+      license: {
+        name: 'MIT',
+        url: 'https://opensource.org/licenses/MIT',
+      },
+      contact: {
+        name: 'Your Name',
+        url: 'https://yourwebsite.com',
+        email: 'your@email.com',
+      },
+    },
+    servers: [
+      {
+        url: 'http://localhost:3001',
+        description: 'Development server',
+      },
+    ],
+  }, 
+   // Specify the path to your API routes
+   apis: ['./router/*.js'],
+  };
+  
+  const swaggerSpec = swaggerJSDoc(swaggerOptions);
+  
+  console.log('Swagger UI setup complete');
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 
 
 
