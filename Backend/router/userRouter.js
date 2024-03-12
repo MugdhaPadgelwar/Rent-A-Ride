@@ -178,6 +178,7 @@ router.post("/forget-password", userController.forgetPassword);
 router.get("/user_id", userController.getUserById);
 
 router.use(verifyToken);
+
 router.put("/update", userController.update);
 router.delete("/delete_id", userController.deleteByUserId);
 router.delete("/delete_image", userController.deleteImageById);

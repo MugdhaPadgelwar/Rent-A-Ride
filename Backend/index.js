@@ -11,11 +11,18 @@ require("./database/connection");
 // Load environment variables from .env file
 require("dotenv").config();
 
+// swaggerjsDocs import for swagger defination
+const swaggerJSDoc = require('swagger-jsdoc');
+
+// swaggerUi
+const swaggerUi = require('swagger-ui-express');
+
 // Set the port to listen for incoming requests
 const port = process.env.SERVER_PORT;
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
+
 
 // Middleware for parsing URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,6 +39,10 @@ const adminRoutes = require("./router/adminRouter");
 const carRoutes = require("./router/carRouter");
 const citiesRoutes = require("./router/citiesRouter");
 
+
+
+
+
 // Mount route handlers
 app.use("/users", userRoutes);
 app.use("/ratings", ratingRoutes);
@@ -41,8 +52,7 @@ app.use("/admin", adminRoutes);
 app.use("/cars", carRoutes);
 app.use("/cities", citiesRoutes); 
 
-const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express'); 
+
 
 // External dependencies
 
@@ -84,6 +94,8 @@ const swaggerOptions = {
   
   console.log('Swagger UI setup complete');
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 
 
 
