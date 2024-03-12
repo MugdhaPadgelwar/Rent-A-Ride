@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../auth-service';
+
 /**
  * Component for the navigation bar.
  */
@@ -10,12 +11,18 @@ import { AuthService } from '../auth-service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
-  isSignedUp:Boolean = false
+export class NavbarComponent implements OnInit,OnDestroy {
+  // to check if user is logged in or not
+  isLoggedIn:Boolean = false
+
+  
+  ngOnDestroy(): void {
+    
+  }
 
   ngOnInit(): void {
-    this.authService.loggedIn$.subscribe(loggedIn=>{
-      this.isSignedUp = loggedIn
+     this.authService.loggedIn$.subscribe(loggedIn=>{
+      this.isLoggedIn = loggedIn
     })
   }
   /** Brand name displayed in the navigation bar. */

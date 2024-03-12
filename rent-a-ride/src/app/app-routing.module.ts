@@ -33,18 +33,18 @@ const routes: Routes = [
     path: 'signin',
     component: LoginComponent,
   },
-  {
-    path: '',
-    component: ForgotPasswordComponent,
-  },
+  // {
+  //   path: '',
+  //   component: ForgotPasswordComponent,
+  // },
   {
     path: 'forgotpassword',
     component: ForgotPasswordComponent,
   },
-  {
-    path: '',
-    component: ResetComponent,
-  },
+  // {
+  //   path: '',
+  //   component: ResetComponent,
+  // },
   {
     path: 'reset-password/:token',
     component: ResetComponent,
