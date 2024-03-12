@@ -216,7 +216,7 @@ const deleteCars =
 const getCarByLocationId = async (req, res) => {
   try {
     // Extract the location ID from the request body
-    const { locationId } = req.body;
+    const  locationId  = req.query.locationId;
 
     // Validate location ID
     validateLocationId(locationId);

@@ -13,18 +13,6 @@ const adminController = require("../controller/adminController");
 router.use(verifyToken, isAdmin);
 
 
-/**
- * @swagger
- * components:
- *   schemas: # It should be 'schemas' not 'schema'
- *     user: # This defines a schema named 'user'
- *       type: object
- *       properties: # It should be 'properties' not 'properities'
- *         userName:
- *           type: string
- *         email:
- *           type: string
- */
 
 
 
@@ -35,6 +23,8 @@ router.use(verifyToken, isAdmin);
  *   get:
  *     summary: Get list of all the users
  *     description: Retrieve list of all users as admin
+ *     tags:
+ *      - Admin
  *     responses:
  *       200:
  *         description: List of all users
