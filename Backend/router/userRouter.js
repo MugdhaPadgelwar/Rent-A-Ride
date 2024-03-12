@@ -173,14 +173,240 @@ router.post("/login", userController.login);
 
 
 
+/**
+ * @swagger
+ * /forget-password:
+ *   post:
+ *     summary: Send password reset instructions to the user's email
+ *     description: |
+ *       Sends password reset instructions to the user's email address. This endpoint requires the user's email.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: The email address of the user requesting a password reset.
+ *     responses:
+ *       '200':
+ *         description: Password reset instructions sent successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: Password reset instructions sent
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: User not found
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
 
-router.post("/forget-password", userController.forgetPassword);
+router.post("/forget-password", userController.forgetPassword);  
+
+
+
+
+/**
+ * @swagger
+ * /user_id:
+ *   get:
+ *     summary: Get user details by user ID
+ *     description: |
+ *       Retrieves user details from the database based on the provided user ID.
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the user to retrieve details for.
+ *     responses:
+ *       '200':
+ *         description: User details retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User not found
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
+
 router.get("/user_id", userController.getUserById);
 
-router.use(verifyToken);
 
-router.put("/update", userController.update);
-router.delete("/delete_id", userController.deleteByUserId);
+
+/**
+ * @swagger
+ * /update:
+ *   put:
+ *     summary: Update user information
+ *     description: |
+ *       Updates user information in the database based on the provided user ID and fields to update.
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the user to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               // Define properties to update here
+ *     responses:
+ *       '200':
+ *         description: User information updated successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User information updated successfully
+ *               user:
+ *                 // User object with updated information
+ *       '400':
+ *         description: Bad request. Missing userId in query parameters.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: userId is required in the query parameters
+ *       '403':
+ *         description: Forbidden. Unauthorized to update this user's information.
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Unauthorized - You do not have permission to update this user
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User not found
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
+ 
+router.put("/update", userController.update); 
+
+
+/**
+ * @swagger
+ * /delete_id:
+ *   delete:
+ *     summary: Delete user by ID
+ *     description: Deletes a user from the database based on the provided user ID.
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the user to delete.
+ *     responses:
+ *       '200':
+ *         description: User deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User deleted successfully
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User not found
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
+
+router.delete("/delete_id", userController.deleteByUserId); 
+
+
+/**
+ * @swagger
+ * /delete_image:
+ *   delete:
+ *     summary: Delete user image by ID
+ *     description: Deletes the image associated with a user based on the provided user ID.
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: The ID of the user whose image is to be deleted.
+ *     responses:
+ *       '200':
+ *         description: User image deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User image deleted successfully
+ *       '400':
+ *         description: Bad request. Missing user ID in request body.
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: User ID is required in the request body.
+ *       '404':
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: User not found.
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
+
 router.delete("/delete_image", userController.deleteImageById);
-
+router.use(verifyToken);
 module.exports = router;
