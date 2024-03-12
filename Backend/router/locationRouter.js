@@ -10,7 +10,7 @@ const { verifyToken } = require("../middleware/auth");
 
 router.use(verifyToken);
 
-
+//location tag
 /**
  * @swagger
  * tags:
@@ -18,6 +18,7 @@ router.use(verifyToken);
  *   description: Operations related to locations
  */
 
+// location schema
 /**
  * @swagger
  * components:
@@ -25,6 +26,10 @@ router.use(verifyToken);
  *     Location:
  *       type: object
  *       properties:
+ *         _id:
+ *          type: string
+ *          description: Object id 
+ *          required: false
  *         city:
  *           type: string
  *           description: The city of the location
@@ -103,6 +108,8 @@ router.use(verifyToken);
  *           example: 0
  */
 
+
+//postlocation 
 /**
  * @swagger
  * /locations/postLocation:
@@ -132,8 +139,49 @@ router.use(verifyToken);
  *     security:
  *       - BearerAuth: []
  */
-
 router.post("/postLocation", locationController.postLocation);
+//updatelocation
+/**
+ * @swagger
+ * /locations/updateLocation:
+ *   put:
+ *     summary: Update a location
+ *     tags: [Locations]
+ *     description: Update an existing location with the provided details.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Location'
+ *     responses:
+ *       200:
+ *         description: The updated location
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *     security:
+ *       - BearerAuth: []
+ */
 router.put("/updateLocation", locationController.updateLocation);
 
 module.exports = router;
