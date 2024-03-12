@@ -1,4 +1,4 @@
-const { isAdmin } = require("../middleware/auth");
+const { isAdmin, verifyToken } = require("../middleware/auth");
 
 //Import Model
 const Cities = require("../models/City");
