@@ -103,6 +103,7 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Login successful.",
       token: token,
+      role:user.role,
       expiresIn: 3600, // Token expires in 1 Month
     });
     console.log("success");

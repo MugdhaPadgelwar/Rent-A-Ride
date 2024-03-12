@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../auth-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +15,7 @@ export class LoginComponent {
    * Constructor to initialize form builder and create the sign-in form.
    * @param formBuilder FormBuilder service for building reactive forms
    */
-  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router:Router) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router:Router,private authService:AuthService) {
     // Initialize the sign-in form with form controls and validators
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], // Email field with required and email validators
@@ -43,11 +43,18 @@ export class LoginComponent {
         next: (response: any) => {
           console.log('Signin successful', response);
           const token = response.token;
-          if (token) {
+          const role = response.role
+          if (token && role) {
             console.log(token);
             localStorage.setItem('userToken', token);
+            localStorage.setItem('role',role)
+            this.authService.logIn()
             // Navigate to the home page if the token is present
-            this.router.navigate(['/home']);
+            if(role=='user')
+            this.router.navigate(['/']);
+            else{
+              this.router.navigate(['/home'])
+            }
           } else {
             // Optionally handle the case where there's no token in the response
             console.log('No token received');
