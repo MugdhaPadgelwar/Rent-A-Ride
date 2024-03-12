@@ -5,6 +5,10 @@ const bodyParser = require("body-parser");
 // Create an Express application
 const app = express();
 
+
+// importing cors
+const cors = require('cors')
+
 // Connect to the database
 require("./database/connection");
 
@@ -29,6 +33,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Middleware for parsing JSON bodies
 app.use(bodyParser.json());
+
+// cors middleware
+app.use(cors())
 
 // Import route handlers
 const userRoutes = require("./router/userRouter");

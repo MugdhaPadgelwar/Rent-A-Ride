@@ -24,7 +24,8 @@ const register = async (req, res) => {
     // Validate request body
     validateUser(req.body);
 
-    const { userName, email, password, role } = req.body;
+    const { userName, email, password,role } = req.body;
+    
 
     // Check if the email is already in use
     const existingUser = await User.findOne({ email });
@@ -104,6 +105,7 @@ const login = async (req, res) => {
       token: token,
       expiresIn: 3600, // Token expires in 1 Month
     });
+    console.log("success");
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
