@@ -51,7 +51,7 @@ const { verifyToken } = require("../middleware/auth");
 
 /**
  * @swagger
- * /allorders:
+ * /orders/allorders:
  *   get:
  *     summary: Get all orders
  *     description: Fetch all orders from the database.
@@ -80,7 +80,7 @@ router.get("/allorders", orderController.allorders);
 
 /**
  * @swagger
- * /placed:
+ * /orders/placed:
  *   post:
  *     summary: Place a new order
  *     description: Place a new order in the system.
@@ -144,7 +144,7 @@ router.post("/placed", orderController.placedOrder);
 
 /**
  * @swagger
- * /orderById:
+ * /orders/orderById:
  *   get:
  *     summary: Get order by ID
  *     description: Retrieve an order from the database by its ID.
@@ -184,7 +184,7 @@ router.get("/orderById", orderController.orderById);
 
 /**
  * @swagger
- * /cancel:
+ * /orders/cancel:
  *   delete:
  *     summary: Cancel an order
  *     description: Cancel an existing order in the system.

@@ -62,7 +62,7 @@ const { verifyToken } = require("../middleware/auth");
 
 /**
  * @swagger
- * /register:
+ * /users/register:
  *   post:
  *     summary: Register a new user
  *     description: Register a new user in the system.
@@ -121,7 +121,7 @@ router.post("/register", userController.register);
 
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: User login
  *     description: Login with email and password.
@@ -175,7 +175,7 @@ router.post("/login", userController.login);
 
 /**
  * @swagger
- * /forget-password:
+ * /users/forget-password:
  *   post:
  *     summary: Send password reset instructions to the user's email
  *     description: |
@@ -222,7 +222,7 @@ router.post("/forget-password", userController.forgetPassword);
 
 /**
  * @swagger
- * /user_id:
+ * /users/user_id:
  *   get:
  *     summary: Get user details by user ID
  *     description: |
@@ -263,7 +263,7 @@ router.get("/user_id", userController.getUserById);
 
 /**
  * @swagger
- * /update:
+ * /users/update:
  *   put:
  *     summary: Update user information
  *     description: |
@@ -325,7 +325,7 @@ router.put("/update", userController.update);
 
 /**
  * @swagger
- * /delete_id:
+ * /users/delete_id:
  *   delete:
  *     summary: Delete user by ID
  *     description: Deletes a user from the database based on the provided user ID.
@@ -364,7 +364,7 @@ router.delete("/delete_id", userController.deleteByUserId);
 
 /**
  * @swagger
- * /delete_image:
+ * /users/delete_image:
  *   delete:
  *     summary: Delete user image by ID
  *     description: Deletes the image associated with a user based on the provided user ID.

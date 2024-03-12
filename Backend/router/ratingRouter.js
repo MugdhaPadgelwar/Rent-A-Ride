@@ -59,7 +59,7 @@ const { verifyToken } = require("../middleware/auth");
 
 /**
  * @swagger
- * /id:
+ * /ratings/id:
  *   get:
  *     summary: Get rating by ID
  *     description: Retrieve a rating from the database based on the provided rating ID.
@@ -121,7 +121,7 @@ router.get("/id", ratingController.getRatingById);
 
 /**
  * @swagger
- * /add:
+ * /ratings/add:
  *   post:
  *     summary: Add a new rating
  *     description: Add a new rating for a car.
@@ -167,7 +167,7 @@ router.post("/add", ratingController.addRating);
 
 /**
  * @swagger
- * /update:
+ * /ratings/update:
  *   put:
  *     summary: Update a rating by ID
  *     description: Update an existing rating in the system.
@@ -231,7 +231,7 @@ router.put("/update", ratingController.updateById);
 
 /**
  * @swagger
- * /delete:
+ * /ratings/delete:
  *   delete:
  *     summary: Delete a rating by ID
  *     description: Delete an existing rating by its ID.
