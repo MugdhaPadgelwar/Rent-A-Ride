@@ -31,6 +31,11 @@ const validatePassword = (password) => {
   }
 };
 
+const createError = (status, message) => {
+  const error = new Error(message);
+  error.status = status;
+  return error;
+};
 // Validation function for role
 const validateRole = (role) => {
   if (!role) {
@@ -59,5 +64,6 @@ module.exports = {
   validateUser,
   validateEmail,
   validatePassword,
-  validateUserId,
+  validateUserId, 
+  createError,
 };
