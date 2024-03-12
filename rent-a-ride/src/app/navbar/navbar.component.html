@@ -61,13 +61,28 @@
             [class.active]="currentPage === 'home'"
             >Location</a
           >
+          @if (!isLoggedIn) {
 
-          <a
+            <a
+              routerLink="/signup"
+              class="nav-item nav-link"
+              [class.active]="currentPage === 'signup'"
+              >Signup</a
+            >
+          }
+          @if (isLoggedIn) {
+            <!-- <a
             routerLink="/signup"
             class="nav-item nav-link"
             [class.active]="currentPage === 'signup'"
-            >Signup</a
-          >
+            >Signup</a -->
+            <a
+            class="nav-item nav-link"
+            >
+              <img src="" alt="profile">
+            </a>
+          
+          }
           <!-- Property binding with class binding to dynamically set active class based on current page -->
         </div>
       </div>

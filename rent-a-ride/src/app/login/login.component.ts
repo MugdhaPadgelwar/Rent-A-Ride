@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import { AuthService } from '../auth-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent {
    * Constructor to initialize form builder and create the sign-in form.
    * @param formBuilder FormBuilder service for building reactive forms
    */
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private router:Router,private authService:AuthService) {
     // Initialize the sign-in form with form controls and validators
     this.signinForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]], // Email field with required and email validators
@@ -38,20 +39,31 @@ export class LoginComponent {
         email:this.signinForm.value.email,
         password:this.signinForm.value.password
       }
-      this.http.post('http://localhost:3001/users/login',loginData).subscribe(
-        (res:any)=>{
-          const token = res.token
-          console.log(token);
-          if(token){
-            localStorage.setItem('userToken',token)
+      this.http.post('http://localhost:3001/users/login', loginData).subscribe({
+        next: (response: any) => {
+          console.log('Signin successful', response);
+          const token = response.token;
+          const role = response.role
+          if (token && role) {
+            console.log(token);
+            localStorage.setItem('userToken', token);
+            localStorage.setItem('role',role)
+            this.authService.logIn()
+            // Navigate to the home page if the token is present
+            if(role=='user')
+            this.router.navigate(['/']);
+            else{
+              this.router.navigate(['/home'])
+            }
+          } else {
+            // Optionally handle the case where there's no token in the response
+            console.log('No token received');
           }
-          
         },
-        (error)=>{
-          console.log(error);
-          
+        error: (error) => {
+          console.error('Signup failed', error);
         }
-      )
+      });
     } else {
       console.log('Form is invalid. Please fix the errors.');
     }
