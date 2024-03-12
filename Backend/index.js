@@ -85,10 +85,23 @@ const swaggerOptions = {
         description: 'Development server',
       },
     ],
-  }, 
-   // Specify the path to your API routes
-   apis: ['./router/*.js'],
-  };
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT", // Optional, but good to specify if using JWTs
+        },
+      },
+    },
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
+  },
+  apis: ['./router/*.js'], // Specify the path to your API routes
+};
   
   const swaggerSpec = swaggerJSDoc(swaggerOptions);
   

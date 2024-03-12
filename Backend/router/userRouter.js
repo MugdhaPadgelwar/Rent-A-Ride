@@ -62,7 +62,7 @@ const { verifyToken } = require("../middleware/auth");
 
 /**
  * @swagger
- * /register:
+ * /users/register:
  *   post:
  *     summary: Register a new user
  *     description: Register a new user in the system.
@@ -121,7 +121,7 @@ router.post("/register", userController.register);
 
 /**
  * @swagger
- * /login:
+ * /users/login:
  *   post:
  *     summary: User login
  *     description: Login with email and password.
