@@ -32,6 +32,8 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
+ import { DropdownComponent } from './dropdown/dropdown.component'; 
+ import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthGuardService } from './auth-guard-service';
 
 
@@ -59,8 +61,10 @@ import { AuthGuardService } from './auth-guard-service';
     CarManagementComponent,
     BookingDetailsComponent,
     RentCarComponent,
-    AdminComponent,
-    
+    AdminComponent,  
+    DropdownComponent, 
+    ErrorPageComponent,
+  
   
   ],
   imports: [
@@ -69,8 +73,8 @@ import { AuthGuardService } from './auth-guard-service';
     ReactiveFormsModule, 
     FormsModule,
     HttpClientModule,
-    CommonModule,
-    
+    CommonModule, 
+     
   
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
