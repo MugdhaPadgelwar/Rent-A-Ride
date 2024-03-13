@@ -30,10 +30,12 @@ import { CarManagementComponent } from './car-management/car-management.componen
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DropdownComponent } from './dropdown/dropdown.component'; 
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -63,7 +65,8 @@ import { LoginComponent } from './login/login.component';
     RentCarComponent,
     AdminComponent,
     DropdownComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    LoaderComponent
 
     
   
@@ -78,7 +81,7 @@ import { LoginComponent } from './login/login.component';
     
   
   ],
-  providers: [provideClientHydration(), provideAnimationsAsync()],
+  providers: [provideClientHydration(), provideAnimationsAsync(),{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },],
 
   bootstrap: [AppComponent],
 })

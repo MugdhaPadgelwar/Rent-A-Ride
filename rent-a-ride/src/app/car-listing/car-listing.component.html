@@ -83,28 +83,29 @@
 
           <!-- Car Listing Section (Right Side) -->
           <div class="col-lg-9 col-md-6 mb-2">
+            <app-loader></app-loader>
             <div class="row">
               <!-- Use *ngFor to dynamically generate car items -->
               <div class="col-lg-4 col-md-6 mb-2" *ngFor="let car of carList">
                 <div class="rent-item mb-4">
-                  <img class="img-fluid mb-4" [src]="car.image" alt="" />
-                  <h4 class="text-uppercase mb-4">{{ car.brand }}</h4>
+                  <img class="img-fluid mb-4" src="./assets/car-rent-1.png" alt="" />
+                  <h4 class="text-uppercase mb-4">{{ car.carBrand }}</h4>
                   <div class="d-flex justify-content-center mb-4">
                     <div class="px-2">
                       <i class="fa fa-car text-primary mr-1"></i>
-                      <span>{{ car.year }}</span>
+                      <span>{{ car.carYear }}</span>
                     </div>
                     <div class="px-2 border-left border-right">
                       <i class="fa fa-cogs text-primary mr-1"></i>
-                      <span>{{ car.mode }}</span>
+                      <span>{{ car.carType }}</span>
                     </div>
                     <div class="px-2">
                       <i class="fa fa-road text-primary mr-1"></i>
-                      <span>{{ car.mileage }}</span>
+                      <span>{{ car.carMilage }}</span>
                     </div>
                   </div>
                   <a routerLink="/detailproduct" class="btn btn-primary px-3">{{
-                    car.price
+                    car.carPricePerHour
                   }}</a>
                 </div>
               </div>
