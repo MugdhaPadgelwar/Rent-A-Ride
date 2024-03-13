@@ -219,6 +219,7 @@ router.get("/orderById", orderController.orderById);
 
 router.delete("/cancel", orderController.cancleOrder);
 
+router.get('/mybookings',orderController.getMyBookings);
 
 /**
  * @swagger
