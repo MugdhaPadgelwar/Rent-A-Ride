@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+//internal imports
+const { isAdmin, verifyToken } = require("../middleware/auth");
+
 // Load environment variables
 require("dotenv").config();
 
@@ -55,9 +58,6 @@ const citiesController = require("../controller/citiesController");
  *           description: The version of the city
  *           example: 0
  */
-
-// Import middleware
-const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.use(verifyToken, isAdmin);
 

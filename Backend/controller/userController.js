@@ -139,6 +139,25 @@ const update =
         });
       }
 
+      // Find the user in the database using the provided userId
+      const userToUpdate = await User.findById(userId);
+
+      // Check if the user exists
+      if (!userToUpdate) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Extract user email from the decoded token
+      const tokenUserEmail = req.decoded && req.decoded.email;
+
+      // Check if the extracted user email matches the email of the user to be updated
+      if (tokenUserEmail && tokenUserEmail !== userToUpdate.email) {
+        return res.status(403).json({
+          message:
+            "Forbidden - Token email does not match the provided user email",
+        });
+      }
+
       // Update user information in the database
       const updatedUser = await User.findOneAndUpdate(
         { _id: userId },
