@@ -1,63 +1,60 @@
-<aside>
-    <header>
-        <div>
-            <p>Rent-a-Ride</p>
-        </div>
-    </header>
-    <nav class="side-navigation">
-        <ul class="list">
-            <li class="fa fa-ship" (click)="navigateTo('/admin-car-details')">Booking Details</li>
-            <li class="fa fa-users" (click)="navigateTo('/booking-details')">Users Details</li>
-            <li class="fa fa-comments" (click)="navigateTo('/admin-user-details')">Car Details</li>
-            <li class="fa fa-area-chart" (click)="navigateTo('/transaction-details')">Transaction Details</li>
-        </ul>
-    </nav>
-</aside>
-<main>
-    <header class="main-head">
-        <div class="rent-a-ride">
-           Bookings Details Page
-        </div>
-        <div class="search">
-            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
-        </div>
-    </header>
-    
-    <!-- main content--> 
-     <!-- Transaction summary table --> 
-     <div class="body"> 
-        <div class="table-summary">
-       <table class="booking-summary">
-        <thead>
-            <!-- Table header -->
-            <tr>
-                <th>User Id</th>
-                <th>Car Id</th>
-                <th>Transaction id</th>
-                <th>Pick up Spot</th>
-                <th>Drop off Spot</th>
-                <th>Pick up Time</th>
-                <th>Drop off Time</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table body rows -->
-            <tr *ngFor="let booking of bookings">
-                <td>{{ booking.userId }}</td>
-                <td>{{ booking.carId }}</td>  
-                <td>{{ booking.payment.transactionId }}</td>
-                <ng-container *ngFor="let location of locations">
-                    <ng-container *ngIf="location._id === booking.locationId">
-                        <td>{{ location.area.pickup }}</td>
-                        <td>{{ location.area.drop }}</td>
-                        <td>{{location.dateTime.pickupDateAndTime}}</td> 
-                        <td>{{location.dateTime.dropDateAndTime}}</td>
-                    </ng-container>
-                </ng-container>
-            </tr>
-        </tbody>
-    </table>  
-    </div>
-     </div>
-  </main> 
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+<div class="body">
+    <!-- Navigation section -->
+    <nav>
+        <a href="#"><h1>Booking Details Page</h1></a>
+    </nav> 
 
+    <!-- Main container -->
+    <div class="container">
+        <!-- Left section -->
+        <section class="left-section">
+            <!-- Different sections -->
+            <div class="car-details" (click)="navigateTo('/admin-car-details')">Car Details</div>
+            <div class="booking-details" (click)="navigateTo('/booking-details')">Booking Details</div>
+            <div class="user-details" (click)="navigateTo('/admin-user-details')">User Details</div>
+            <div class="transaction-details" (click)="navigateTo('/transaction-details')">Payments Details</div>
+        </section>
+
+        <!-- Right section -->
+        <section class="right-section">
+            <!-- Search container -->
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+
+            <!-- Transaction summary table -->
+            <table class="transaction-summary">
+                <thead>
+                    <!-- Table header -->
+                    <tr>
+                        <th>User Id</th>
+                        <th>Car Id</th>
+                        <th>Transaction id</th>
+                        <th>Pick up Spot</th>
+                        <th>Drop off Spot</th>
+                        <th>Pick up Time</th>
+                        <th>Drop off Time</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body rows -->
+                    <tr *ngFor="let booking of bookings">
+                        <td>{{ booking.userId }}</td>
+                        <td>{{ booking.carId }}</td>
+                        <td>{{ booking.payment.transactionId }}</td>
+                        <ng-container *ngFor="let location of locations">
+                            <ng-container *ngIf="location._id === booking.locationId">
+                                <td>{{ location.area.pickup }}</td>
+                                <td>{{ location.area.drop }}</td>
+                                <td>{{location.dateTime.pickupDateAndTime}}</td>
+                                <td>{{location.dateTime.dropDateAndTime}}</td>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

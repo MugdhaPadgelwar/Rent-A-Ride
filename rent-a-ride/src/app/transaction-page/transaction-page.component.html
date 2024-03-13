@@ -1,50 +1,48 @@
-<aside>
-    <header>
-        <div>
-            <p>Rent-a-Ride</p>
-        </div>
-    </header>
-    <nav class="side-navigation">
-        <ul class="list">
-            <li class="fa fa-ship" (click)="navigateTo('/admin-car-details')">Booking Details</li>
-            <li class="fa fa-users" (click)="navigateTo('/booking-details')">Users Details</li>
-            <li class="fa fa-comments" (click)="navigateTo('/admin-user-details')" >Car Details</li>
-            <li class="fa fa-area-chart" (click)="navigateTo('/transaction-details')">Transaction Details</li>
-        </ul>
-    </nav>
-</aside>
-<main>
-    <header class="main-head">
-        <div class="rent-a-ride">
-           Transaction Details Page
-        </div>
-        <div class="search">
-            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
-        </div>
-    </header>
-    
-    <!-- main content--> 
-     <table class="transaction-summary">
-        <thead>
-            <tr>
-                <th>User Id</th>
-                <th>Car Id</th>
-                <th>Transaction Id</th>
-                <th>Transaction Mode</th>
-                <th>Status</th>
-                <th>Transaction Date and Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Add rows with data here -->
-            <tr *ngFor="let transaction of transactions">
-                <td>{{ transaction.userId }}</td>
-                <td>{{ transaction.carId }}</td>
-                <td>{{ transaction.payment.transactionId }}</td>
-                <td>{{ transaction.payment.modeOfPayment }}</td>
-                <td>{{ transaction.payment.status }}</td>
-                <td>{{ transaction.payment.paymentDateAndTime }}</td>
-            </tr>
-        </tbody>
-    </table>
-  </main>
+<div class="body">
+    <!-- Navigation Section -->
+    <nav>
+        <a href="#"><h1>Payments Details Page</h1></a>
+    </nav> 
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Left Section -->
+        <section class="left-section">
+            <div class="car-details" (click)="navigateTo('/admin-car-details')">Car Details</div>
+            <div class="booking-details" (click)="navigateTo('/booking-details')">Booking Details</div>
+            <div class="user-details" (click)="navigateTo('/admin-user-details')">User Details</div>
+            <div class="transaction-details" (click)="navigateTo('/transaction-details')">Payments Details</div>
+        </section>
+        <!-- Right Section -->
+        <section class="right-section">
+            <!-- Search Container -->
+            <div class="search-container">
+                <input type="text" placeholder="Search using anything" class="search-box">
+                <button class="search-button">Search</button>
+            </div>
+            <!-- Transaction Summary Table -->
+            <table class="transaction-summary">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Car Id</th>
+                        <th>Transaction Id</th>
+                        <th>Transaction Mode</th>
+                        <th>Status</th>
+                        <th>Transaction Date and Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add rows with data here -->
+                    <tr *ngFor="let transaction of transactions">
+                        <td>{{ transaction.userId }}</td>
+                        <td>{{ transaction.carId }}</td>
+                        <td>{{ transaction.payment.transactionId }}</td>
+                        <td>{{ transaction.payment.modeOfPayment }}</td>
+                        <td>{{ transaction.payment.status }}</td>
+                        <td>{{ transaction.payment.paymentDateAndTime }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>

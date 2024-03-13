@@ -81,6 +81,5 @@ export class NavbarComponent implements OnInit,OnDestroy {
         this.currentPage = ''; // Or set a default/fallback value
         break;
     }
-  } 
-  
+  }
 }
