@@ -92,15 +92,15 @@ aside header > div {
 }
 
 .side-navigation {
-    font-size: 14px; 
+    font-size: 14px;
 }
 
-.side-navigation a {
+.side-navigation li {
     color: #92A1A2;
-    display: block;
     padding: 15px 25px;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .side-navigation i.fa {
@@ -109,20 +109,12 @@ aside header > div {
     margin-right: 20px;
 }
 
-/* .side-navigation li + li {
-     margin-top: 10px; 
-} */
-
-.side-navigation li.active a,
-.side-navigation li:hover a {
+.side-navigation li.active,
+.side-navigation li:hover {
     background-color: #233342;
     color: white;
 }
 
-.side-navigation li.active i,
-.side-navigation li:hover i {
-    color: white;
-}
 
 main {
     float: right;
@@ -189,7 +181,11 @@ main {
     margin-top: 30px; 
     color: orange; 
     font-size: 30px;
-} 
+}  
+
+.list li{
+    margin-bottom: 20px;
+}
 
 
 

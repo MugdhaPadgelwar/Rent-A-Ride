@@ -6,10 +6,10 @@
     </header>
     <nav class="side-navigation">
         <ul class="list">
-            <li class="fa fa-ship" (click)="navigateTo('/admin-car-details')">Booking Details</li>
-            <li class="fa fa-users" (click)="navigateTo('/booking-details')">Users Details</li>
-            <li class="fa fa-comments" (click)="navigateTo('/admin-user-details')">Car Details</li>
-            <li class="fa fa-area-chart" (click)="navigateTo('/transaction-details')">Transaction Details</li>
+            <li (click)="navigateTo('/booking-details')"><i class="fa fa-ship"></i>Booking Details</li>
+            <li (click)="navigateTo('/admin-user-details')"><i class="fa fa-users"></i>Users Details</li>
+            <li (click)="navigateTo('/admin-car-details')" ><i class="fa fa-comments"></i>Car Details</li>
+            <li  (click)="navigateTo('/transaction-details')"><i class="fa fa-area-chart"></i>Transaction Details</li>
         </ul>
     </nav>
 </aside>

@@ -2,30 +2,30 @@
 
 /* Navigation Styles */
 nav {
-   
     padding: 10px;
 }
 
+/* Navigation Link Styles */
 nav a {
     color: #f77d0a;
     text-decoration: none;
 }
 
 
-
 /* Table Styles */
 table {
     border-collapse: collapse;
-    width: 10%;
+    width: 100%;
 }
 
+/* Table Header and Data Cell Styles */
 th, td {
     border: 1px solid black;
- padding-left: 2px;
-    text-align: center; 
-    width: 80px;
+    padding: 15px;
+    text-align: center;
 }
 
+/* Table Header Styles */
 th {
     background-color: #f2f2f2;
 }
@@ -34,6 +34,7 @@ th {
 tr:nth-child(even) {
     background-color: #f2f2f2;
 } 
+
 
 
 /* Colors */
@@ -85,21 +86,21 @@ aside header > div {
     top: 50%;
     transform: translateY(-50%);
 }
+
 .list{
     list-style: none;
 }
 
-
 .side-navigation {
-    font-size: 14px; 
+    font-size: 14px;
 }
 
-.side-navigation a {
+.side-navigation li {
     color: #92A1A2;
-    display: block;
     padding: 15px 25px;
     text-decoration: none;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .side-navigation i.fa {
@@ -108,16 +109,12 @@ aside header > div {
     margin-right: 20px;
 }
 
-.side-navigation li.active a,
-.side-navigation li:hover a {
+.side-navigation li.active,
+.side-navigation li:hover {
     background-color: #233342;
     color: white;
 }
 
-.side-navigation li.active i,
-.side-navigation li:hover i {
-    color: white;
-}
 
 main {
     float: right;
@@ -177,17 +174,20 @@ main {
     border-bottom: 1px solid #92A1A2;
 }
 
+
+
 .rent-a-ride {
     float: left;
     margin-top: 30px; 
     color: orange; 
     font-size: 30px;
-} 
-.booking-summary{
-    width:75vw;
-    height:80vh
-   
 }  
+
+.list li{
+    margin-bottom: 20px;
+}
+
+
 
 
 
