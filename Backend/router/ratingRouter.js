@@ -117,7 +117,7 @@ const { verifyToken } = require("../middleware/auth");
 
 router.get("/id", ratingController.getRatingById);
 
-
+router.use(verifyToken)
 
 /**
  * @swagger
@@ -265,10 +265,5 @@ router.put("/update", ratingController.updateById);
  *               error: "Internal Server Error"
  */
 
-router.delete("/delete", ratingController.deleteById); 
-
-
-
-
-router.use(verifyToken);
+router.delete("/delete", ratingController.deleteById);
 module.exports = router;

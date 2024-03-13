@@ -37,13 +37,13 @@ export class ProductDetailPageComponent {
       description: 'Sample Razorpay demo',
       currency: 'INR',
       amount: 300000,
-      name: 'Shruti',
-      key: 'rzp_test_rcZDiWvY5D4oKi',
+      name: 'Mugdha',
+      key: 'rzp_test_D7Ve9gsjct6KgY',
       image: '',
       prefill: {
-        name: 'Shruti Shrivastav',
-        email: 'shrutishrivastav938@gmail.com',
-        contact: '8624833069',
+        name: 'Mugdha Padgelwar',
+        email: 'mugdhapadgelwar2002@gmail.com',
+        contact: '8459247750',
       },
       theme: {
         color: '#f37254',
@@ -58,7 +58,7 @@ export class ProductDetailPageComponent {
     const successCallback = (paymentId: any) => {
       console.log('Payment successful with ID:', paymentId);
     };
-    
+
     const failureCallback = (error: any) => {
       console.error('Payment failed with error:', error);
     };

@@ -21,7 +21,6 @@ import { SearchComponent } from './search/search.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { LoginComponent } from './login/login.component';
 import { ResetComponent } from './reset/reset.component';
 import { SignupComponent } from './signup/signup.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -32,9 +31,10 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
- import { DropdownComponent } from './dropdown/dropdown.component'; 
- import { ErrorPageComponent } from './error-page/error-page.component';
-import { AuthGuardService } from './auth-guard-service';
+import { DropdownComponent } from './dropdown/dropdown.component'; 
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { LoginComponent } from './login/login.component';
+// import { AuthGuardService } from './auth-guard-service';
 
 
 
@@ -61,10 +61,11 @@ import { AuthGuardService } from './auth-guard-service';
     CarManagementComponent,
     BookingDetailsComponent,
     RentCarComponent,
-    AdminComponent,  
-    DropdownComponent, 
-    ErrorPageComponent,
-  
+    AdminComponent,
+    DropdownComponent,
+    ErrorPageComponent
+
+    
   
   ],
   imports: [
@@ -73,8 +74,8 @@ import { AuthGuardService } from './auth-guard-service';
     ReactiveFormsModule, 
     FormsModule,
     HttpClientModule,
-    CommonModule, 
-     
+    CommonModule,
+    
   
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
