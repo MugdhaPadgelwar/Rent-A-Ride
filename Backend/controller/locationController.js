@@ -1,5 +1,5 @@
 // Import middleware
-const { verifyToken } = require("../middleware/auth");
+const { verifyToken,isAdmin } = require("../middleware/auth");
 
 //Import Model
 const Location = require("../models/Location");
@@ -83,7 +83,21 @@ const updateLocation =
     }
   });
 
+  const getAllLocation =(isAdmin,async (req, res) => {
+    try {
+      // Query the database to retrieve all cities
+      const location = await Location.find();
+  
+      // Send the retrieved cities as a response
+      res.json(location);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  });
+
 module.exports = {
   postLocation,
   updateLocation,
+  getAllLocation
 };

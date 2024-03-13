@@ -6,10 +6,10 @@
     </header>
     <nav class="side-navigation">
         <ul class="list">
-            <li><a href="/booking-details"><i class="fa fa-ship"></i>Booking Details</a></li>
-            <li><a href="/admin-user-details"><i class="fa fa-users"></i>Users Details</a></li>
-            <li><a href="/admin-car-details"><i class="fa fa-comments"></i>Car Details</a></li>
-            <li><a href="/transaction-details"><i class="fa fa-area-chart"></i>Transaction Details</a></li>
+            <li class="fa fa-ship" (click)="navigateTo('/admin-car-details')">Booking Details</li>
+            <li class="fa fa-users" (click)="navigateTo('/booking-details')">Users Details</li>
+            <li class="fa fa-comments" (click)="navigateTo('/admin-user-details')">Car Details</li>
+            <li class="fa fa-area-chart" (click)="navigateTo('/transaction-details')">Transaction Details</li>
         </ul>
     </nav>
 </aside>
@@ -33,11 +33,11 @@
             <tr>
                 <th>User Id</th>
                 <th>Car Id</th>
-                <th>Pick up Spot</th>
-                <th>Pick up Time</th>
-                <th>Drop off Spot</th>
-                <th>Drop off Time</th> 
                 <th>Transaction id</th>
+                <th>Pick up Spot</th>
+                <th>Drop off Spot</th>
+                <th>Pick up Time</th>
+                <th>Drop off Time</th> 
             </tr>
         </thead>
         <tbody>
@@ -45,11 +45,15 @@
             <tr *ngFor="let booking of bookings">
                 <td>{{ booking.userId }}</td>
                 <td>{{ booking.carId }}</td>  
-                <td>{{ booking.pickUpSpot }}</td> 
-                <td>{{ booking.pickUpTime }}</td> 
-                <td>{{ booking.dropOffSpot }}</td> 
-                <td>{{ booking.dropOffTime }}</td> 
-                <td>{{ booking.transactionId }}</td>
+                <td>{{ booking.payment.transactionId }}</td>
+                <ng-container *ngFor="let location of locations">
+                    <ng-container *ngIf="location._id === booking.locationId">
+                        <td>{{ location.area.pickup }}</td>
+                        <td>{{ location.area.drop }}</td>
+                        <td>{{location.dateTime.pickupDateAndTime}}</td> 
+                        <td>{{location.dateTime.dropDateAndTime}}</td>
+                    </ng-container>
+                </ng-container>
             </tr>
         </tbody>
     </table>  

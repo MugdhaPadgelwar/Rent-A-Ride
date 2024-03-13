@@ -17,6 +17,7 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { CarManagementComponent } from './car-management/car-management.component';
+import { AuthGuardService } from './auth-guard-service';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -24,7 +25,9 @@ const routes: Routes = [
   { path: 'carlisting', component: CarListingComponent },
 
   {
+
     path: 'success-page',
+    canActivate:[AuthGuardService],
     component: BookingSuccessComponent,
   },
   {
@@ -53,6 +56,7 @@ const routes: Routes = [
   },
   {
     path: 'renter',
+    canActivate:[AuthGuardService],
     component: RentCarComponent,
   },
   {
@@ -65,26 +69,32 @@ const routes: Routes = [
   },
   {
     path: 'editprofile',
+    canActivate:[AuthGuardService],
     component: EditProfileComponent,
   },
   {
     path: 'admin-car-details',
+    canActivate:[AuthGuardService],
     component: CarManagementComponent,
   },
   {
     path: 'admin-user-details',
+    canActivate:[AuthGuardService],
     component: UserDetailsComponent,
   },
   {
     path: 'booking-details',
+    canActivate:[AuthGuardService],
     component: BookingDetailsComponent,
   },
   {
     path: 'transaction-details',
+    canActivate:[AuthGuardService],
     component: TransactionPageComponent,
   },
   {
     path: 'admin',
+    canActivate:[AuthGuardService],
     component: AdminComponent,
   }, 
   {

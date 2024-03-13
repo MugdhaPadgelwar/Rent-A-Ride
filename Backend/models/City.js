@@ -15,7 +15,7 @@ const citiesSchema = new mongoose.Schema({
 
 citiesSchema.plugin(require("mongoose-autopopulate"));
 
-// Create the Location model
+// Create the city model
 const Cities = mongoose.model("Cities", citiesSchema);
 
 // Export the Location model
