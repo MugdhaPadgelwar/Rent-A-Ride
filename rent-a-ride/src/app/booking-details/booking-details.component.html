@@ -30,23 +30,27 @@
                     <tr>
                         <th>User Id</th>
                         <th>Car Id</th>
-                        <th>Pick up Spot</th>
-                        <th>Pick up Time</th>
-                        <th>Drop off Spot</th>
-                        <th>Drop off Time</th> 
                         <th>Transaction id</th>
+                        <th>Pick up Spot</th>
+                        <th>Drop off Spot</th>
+                        <th>Pick up Time</th>
+                        <th>Drop off Time</th> 
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Table body rows -->
                     <tr *ngFor="let booking of bookings">
                         <td>{{ booking.userId }}</td>
-                        <td>{{ booking.carId }}</td>  
-                        <td>{{ booking.pickUpSpot }}</td> 
-                        <td>{{ booking.pickUpTime }}</td> 
-                        <td>{{ booking.dropOffSpot }}</td> 
-                        <td>{{ booking.dropOffTime }}</td> 
-                        <td>{{ booking.transactionId }}</td>
+                        <td>{{ booking.carId }}</td>
+                        <td>{{ booking.payment.transactionId }}</td>
+                        <ng-container *ngFor="let location of locations">
+                            <ng-container *ngIf="location._id === booking.locationId">
+                                <td>{{ location.area.pickup }}</td>
+                                <td>{{ location.area.drop }}</td>
+                                <td>{{location.dateTime.pickupDateAndTime}}</td>
+                                <td>{{location.dateTime.dropDateAndTime}}</td>
+                            </ng-container>
+                        </ng-container>
                     </tr>
                 </tbody>
             </table>
