@@ -31,8 +31,9 @@ import { CarManagementComponent } from './car-management/car-management.componen
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
-import { HttpClientModule } from '@angular/common/http'; 
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { HttpClientModule } from '@angular/common/http';
+ import { DropdownComponent } from './dropdown/dropdown.component'; 
+ import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     BookingDetailsComponent,
     RentCarComponent,
     AdminComponent,  
-    DropdownComponent,
+    DropdownComponent, 
+    ErrorPageComponent,
   
   
   ],
