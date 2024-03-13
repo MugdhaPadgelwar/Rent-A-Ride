@@ -13,37 +13,56 @@ const adminController = require("../controller/adminController");
 router.use(verifyToken, isAdmin);
 
 
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Admin
+ *   description: Operations related to users
+ */
+
 /**
  * @swagger
  * components:
- *   schemas: # It should be 'schemas' not 'schema'
- *     user: # This defines a schema named 'user'
+ *   schemas:
+ *     ErrorResponseUserList:
  *       type: object
- *       properties: # It should be 'properties' not 'properities'
- *         userName:
+ *       properties:
+ *         error:
  *           type: string
- *         email:
- *           type: string
+ *           description: The error message
+ *           example: Internal Server Error
+ *
+ *     SuccessResponseUserList:
+ *       type: array
+ *       items:
+ *         $ref: '#/userRouter/components/schemas/User'
  */
-
-
 
 
 /**
  * @swagger
  * /admin/users/list:
  *   get:
- *     summary: Get list of all the users
- *     description: Retrieve list of all users as admin
+ *     summary: Get a list of all users
+ *     tags: [Admin]
+ *     description: Fetch all users from the database.
  *     responses:
  *       200:
- *         description: List of all users
+ *         description: The list of users
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/user'
+ *               $ref: '#/components/schemas/SuccessResponseUserList'
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponseUserList'
+ *     security:
+ *       - BearerAuth: []
  */
 router.get("/users/list", isAdmin, adminController.getAllUsers);
 

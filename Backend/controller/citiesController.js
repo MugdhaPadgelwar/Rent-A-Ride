@@ -1,10 +1,10 @@
-const { isAdmin } = require("../middleware/auth");
+const { isAdmin, verifyToken } = require("../middleware/auth");
 
 //Import Model
 const Cities = require("../models/City");
 
 const addCities =
-  (isAdmin,
+  (verifyToken,isAdmin,
   async (req, res) => {
     try {
       const { city, state } = req.body;
