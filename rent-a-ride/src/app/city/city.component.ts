@@ -26,6 +26,10 @@ export class CityComponent {
   /** Constructor to initialize the CityComponent. */
   constructor() {}
 
+  OnSearch():void{
+    console.log("hellooooo");
+    
+  }
   /**
    * Function to check the validation of the selected city.
    * Logs a message if the city is not selected and updates showError flag.
