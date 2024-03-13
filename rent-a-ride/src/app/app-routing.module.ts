@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingSuccessComponent } from './booking-success/booking-success.component';
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'transaction-details',
     component: TransactionPageComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
   },
 ];
 
