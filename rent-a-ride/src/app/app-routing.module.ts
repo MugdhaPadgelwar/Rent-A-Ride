@@ -96,8 +96,11 @@ const routes: Routes = [
     path: 'admin',
     canActivate:[AuthGuardService],
     component: AdminComponent,
-  },
-
+  }, 
+  {
+    path: '**', 
+    component: ErrorPageComponent,
+  }
 ];
 
 @NgModule({
