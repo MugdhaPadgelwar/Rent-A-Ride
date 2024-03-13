@@ -32,6 +32,8 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuardService } from './auth-guard-service';
+
 
 
 @NgModule({
@@ -58,6 +60,7 @@ import { HttpClientModule } from '@angular/common/http';
     BookingDetailsComponent,
     RentCarComponent,
     AdminComponent,
+    
   
   ],
   imports: [
@@ -67,6 +70,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     CommonModule,
+    
   
   ],
   providers: [provideClientHydration(), provideAnimationsAsync()],
