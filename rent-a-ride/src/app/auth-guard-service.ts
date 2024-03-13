@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from "rxjs";
 import { AuthService } from "./auth-service";
 import { Injectable } from "@angular/core";
-
+// for protecting routes
 @Injectable({
     providedIn:'root'
 }
