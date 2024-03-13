@@ -58,7 +58,7 @@ export class ProductDetailPageComponent {
     const successCallback = (paymentId: any) => {
       console.log('Payment successful with ID:', paymentId);
     };
-
+    
     const failureCallback = (error: any) => {
       console.error('Payment failed with error:', error);
     };
