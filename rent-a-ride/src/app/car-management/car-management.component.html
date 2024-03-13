@@ -1,56 +1,63 @@
-<div class="body">
-    <!-- Navigation Section -->
-    <nav>
-        <a href="#"><h1>Car Details Page</h1></a>
-    </nav> 
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- Left Section -->
-        <section class="left-section">
-            <div class="car-details" (click)="navigateTo('/admin-car-details')">Car Details</div>
-            <div class="booking-details" (click)="navigateTo('/booking-details')">Booking Details</div>
-            <div class="user-details" (click)="navigateTo('/admin-user-details')">User Details</div>
-            <div class="transaction-details" (click)="navigateTo('/transaction-details')">Payments Details</div>
-        </section>
-        <!-- Right Section -->
-        <section class="right-section">
-            <!-- Search Container -->
-            <div class="search-container">
-                <input type="text" placeholder="Search using anything" class="search-box">
-                <button class="search-button">Search</button>
-            </div>
-            <!-- Car Summary Table -->
-            <table class="car-summary">
-                <thead>
-                    <tr>
-                        <th>User Id</th>
-                        <th>Car Id</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>Year</th>
-                        <th>Car No Plate</th> 
-                        <th>Capacity</th>
-                        <th>Type</th>
-                        <th>Fuel Type</th>
-                        <th>Price/hour</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Add rows with data here -->
-                    <tr *ngFor="let car of cars">
-                        <td>{{ car.userId }}</td>
-                        <td>{{ car._id }}</td>
-                        <td>{{ car.carBrand }}</td>
-                        <td>{{ car.carModel }}</td>
-                        <td>{{ car.carYear }}</td>
-                        <td>{{ car.carNoPlate }}</td>
-                        <td>{{ car.carCapacity }}</td>
-                        <td>{{ car.carType }}</td>
-                        <td>{{ car.carFuelType }}</td>
-                        <td>{{ car.carPricePerHour }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-    </div>
-</div>
+<aside>
+    <header>
+        <div>
+            <p>Rent-a-Ride</p>
+        </div>
+    </header>
+    <nav class="side-navigation">
+        <ul class="list">
+            <li (click)="navigateTo('/booking-details')"><i class="fa fa-ship"></i>Booking Details</li>
+            <li (click)="navigateTo('/admin-user-details')"><i class="fa fa-users"></i>Users Details</li>
+            <li (click)="navigateTo('/admin-car-details')" ><i class="fa fa-comments"></i>Car Details</li>
+            <li  (click)="navigateTo('/transaction-details')"><i class="fa fa-area-chart"></i>Transaction Details</li>
+        </ul>
+    </nav>
+</aside>
+<main>
+    <header class="main-head">
+        <div class="rent-a-ride">
+           Car Details Page
+        </div>
+        <div class="search">
+            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
+        </div>
+    </header>
+    
+    <!-- main content--> 
+    
+    
+        
+        
+        <!-- Car Summary Table -->
+        <table class="car-summary">
+            <thead>
+                <tr> 
+                    <th>User Id</th>
+                    <th>Car Id</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Car No Plate</th> 
+                    <th>Capacity</th>
+                    <th>Type</th>
+                    <th>Fuel Type</th>
+                    <th>Price/hour</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add rows with data here -->
+                <tr *ngFor="let car of cars">
+                    <td>{{ car.userId }}</td> 
+                    <td>{{ car._id }}</td>
+                    <td>{{ car.carBrand }}</td>
+                    <td>{{ car.carModel }}</td>
+                    <td>{{ car.carYear }}</td>
+                    <td>{{ car.carNoPlate }}</td>
+                    <td>{{ car.carCapacity }}</td>
+                    <td>{{ car.carType }}</td>
+                    <td>{{ car.carFuelType }}</td>
+                    <td>{{ car.carPricePerHour }}</td>
+                </tr>
+            </tbody>
+        </table>
+  </main>

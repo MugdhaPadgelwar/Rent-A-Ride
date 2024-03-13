@@ -1,52 +1,61 @@
-<div class="body">
-    <!-- Navigation Section -->
-    <nav>
-        <a href="#"><h1>User Details Page</h1></a>
-    </nav> 
+<aside>
+    <header>
+        <div>
+            <p>Rent-a-Ride</p>
+        </div>
+    </header>
+    <nav class="side-navigation">
+        <ul class="list">
+            <li (click)="navigateTo('/booking-details')"><i class="fa fa-ship"></i>Booking Details</li>
+            <li (click)="navigateTo('/admin-user-details')"><i class="fa fa-users"></i>Users Details</li>
+            <li (click)="navigateTo('/admin-car-details')" ><i class="fa fa-comments"></i>Car Details</li>
+            <li  (click)="navigateTo('/transaction-details')"><i class="fa fa-area-chart"></i>Transaction Details</li>
+        </ul>
+    </nav>
+</aside>
+<main>
+    <header class="main-head">
+        <div class="rent-a-ride">
+           User Details Page
+        </div>
+        <div class="search">
+            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
+        </div>
+    </header>
     
-    <!-- Main Content Container -->
-    <div class="container">
-        <!-- Left Section -->
-        <section class="left-section">
-            <div class="car-details" (click)="navigateTo('/admin-car-details')">Car Details</div>
-            <div class="booking-details" (click)="navigateTo('/booking-details')">Booking Details</div>
-            <div class="user-details" (click)="navigateTo('/admin-user-details')">User Details</div>
-            <div class="transaction-details" (click)="navigateTo('/transaction-details')">Payments Details</div>
-        </section>
+    <!-- main content--> 
+     
         
-        <!-- Right Section -->
-        <section class="right-section">
-            <!-- Search Container -->
-            <div class="search-container">
-                <input type="text" placeholder="Search using anything" class="search-box">
-                <button class="search-button">Search</button>
-            </div>
-            
-            <!-- User Summary Table -->
-            <table class="User-summary">
-                <thead>
-                    <tr>
-                        <th>User Id</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone No</th>
-                        <th>Gender</th>
-                        <th>Age</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let user of users">
-                        <tr>
-                            <td>{{ user._id }}</td>
-                            <td>{{ user.userName }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.phone }}</td>
-                            <td>{{ user.gender }}</td>
-                            <td>{{ user.age }}</td>
-                        </tr>
-                    </ng-container>
-                </tbody>
-            </table>
-        </section>
-    </div>
-</div>
+        
+
+       <!-- User Summary Table -->
+       <table class="User-summary">
+        <thead>
+            <tr>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone No</th>
+                <th>Gender</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let user of users">
+                <tr>
+                    <td>{{ user._id }}</td>
+                    <td>{{ user.userName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.age }}</td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+  
+  
+
+
+
+</main>
