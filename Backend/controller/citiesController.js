@@ -75,7 +75,7 @@ const deleteCityById =
     }
   });
 
-const getAllCities = async (req, res) => {
+const getAllCities =(isAdmin,async (req, res) => {
   try {
     // Query the database to retrieve all cities
     const cities = await Cities.find();
@@ -86,7 +86,7 @@ const getAllCities = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+});
 module.exports = {
   addCities,
   deleteCityById,

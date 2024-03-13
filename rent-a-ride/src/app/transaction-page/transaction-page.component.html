@@ -36,10 +36,10 @@
                     <tr *ngFor="let transaction of transactions">
                         <td>{{ transaction.userId }}</td>
                         <td>{{ transaction.carId }}</td>
-                        <td>{{ transaction.transactionId }}</td>
-                        <td>{{ transaction.transactionMode }}</td>
-                        <td>{{ transaction.status }}</td>
-                        <td>{{ transaction.dateTime }}</td>
+                        <td>{{ transaction.payment.transactionId }}</td>
+                        <td>{{ transaction.payment.modeOfPayment }}</td>
+                        <td>{{ transaction.payment.status }}</td>
+                        <td>{{ transaction.payment.paymentDateAndTime }}</td>
                     </tr>
                 </tbody>
             </table>
