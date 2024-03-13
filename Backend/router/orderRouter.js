@@ -7,9 +7,9 @@ require("dotenv").config();
 
 const orderController = require("../controller/orderController");
 
-const { verifyToken } = require("../middleware/auth"); 
+const { verifyToken,isAdmin } = require("../middleware/auth"); 
 
-
+router.use(verifyToken);
 
 
 /**
@@ -48,35 +48,6 @@ const { verifyToken } = require("../middleware/auth");
  *           format: date-time
  *           description: The date and time when the order was canceled, if applicable.
  */
-
-/**
- * @swagger
- * /orders/allorders:
- *   get:
- *     summary: Get all orders
- *     description: Fetch all orders from the database.
- *     tags:
- *       - Orders
- *     responses:
- *       '200':
- *         description: Successfully retrieved orders
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Order'
- *       '500':
- *         description: Internal server error
- *         content:
- *           application/json:
- *             example:
- *               error: Internal Server Error
- */
-
-router.get("/allorders", orderController.allorders);
-
-
 
 /**
  * @swagger
@@ -249,5 +220,31 @@ router.get("/orderById", orderController.orderById);
 router.delete("/cancel", orderController.cancleOrder);
 
 
-router.use(verifyToken);
+/**
+ * @swagger
+ * /orders/allorders:
+ *   get:
+ *     summary: Get all orders
+ *     description: Fetch all orders from the database.
+ *     tags:
+ *       - Orders
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved orders
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example:
+ *               error: Internal Server Error
+ */
+
+router.use(isAdmin)
+router.get("/allorders",isAdmin, orderController.allorders);
 module.exports = router;
