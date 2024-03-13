@@ -34,8 +34,6 @@ import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
  import { DropdownComponent } from './dropdown/dropdown.component'; 
  import { ErrorPageComponent } from './error-page/error-page.component';
-import { AuthGuardService } from './auth-guard-service';
-
 
 
 @NgModule({

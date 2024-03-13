@@ -6,10 +6,10 @@
     </header>
     <nav class="side-navigation">
         <ul class="list">
-            <li class="fa fa-ship" (click)="navigateTo('/admin-car-details')">Booking Details</li>
-            <li class="fa fa-users" (click)="navigateTo('/booking-details')">Users Details</li>
-            <li class="fa fa-comments" (click)="navigateTo('/admin-user-details')" >Car Details</li>
-            <li class="fa fa-area-chart" (click)="navigateTo('/transaction-details')">Transaction Details</li>
+            <li><a href="/booking-details"><i class="fa fa-ship"></i>Booking Details</a></li>
+            <li><a href="/admin-user-details"><i class="fa fa-users"></i>Users Details</a></li>
+            <li><a href="/admin-car-details"><i class="fa fa-comments"></i>Car Details</a></li>
+            <li><a href="/transaction-details"><i class="fa fa-area-chart"></i>Transaction Details</a></li>
         </ul>
     </nav>
 </aside>
@@ -40,10 +40,10 @@
             <tr *ngFor="let transaction of transactions">
                 <td>{{ transaction.userId }}</td>
                 <td>{{ transaction.carId }}</td>
-                <td>{{ transaction.payment.transactionId }}</td>
-                <td>{{ transaction.payment.modeOfPayment }}</td>
-                <td>{{ transaction.payment.status }}</td>
-                <td>{{ transaction.payment.paymentDateAndTime }}</td>
+                <td>{{ transaction.transactionId }}</td>
+                <td>{{ transaction.transactionMode }}</td>
+                <td>{{ transaction.status }}</td>
+                <td>{{ transaction.dateTime }}</td>
             </tr>
         </tbody>
     </table>

@@ -6,7 +6,7 @@ const router = express.Router();
 require("dotenv").config();
 
 const locationController = require("../controller/locationController");
-const { verifyToken,isAdmin } = require("../middleware/auth");
+const { verifyToken } = require("../middleware/auth");
 
 router.use(verifyToken);
 
@@ -139,7 +139,7 @@ router.use(verifyToken);
  *     security:
  *       - BearerAuth: []
  */
-router.post("/postLocation",verifyToken, locationController.postLocation);
+router.post("/postLocation", locationController.postLocation);
 //updatelocation
 /**
  * @swagger
@@ -182,8 +182,6 @@ router.post("/postLocation",verifyToken, locationController.postLocation);
  *     security:
  *       - BearerAuth: []
  */
-router.put("/updateLocation",verifyToken, locationController.updateLocation);
-router.use(isAdmin);
-router.get("/getAllLocations",isAdmin,locationController.getAllLocation)
+router.put("/updateLocation", locationController.updateLocation);
 
 module.exports = router;

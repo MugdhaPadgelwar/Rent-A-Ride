@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- <meta charset="utf-8" /> -->
-    <!-- <title>ROYAL CARS - Car Rental HTML Template</title> -->
-    <!-- <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="utf-8" />
+    <title>ROYAL CARS - Car Rental HTML Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Free HTML Templates" name="keywords" />
-    <meta content="Free HTML Templates" name="description" /> -->
+    <meta content="Free HTML Templates" name="description" />
 
     <link href="../../img/favicon.ico" rel="icon" />
 
@@ -87,24 +87,24 @@
               <!-- Use *ngFor to dynamically generate car items -->
               <div class="col-lg-4 col-md-6 mb-2" *ngFor="let car of carList">
                 <div class="rent-item mb-4">
-                  <img class="img-fluid mb-4" src="./assets/car-rent-1.png" alt="image" />
-                  <h4 class="text-uppercase mb-4">{{ car.carBrand }}</h4>
+                  <img class="img-fluid mb-4" [src]="car.image" alt="" />
+                  <h4 class="text-uppercase mb-4">{{ car.brand }}</h4>
                   <div class="d-flex justify-content-center mb-4">
                     <div class="px-2">
                       <i class="fa fa-car text-primary mr-1"></i>
-                      <span>{{ car.carYear }}</span>
+                      <span>{{ car.year }}</span>
                     </div>
                     <div class="px-2 border-left border-right">
                       <i class="fa fa-cogs text-primary mr-1"></i>
-                      <span>{{ car.carModel }}</span>
+                      <span>{{ car.mode }}</span>
                     </div>
                     <div class="px-2">
                       <i class="fa fa-road text-primary mr-1"></i>
-                      <span>{{ car.carMileage }}</span>
+                      <span>{{ car.mileage }}</span>
                     </div>
                   </div>
                   <a routerLink="/detailproduct" class="btn btn-primary px-3">{{
-                    car.carPrice
+                    car.price
                   }}</a>
                 </div>
               </div>

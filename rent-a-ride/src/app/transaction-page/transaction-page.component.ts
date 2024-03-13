@@ -1,7 +1,6 @@
 /**
  * Import necessary modules.
  */
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -14,49 +13,26 @@ import { Router } from '@angular/router';
   styleUrl: './transaction-page.component.css' // CSS Style URL
 })
 export class TransactionPageComponent { 
-  token: string | null = localStorage.getItem('userToken');
-  transactions: any = [];
+  constructor(private router: Router) {}
 
-  constructor(private router: Router, private http: HttpClient) {}
-
+  /**
+   * Array containing transaction details.
+   */
+  transactions: any[] = [
+    { userId: 1, carId: 'ABC123', transactionId: 'T001', transactionMode: 'Online', status: 'Completed', dateTime: '2022-01-01 12:00:00' },
+    { userId: 2, carId: 'DEF456', transactionId: 'T002', transactionMode: 'Offline', status: 'Pending', dateTime: '2022-02-05 09:30:00' },
+    { userId: 3, carId: 'GHI789', transactionId: 'T003', transactionMode: 'Online', status: 'Failed', dateTime: '2022-03-10 15:45:00' },
+    { userId: 4, carId: 'JKL012', transactionId: 'T004', transactionMode: 'Offline', status: 'Completed', dateTime: '2022-04-15 18:20:00' },
+    { userId: 5, carId: 'MNO345', transactionId: 'T005', transactionMode: 'Online', status: 'Pending', dateTime: '2022-05-20 11:10:00' },
+    { userId: 6, carId: 'PQR678', transactionId: 'T006', transactionMode: 'Offline', status: 'Completed', dateTime: '2022-06-25 14:55:00' },
+    { userId: 7, carId: 'STU901', transactionId: 'T007', transactionMode: 'Online', status: 'Failed', dateTime: '2022-07-30 16:30:00' },
+    { userId: 8, carId: 'VWX234', transactionId: 'T008', transactionMode: 'Offline', status: 'Completed', dateTime: '2022-08-05 10:45:00' },
+    { userId: 9, carId: 'YZA567', transactionId: 'T009', transactionMode: 'Online', status: 'Pending', dateTime: '2022-09-10 13:20:00' },
+    { userId: 10, carId: 'BCD890', transactionId: 'T010', transactionMode: 'Offline', status: 'Completed', dateTime: '2022-10-15 17:00:00' }
+  ];
 
   navigateTo(route: string): void {
     // Use the Angular Router to navigate to the specified route
     this.router.navigate([`/${route}`]);
-
-    // Check the route and fetch transaction details only for the relevant route
-    if (route === '/admin-transaction-details') {
-      this.fetchTransactionDetails();
-      console.log(this.transactions);
-    }
-  }
-
-  ngOnInit() {
-    this.fetchTransactionDetails();
-  }
-
-  fetchTransactionDetails() {
-    // Check if the token exists
-    if (this.token) {
-      // Include the token in the headers
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json', // Example header, customize as needed
-        Authorization: `Bearer ${this.token}`,
-      });
-
-      // Make the HTTP GET request to the backend API for fetching transaction details
-      this.http.get<any[]>('http://localhost:3001/orders/allorders', { headers }).subscribe(
-        (response) => {
-          // Update your transactions array or perform any necessary logic with the response
-          console.log('Transaction details:', response);
-          this.transactions = response;
-        },
-        (error) => {
-          console.error('Error fetching transaction details:', error);
-        }
-      );
-    } else {
-      console.error('Authorization token not found.');
-    }
   }
 }

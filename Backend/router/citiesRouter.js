@@ -133,6 +133,6 @@ router.delete("/delete",isAdmin, citiesController.deleteCityById);
  *               items:
  *                 $ref: '#/components/schemas/City'
  */
-router.get("/getAll",isAdmin, citiesController.getAllCities);
+router.get("/getAll", citiesController.getAllCities);
 
 module.exports = router;

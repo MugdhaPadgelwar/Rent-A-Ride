@@ -1,5 +1,5 @@
 // Import middleware
-const { verifyToken,isAdmin } = require("../middleware/auth");
+const { verifyToken } = require("../middleware/auth");
 
 //Import Model
 const Order = require("../models/Order");
@@ -94,7 +94,7 @@ const orderById =
     }
   });
 
-const allorders =(isAdmin,async (req, res) => {
+const allorders = async (req, res) => {
   try {
     // Fetch all orders from the database
     const orders = await Order.find();
@@ -104,7 +104,7 @@ const allorders =(isAdmin,async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-});
+};
 
 const cancleOrder =
   (verifyToken,
