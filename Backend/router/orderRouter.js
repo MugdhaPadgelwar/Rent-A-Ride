@@ -7,9 +7,9 @@ require("dotenv").config();
 
 const orderController = require("../controller/orderController");
 
-const { verifyToken } = require("../middleware/auth"); 
+const { verifyToken,isAdmin } = require("../middleware/auth"); 
 
-
+router.use(verifyToken,isAdmin);
 
 
 /**
@@ -74,7 +74,7 @@ const { verifyToken } = require("../middleware/auth");
  *               error: Internal Server Error
  */
 
-router.get("/allorders", orderController.allorders);
+router.get("/allorders",isAdmin, orderController.allorders);
 
 
 
