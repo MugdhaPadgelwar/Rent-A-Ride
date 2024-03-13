@@ -1,5 +1,6 @@
 /* Importing necessary modules */
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /* Declaring the component */
 @Component({
@@ -12,6 +13,8 @@ import { Component } from '@angular/core';
 })
 /* Class definition */
 export class BookingDetailsComponent {
+  constructor(private router: Router) {}
+
   /* Booking details data */
   bookings = [
     { userId: 1, carId: 'ABC123', pickUpSpot: 'Location A', pickUpTime: '2024-03-10 09:00:00', dropOffSpot: 'Location B', dropOffTime: '2024-03-12 10:00:00', transactionId: 'T001' },
@@ -30,4 +33,9 @@ export class BookingDetailsComponent {
     { userId: 14, carId: 'JKL234', pickUpSpot: 'Location AA', pickUpTime: '2024-03-23 22:00:00', dropOffSpot: 'Location BB', dropOffTime: '2024-03-25 23:00:00', transactionId: 'T014' },
     { userId: 15, carId: 'MNO345', pickUpSpot: 'Location CC', pickUpTime: '2024-03-24 23:00:00', dropOffSpot: 'Location DD', dropOffTime: '2024-03-26 00:00:00', transactionId: 'T015' },
   ];
+
+  navigateTo(route: string): void {
+    // Use the Angular Router to navigate to the specified route
+    this.router.navigate([`/${route}`]);
+  }
 }

@@ -2,6 +2,7 @@
  * Import necessary modules.
  */
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * Define the component with metadata.
@@ -12,6 +13,7 @@ import { Component } from '@angular/core';
   styleUrl: './transaction-page.component.css' // CSS Style URL
 })
 export class TransactionPageComponent { 
+  constructor(private router: Router) {}
 
   /**
    * Array containing transaction details.
@@ -29,4 +31,8 @@ export class TransactionPageComponent {
     { userId: 10, carId: 'BCD890', transactionId: 'T010', transactionMode: 'Offline', status: 'Completed', dateTime: '2022-10-15 17:00:00' }
   ];
 
+  navigateTo(route: string): void {
+    // Use the Angular Router to navigate to the specified route
+    this.router.navigate([`/${route}`]);
+  }
 }

@@ -1,3 +1,4 @@
+// validation function for username
 const validateUserName = (userName) => {
   if (!userName) {
     throw new Error("Username is required.");
@@ -7,6 +8,7 @@ const validateUserName = (userName) => {
   }
 };
 
+// validation function for email
 const validateEmail = (email) => {
   if (!email) {
     throw new Error("Email is required.");
@@ -44,6 +46,7 @@ const validateRole = (role) => {
   }
 };
 
+// validation function for user ID
 const validateUserId = (userId) => {
   if (!userId || typeof userId !== "string") {
     throw new Error("userId must be a non-empty string");
