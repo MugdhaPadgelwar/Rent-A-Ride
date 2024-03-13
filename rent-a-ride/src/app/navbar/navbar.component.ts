@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../auth-service';
 
 /**
  * Component for the navigation bar.
@@ -10,7 +11,20 @@ import { filter } from 'rxjs/operators';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit,OnDestroy {
+  // to check if user is logged in or not
+  isLoggedIn:Boolean = false
+
+  
+  ngOnDestroy(): void {
+    
+  }
+
+  ngOnInit(): void {
+     this.authService.loggedIn$.subscribe(loggedIn=>{
+      this.isLoggedIn = loggedIn
+    })
+  }
   /** Brand name displayed in the navigation bar. */
   brandName: string = 'Rent-a-Ride';
 
@@ -21,7 +35,7 @@ export class NavbarComponent {
    * Constructor to initialize the NavbarComponent.
    * @param router Router instance for navigation events.
    */
-  constructor(private router: Router) {
+  constructor(private router: Router,private authService:AuthService) {
     // Subscribe to router events to update the current page based on the URL
     this.router.events
       .pipe(

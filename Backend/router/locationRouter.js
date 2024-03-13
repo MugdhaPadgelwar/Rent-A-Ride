@@ -62,7 +62,7 @@ router.use(verifyToken);
  *         - area
  *         - dateTime
 
- *     ErrorResponse:
+ *     ErrorResponseLocation:
  *       type: object
  *       properties:
  *         error:
@@ -70,7 +70,7 @@ router.use(verifyToken);
  *           description: The error message
  *           example: Internal Server Error
  *
- *     SuccessResponse:
+ *     SuccessResponseLocation:
  *       type: object
  *       properties:
  *         city:
@@ -129,13 +129,13 @@ router.use(verifyToken);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *               $ref: '#/components/schemas/SuccessResponseLocation'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/ErrorResponseLocation'
  *     security:
  *       - BearerAuth: []
  */
@@ -160,25 +160,25 @@ router.post("/postLocation", locationController.postLocation);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *               $ref: '#/components/schemas/SuccessResponseLocation'
  *       400:
  *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/ErrorResponseLocation'
  *       404:
  *         description: Not Found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/ErrorResponseLocation'
  *       500:
  *         description: Internal Server Error
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/ErrorResponseLocation'
  *     security:
  *       - BearerAuth: []
  */
