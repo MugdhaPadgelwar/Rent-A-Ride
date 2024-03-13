@@ -31,6 +31,7 @@ import { CarManagementComponent } from './car-management/car-management.componen
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { HttpClientModule } from '@angular/common/http';
     CarManagementComponent,
     BookingDetailsComponent,
     RentCarComponent,
+    AdminComponent,
   
   ],
   imports: [
