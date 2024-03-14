@@ -7,7 +7,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router'; 
+import { HttpClient } from '@angular/common/http';
 
 /**
  * Component responsible for resetting user password.
@@ -32,7 +33,8 @@ export class ResetComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute, 
+    private httpClient: HttpClient 
   ) {
     // Initialize reset password form
     this.resetPasswordForm = this.formBuilder.group({
@@ -46,6 +48,8 @@ export class ResetComponent {
     // Fetch the token from ActivatedRoute
     this.activatedRoute.params.subscribe((params: Params) => {
       this.token = params['token'];
+      console.log(this.token);
+      
     });
   }
 
@@ -56,8 +60,24 @@ export class ResetComponent {
    */
   onSubmit() {
     if (this.resetPasswordForm.valid) {
-      // Navigate to login page
-      this.router.navigate(['/login']);
+      const newPassword = this.resetPasswordForm.get('password')?.value;
+      const confirmPassword = this.resetPasswordForm.get('confirmPassword')?.value;
+      const password ={
+        newPassword:newPassword
+      }
+      // Send HTTP request to reset password
+      this.httpClient.put(
+        `http://localhost:3001/users/reset-password?token=${this.token}`,password
+      ).subscribe(
+        (response) => {
+          // Password reset successful, navigate to login page
+          this.router.navigate(['/signin']);
+        },
+        (error) => {
+          // Handle error (e.g., display error message)
+          console.error('Error resetting password:', error);
+        }
+      );
     } else {
       this.validateAllFormFields(this.resetPasswordForm);
     }

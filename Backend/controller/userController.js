@@ -262,56 +262,82 @@ const update =
       // If an error occurs during finding user or saving token, handle it
       return next(error);
     }
-  }; 
+  };  
+  // const checkemail = async (req, res) => {
+  //   try {
+  //     // Get the email from the query parameters
+  //     const email = req.query.email;
+      
+  //     // Perform a query in your database to check if the email exists
+  //     // This assumes you have a Mongoose User model
+  //     const user = await User.findOne({ email: email }).exec();
+      
+  //     if (user) {
+  //       // If the user with the provided email exists
+  //       return res.json({ exists: true });
+  //     } else {
+  //       // If the user with the provided email doesn't exist
+  //       return res.json({ exists: false });
+  //     }
+  //   } catch (error) {
+  //     // Handle database errors
+  //     console.error('Database error:', error);
+  //     return res.status(500).json({ error: 'Database error' });
+  //   }
+  // };
+  
 
- const resetpassword =  async (req, res, next) => {
+  const resetpassword = async (req, res, next) => {
     try {
-      const { token, newPassword } = req.body;
-  
-      // Check if token and newPassword are provided
-      if (!token || !newPassword) {
-        return res.status(400).json({ message: 'Token and newPassword are required' });
-      }
-  
-      // Verify the JWT token
-      jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-        if (err) {
-          return res.status(401).json({ message: 'Invalid or expired token' });
+        const { newPassword } = req.body;
+        const token = req.query.token; // Extracting token from query parameters
+
+        // Check if token and newPassword are provided
+        if (!token || !newPassword) {
+            return res.status(400).json({ message: 'Token and newPassword are required' });
         }
-  
-        const userId = decoded.userId;
-  
-        // Find user by ID
-        const user = await User.findById(userId);
-  
-        // Check if user exists
-        if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-  
-        // Encrypt the new password
-        const salt = await bcrypt.genSalt(10);
-        const encryptedPassword = await bcrypt.hash(newPassword, salt);
-  
-        // Update user's password
-        user.password = encryptedPassword;
-  
-        try {
-          // Save the updated user
-          const updateUser = await User.findOneAndUpdate({ _id: user._id }, { $set: user }, { new: true });
-  
-          // Respond with success message
-          return res.status(200).json({ message: 'Password reset successfully' });
-        } catch (error) {
-          console.error('Error updating user:', error);
-          return res.status(500).json({ message: 'Something went wrong' });
-        }
-      });
+
+        // Verify the JWT token
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ message: 'Invalid or expired token' });
+            }
+
+            const email = decoded.email;
+            console.log(email);
+
+            // Find user by ID
+            const user = await User.findOne({email:email});
+
+            // Check if user exists
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Encrypt the new password
+            const salt = await bcrypt.genSalt(10);
+            const encryptedPassword = await bcrypt.hash(newPassword, salt);
+
+            // Update user's password
+            user.password = encryptedPassword;
+
+            try {
+                // Save the updated user
+                const updateUser = await User.findOneAndUpdate({ _id: user._id }, { $set: user }, { new: true });
+
+                // Respond with success message
+                return res.status(200).json({ message: 'Password reset successfully' });
+            } catch (error) {
+                console.error('Error updating user:', error);
+                return res.status(500).json({ message: 'Something went wrong' });
+            }
+        });
     } catch (error) {
-      console.error('Error resetting password:', error);
-      return res.status(500).json({ message: 'Internal Server Error' });
+        console.error('Error resetting password:', error);
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
+
 
   
 const deleteByUserId =
@@ -409,7 +435,9 @@ module.exports = {
   getUserById,
   deleteByUserId,
   deleteImageById,   
-  resetpassword,
+  resetpassword, 
+
+
 
   
 

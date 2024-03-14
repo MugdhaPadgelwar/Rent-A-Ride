@@ -266,6 +266,9 @@ router.put("/updateCars", carController.updateCars);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.delete("/deleteCars", carController.deleteCars);
+router.delete("/deleteCars", carController.deleteCars);  
+
+
+
 
 module.exports = router;
