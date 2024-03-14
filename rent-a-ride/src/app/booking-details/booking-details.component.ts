@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LoaderService } from '../services/loader.service';
 
 /* Declaring the component */
 @Component({

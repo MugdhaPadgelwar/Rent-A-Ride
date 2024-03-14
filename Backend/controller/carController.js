@@ -152,14 +152,14 @@ const updateCars =
       const carId = req.query.carId;
 
       // Extract the new car price from the request body
-      const { carPricePerHour } = req.body;
+      const carDetail  = req.body;
 
       // Validate new car price
-      try {
-        validateCarPricePerHour(carPricePerHour);
-      } catch (error) {
-        return res.status(400).json({ error: error.message });
-      }
+      // try {
+      //   validateCarPricePerHour(carDetail);
+      // } catch (error) {
+      //   return res.status(400).json({ error: error.message });
+      // }
 
       // Check if the car ID is provided
       if (!carId) {
@@ -171,7 +171,7 @@ const updateCars =
       // Find the car by its ID and update its price
       const updatedCar = await Car.findByIdAndUpdate(
         carId,
-        { carPricePerHour },
+        carDetail,
         { new: true }
       );
 
@@ -240,6 +240,20 @@ const getCarByLocationId = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const getById = async(req,res)=>{
+  try{
+    const _id = req.query._id
+    const car = await Car.findById(_id);
+    if(!car){
+      return res.status(404).json({message:"car not found"})
+    }
+    res.status(200).json(car)
+
+  }
+  catch(err){
+    res.status(500).json({error:"Internal server error"})
+  }
+}
 
 module.exports = {
   add,
@@ -249,4 +263,5 @@ module.exports = {
   deleteCars,
   getCarByLocationId, 
 
+  getById,
 };

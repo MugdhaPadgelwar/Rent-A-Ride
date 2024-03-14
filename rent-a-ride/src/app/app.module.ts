@@ -31,13 +31,15 @@ import { CarManagementComponent } from './car-management/car-management.componen
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { RentCarComponent } from './renter/renter.component';
 import { AdminComponent } from './admin/admin.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DropdownComponent } from './dropdown/dropdown.component'; 
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 import { ModelFilterPipe } from './pipe/Carfilter.pipe';
+import { LoaderComponent } from './loader/loader.component';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -69,6 +71,7 @@ import { ModelFilterPipe } from './pipe/Carfilter.pipe';
     DropdownComponent,
     ErrorPageComponent,
     MyBookingsComponent,
+    LoaderComponent,
     SuccessDialogComponent,
     FilterPipe,
     ModelFilterPipe,
@@ -84,7 +87,8 @@ import { ModelFilterPipe } from './pipe/Carfilter.pipe';
     
   
   ],
-  providers: [provideClientHydration(), provideAnimationsAsync()],
+  // providers: [provideClientHydration(), provideAnimationsAsync(),{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },],
+  providers:[{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },provideAnimationsAsync()],
 
   bootstrap: [AppComponent],
 })

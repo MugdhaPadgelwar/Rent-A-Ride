@@ -96,8 +96,10 @@ const updateLocation =
     }
   });
 
+
 module.exports = {
   postLocation,
   updateLocation,
-  getAllLocation
+  getAllLocation,
+  
 };
