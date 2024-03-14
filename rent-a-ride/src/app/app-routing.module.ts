@@ -1,5 +1,5 @@
 import { AdminComponent } from './admin/admin.component';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingSuccessComponent } from './booking-success/booking-success.component';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +17,7 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { CarManagementComponent } from './car-management/car-management.component';
+import { AuthGuardService } from './auth-guard-service';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -65,26 +66,32 @@ const routes: Routes = [
   },
   {
     path: 'editprofile',
+    canActivate:[AuthGuardService],
     component: EditProfileComponent,
   },
   {
     path: 'admin-car-details',
+    canActivate:[AuthGuardService],
     component: CarManagementComponent,
   },
   {
     path: 'admin-user-details',
+    canActivate:[AuthGuardService],
     component: UserDetailsComponent,
   },
   {
     path: 'booking-details',
+    canActivate:[AuthGuardService],
     component: BookingDetailsComponent,
   },
   {
     path: 'transaction-details',
+    canActivate:[AuthGuardService],
     component: TransactionPageComponent,
   },
   {
     path: 'admin',
+    canActivate:[AuthGuardService],
     component: AdminComponent,
   }, 
   {
@@ -99,3 +106,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+// export const AppRoutingModule = RouterModule.forRoot(routes);

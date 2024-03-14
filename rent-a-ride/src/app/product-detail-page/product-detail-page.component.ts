@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Route } from '@angular/router';
+import { response } from 'express';
 
 /** Declare Razorpay as an external variable */
 declare var Razorpay: any;
@@ -9,7 +12,31 @@ declare var Razorpay: any;
   templateUrl: './product-detail-page.component.html',
   styleUrls: ['./product-detail-page.component.css'],
 })
-export class ProductDetailPageComponent {
+export class ProductDetailPageComponent implements OnInit {
+  carId:any;
+  carDetail:any;
+  constructor(private http:HttpClient,private route:ActivatedRoute){}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe({
+      next:(data:any)=>{
+        this.carId = data._id
+        // console.log(data);
+        
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+    this.http.get(`http://localhost:3001/cars/car?_id=${this.carId}`).subscribe({
+      next:(response)=>{
+        this.carDetail = response
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
+  }
   /** Product rating */
   productRating: string = '4.8(56)';
   /** Price of the product */
@@ -57,6 +84,20 @@ export class ProductDetailPageComponent {
 
     const successCallback = (paymentId: any) => {
       console.log('Payment successful with ID:', paymentId);
+      const updateAvailability = {
+        availability : false
+      }
+      this.http.put(`http://localhost:3001/cars/updateCars?carId=${this.carId}`,updateAvailability).subscribe({
+        next:(response)=>{
+          console.log(response);
+          
+        },
+        error:(err)=>{
+          console.log(err);
+          
+        }
+      })
+
     };
 
     const failureCallback = (error: any) => {

@@ -14,6 +14,15 @@ export class CityComponent {
 
   /** Flag indicating whether to show error message or not. */
   showError: boolean = false;
+  OnSearch(){
+    console.log("working");
+    
+  }
+  navigateTo() {
+    // Use the Angular Router to navigate to the specified route
+    console.log("sample");
+    
+  }
 
   /** List of cities with their values and labels. */
   cities: any[] = [
@@ -31,12 +40,12 @@ export class CityComponent {
    * Logs a message if the city is not selected and updates showError flag.
    * Logs the selected city if it is valid and resets showError flag.
    */
-  checkValidation(): void {
-    if (this.selectedCity === '') {
-      console.log('Please select the city');
-    } else {
-      this.showError = false;
-      console.log('Selected City:', this.selectedCity);
-    }
-  }
+  // checkValidation(): void {
+  //   if (this.selectedCity === '') {
+  //     console.log('Please select the city');
+  //   } else {
+  //     this.showError = false;
+  //     console.log('Selected City:', this.selectedCity);
+  //   }
+  // }
 }
