@@ -1,3 +1,4 @@
+import { SuccessDialogComponent } from './../success-dialog/success-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -7,7 +8,8 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import jwtDecode from 'jwt-decode';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 /**
  * Component for editing user profile.
@@ -47,7 +49,7 @@ export class EditProfileComponent implements OnInit {
    * Constructor to initialize the EditProfileComponent.
    * @param formBuilder FormBuilder instance for building form controls.
    */
-  constructor(private formBuilder: FormBuilder,private http: HttpClient) {}
+  constructor(private formBuilder: FormBuilder,private http: HttpClient,private dialog: MatDialog,private router: Router) {}
 
   /** Lifecycle hook called after component initialization. */
   ngOnInit(): void {
@@ -120,7 +122,7 @@ export class EditProfileComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log('Update successful:', response);
-          // Handle success (if needed)
+          this.openSuccessDialog();
         },
         (error) => {
           console.error('Update failed:', error);
@@ -133,5 +135,13 @@ export class EditProfileComponent implements OnInit {
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+  }
+
+  openSuccessDialog(): void {
+    const dialogRef = this.dialog.open(SuccessDialogComponent);
+    setTimeout(() => {
+      dialogRef.close();
+      this.router.navigate(['/home']); // Replace '/previous-page' with your desired route
+    }, 3000);
   }
 }
