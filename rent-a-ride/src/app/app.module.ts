@@ -1,3 +1,4 @@
+import { FilterPipe } from './pipe/filter.pipe';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -65,8 +66,8 @@ import { SuccessDialogComponent } from './success-dialog/success-dialog.componen
     AdminComponent,
     DropdownComponent,
     ErrorPageComponent,
-    SuccessDialogComponent
-
+    SuccessDialogComponent,
+    FilterPipe,
     
   
   ],
