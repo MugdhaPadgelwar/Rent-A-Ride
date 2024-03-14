@@ -34,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DropdownComponent } from './dropdown/dropdown.component'; 
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
+import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -63,7 +64,8 @@ import { LoginComponent } from './login/login.component';
     RentCarComponent,
     AdminComponent,
     DropdownComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    MyBookingsComponent
 
     
   
