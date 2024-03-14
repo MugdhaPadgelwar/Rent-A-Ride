@@ -8,6 +8,6 @@
   <ul [ngClass]="{ active: dropdownActive }">
     <li (click)="navigateTo('/editprofile')">Edit Profile</li>
     <li><a href="#">My Booking</a></li>
-    <li><a href="#">Log Out</a></li>
+    <li (click)="logOut()">Log Out</li>
   </ul>
 </div>
