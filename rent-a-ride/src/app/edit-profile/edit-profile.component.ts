@@ -73,6 +73,7 @@ export class EditProfileComponent implements OnInit {
       ],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
+      age: ['',Validators.required,this.onlyDigits()],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
@@ -104,6 +105,7 @@ export class EditProfileComponent implements OnInit {
       mobileNumber: this.f['phoneno'].value,
       email: this.f['email'].value,
       gender: this.f['gender'].value,
+      age: this.f['age'].value,
       address: {
         city: this.f['city'].value,
         state: this.f['state'].value,
