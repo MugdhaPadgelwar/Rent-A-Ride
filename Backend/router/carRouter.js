@@ -165,9 +165,10 @@ router.get("/modelName", carController.getByModelName);
 router.get("/getCarByLocationId", carController.getCarByLocationId);
 
 
-router.get('/car',carController.getById);
-router.use(verifyToken);
 
+router.use(verifyToken);
+router.get('/carbyid',carController.getById);
+router.get('/carbyuserid',carController.getByUserId);
 /**
  * @swagger
  * /cars/add:

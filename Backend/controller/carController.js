@@ -110,8 +110,6 @@ const getAllCars =
     }
   }); 
 
-
-
 // GET endpoint for getting cars by car model using query parameters
 const getByModelName = async (req, res) => {
   try {
@@ -194,7 +192,7 @@ const deleteCars =
   async (req, res) => {
     try {
       // Extract the car ID from the request body
-      const { carId } = req.body;
+      const  carId  = req.query.carId;
 
       // Validate car ID
       validateCarId(carId);
@@ -240,6 +238,8 @@ const getCarByLocationId = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
 const getById = async(req,res)=>{
   try{
     const _id = req.query._id
@@ -255,6 +255,21 @@ const getById = async(req,res)=>{
   }
 }
 
+const getByUserId = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const cars = await Car.find({ userId: userId });
+
+    if (!cars || cars.length === 0) {
+      return res.status(404).json({ message: "Cars not found for this user" });
+    }
+
+    res.status(200).json(cars);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
 module.exports = {
   add,
   getAllCars,
@@ -262,6 +277,6 @@ module.exports = {
   updateCars,
   deleteCars,
   getCarByLocationId, 
-
+  getByUserId,
   getById,
 };
