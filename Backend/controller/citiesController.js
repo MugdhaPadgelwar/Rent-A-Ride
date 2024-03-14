@@ -87,8 +87,28 @@ const getAllCities =(isAdmin,async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+const getCityByName = (verifyToken,async(req,res)=>{
+  try{
+    const locationName = req.query.location
+    console.log(locationName);
+    const location = await Cities.findOne({city:locationName})
+    if(!location){
+      res.status(400).json({message:"Location not registered"})
+    }
+    else{
+      res.status(200).json(location)
+
+    }
+
+  }
+  catch(err){
+    res.status(500).json({error:"Internal server error"})
+  }
+})
 module.exports = {
   addCities,
   deleteCityById,
   getAllCities,
+  getCityByName,
 };

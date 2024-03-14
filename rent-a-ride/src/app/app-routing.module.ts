@@ -54,10 +54,12 @@ const routes: Routes = [
   },
   {
     path: 'renter',
+    canActivate:[AuthGuardService],
     component: RentCarComponent,
   },
   {
     path: 'detailproduct',
+    canActivate:[AuthGuardService],
     component: ProductDetailPageComponent,
   },
   {

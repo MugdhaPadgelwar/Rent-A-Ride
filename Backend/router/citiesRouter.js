@@ -59,6 +59,7 @@ const citiesController = require("../controller/citiesController");
  *           example: 0
  */
 
+router.get('/location',citiesController.getCityByName)
 router.use(verifyToken, isAdmin);
 
 /**

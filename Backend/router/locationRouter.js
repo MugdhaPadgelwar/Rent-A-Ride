@@ -183,7 +183,7 @@ router.post("/postLocation",verifyToken, locationController.postLocation);
  *       - BearerAuth: []
  */
 router.put("/updateLocation",verifyToken, locationController.updateLocation);
-router.get('/location',locationController.getLocationByName)
+
 router.use(isAdmin);
 router.get("/getAllLocations",isAdmin,locationController.getAllLocation)
 

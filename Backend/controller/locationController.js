@@ -95,28 +95,11 @@ const updateLocation =
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
-  const getLocationByName = (verifyToken,async(req,res)=>{
-    try{
-      const locationName = req.query.location
-      console.log(locationName);
-      const location = await Location.findOne({city:locationName})
-      if(!location){
-        res.status(400).json({message:"Location not registered"})
-      }
-      else{
-        res.status(200).json(location)
 
-      }
-
-    }
-    catch(err){
-      res.status(500).json({error:"Internal server error"})
-    }
-  })
 
 module.exports = {
   postLocation,
   updateLocation,
   getAllLocation,
-  getLocationByName
+  
 };
