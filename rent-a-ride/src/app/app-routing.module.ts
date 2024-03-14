@@ -17,6 +17,7 @@ import { TransactionPageComponent } from './transaction-page/transaction-page.co
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { BookingDetailsComponent } from './booking-details/booking-details.component';
 import { CarManagementComponent } from './car-management/car-management.component';
+import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { AuthGuardService } from './auth-guard-service';
 
 const routes: Routes = [
@@ -97,9 +98,15 @@ const routes: Routes = [
     component: AdminComponent,
   }, 
   {
+    path: 'booking',
+    component: MyBookingsComponent,
+  }, 
+
+  {
     path: '**', 
     component: ErrorPageComponent,
-  }
+  },
+
 
 ];
 

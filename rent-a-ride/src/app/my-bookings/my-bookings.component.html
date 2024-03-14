@@ -1,0 +1,67 @@
+<nav class="navbar">
+    <div class="navbar-brand" style="color: orange;" >Rent-A-Ride</div>
+  </nav>
+  
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let booking of bookings">
+        <div class="card small-card">
+          <div class="card-header">
+            <div class="d-inline h4">My Bookings</div>
+          </div>
+          <div class="card-body">
+            <!-- Replace static content with Angular bindings -->
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Brand</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.brand }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Model</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.model }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Year</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.year }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Car No Plate</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.carNoPlate }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Capacity</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.capacity }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Type</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.type }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Fuel Type</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.fuelType }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Price/hour</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.pricePerHour }}</dt>
+            </dl>
+            <dl class="row mb-0">
+              <dd class="col-sm-4">Total Price</dd>
+              <dt class="col-sm-6 reduced-width">{{ booking.totalPrice }}</dt>
+            </dl>
+            <!-- Add image binding -->
+            <img [src]="booking.image" class="img-fluid" alt="Car Image">
+            <hr>
+            <!-- Buttons -->
+            <div class="row mt-4">
+              <div class="col-sm-4">
+                <button class="btn btn-danger btn-block" (click)="cancelBooking(booking)">Cancel Booking</button>
+              </div>
+              <div class="col-sm-4">
+                <button class="btn btn-primary btn-block" (click)="giveFeedback(booking)">Feedback</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

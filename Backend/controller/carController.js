@@ -108,7 +108,9 @@ const getAllCars =
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     }
-  });
+  }); 
+
+
 
 // GET endpoint for getting cars by car model using query parameters
 const getByModelName = async (req, res) => {
@@ -259,6 +261,7 @@ module.exports = {
   getByModelName,
   updateCars,
   deleteCars,
-  getCarByLocationId,
+  getCarByLocationId, 
+
   getById,
 };

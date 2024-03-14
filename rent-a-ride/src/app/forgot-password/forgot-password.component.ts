@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {
   FormBuilder,
   FormGroup,
@@ -13,8 +14,10 @@ import {
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm: FormGroup;
+  resetInstructionsSent: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.forgotPasswordForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
     });
@@ -22,8 +25,27 @@ export class ForgotPasswordComponent {
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {
-      // Logic to send reset instructions
-      console.log('Reset instructions sent to:', this.getEmail()?.value);
+      const email = this.getEmail()?.value;
+
+      // Send an HTTP POST request to your backend API
+      this.http.post<any>('http://localhost:3001/users/forget-password', { email })
+        .subscribe(
+          (response) => {
+            console.log('Reset instructions sent successfully');
+            this.resetInstructionsSent = true;
+            // Optionally, handle success response
+          },
+          (error) => {
+            console.error('Error sending reset instructions:', error);
+            if (error.status === 400) {
+              this.errorMessage = 'Invalid email format';
+            } else if (error.status === 404) {
+              this.errorMessage = 'Invalid Email';
+            } else {
+              this.errorMessage = 'An unexpected error occurred. Please try again.';
+            }
+          }
+        );
     }
   }
 

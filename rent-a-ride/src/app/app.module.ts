@@ -1,3 +1,4 @@
+import { FilterPipe } from './pipe/Userfilter.pipe';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -34,7 +35,9 @@ import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DropdownComponent } from './dropdown/dropdown.component'; 
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
+import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { ModelFilterPipe } from './pipe/Carfilter.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './interceptor/loader.interceptor';
 // import { AuthGuardService } from './auth-guard-service';
@@ -67,10 +70,11 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
     AdminComponent,
     DropdownComponent,
     ErrorPageComponent,
+    MyBookingsComponent,
     LoaderComponent,
-    SuccessDialogComponent
-
-    
+    SuccessDialogComponent,
+    FilterPipe,
+    ModelFilterPipe,
   
   ],
   imports: [
