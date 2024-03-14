@@ -34,6 +34,7 @@ import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DropdownComponent } from './dropdown/dropdown.component'; 
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
+import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './interceptor/loader.interceptor';
 // import { AuthGuardService } from './auth-guard-service';
@@ -66,7 +67,8 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
     AdminComponent,
     DropdownComponent,
     ErrorPageComponent,
-    LoaderComponent
+    LoaderComponent,
+    SuccessDialogComponent
 
     
   

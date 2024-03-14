@@ -95,7 +95,7 @@ const login = async (req, res) => {
     }
     // Generate JWT token
     const token = jwt.sign(
-      { email: user.email, role: user.role },
+      { email: user.email, role: user.role},
       process.env.JWT_SECRET,
       { expiresIn: "1h" } // Token expires in 1 hour
     );
@@ -104,6 +104,7 @@ const login = async (req, res) => {
       message: "Login successful.",
       token: token,
       role:user.role,
+      userId:user._id, 
       expiresIn: 3600, // Token expires in 1 Month
     });
     console.log("success");
