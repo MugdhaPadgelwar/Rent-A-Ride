@@ -1,7 +1,7 @@
 <aside>
     <header>
         <div><img class="profile-picture" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2za5BkrRdiLySsA5tgm_SwWZqemTjg42T9PTME4hJEA&amp;s">
-            <p>Shruti Shrivastav</p>
+            <p>{{ userName }}</p>
         </div>
     </header>
     <nav class="side-navigation">
@@ -27,7 +27,7 @@
         <div class="user-card">
             <figure><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2za5BkrRdiLySsA5tgm_SwWZqemTjg42T9PTME4hJEA&amp;s"></figure>
             <div class="user-info">
-                <div class="name"><span>Shruti Shrivastav</span></div>
+                <div class="name"><span>{{ userName }}</span></div>
                 <div class="user-role">
                     Admin
                 </div>
@@ -35,8 +35,8 @@
         </div>
         <div class="action-links">
             <ul>
-                <li><a href="#" data-title="Edit profile"><i class="fa fa-pencil"></i></a></li>
-                <li><a href="#" data-title="Sign out"><i class="fa fa-sign-out"></i></a></li>
+                <li (click)="navigateTo('/editprofile')"><a data-title="Edit profile"><i class="fa fa-pencil"></i></a></li>
+                <li (click)="logOut()"><a data-title="Sign out"><i class="fa fa-sign-out"></i></a></li>
             </ul>
         </div>
     </div>
