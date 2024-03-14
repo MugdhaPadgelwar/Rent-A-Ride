@@ -20,6 +20,8 @@ export class CarManagementComponent {
    */
   cars: any[] = [];
 
+  searchText: string = '';
+
   navigateTo(route: string): void {
     // Use the Angular Router to navigate to the specified route
     this.router.navigate([`/${route}`]);
@@ -30,15 +32,36 @@ export class CarManagementComponent {
     }
   }
 
+  // This method is called whenever the user changes the search text
+  onSearchChange(): void {
+    this.filterCars();
+  }
+
   ngOnInit() {
     this.fetchCarDetails();
   }
   
+  // Add filterUsers method to filter the users array
+  filterCars(): void {
+    if (this.searchText) {
+      this.cars = this.cars.filter((car: any) =>
+        car.carModel.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      // If searchText is empty, reset the cars array to the original list
+      this.fetchCarDetails();
+    }
+  }
+
   fetchCarDetails() {
-    // Make the HTTP GET request to the backend API
     this.http.get<any[]>('http://localhost:3001/cars/all').subscribe(
       (response) => {
+        // Assign response to cars array
         this.cars = response;
+        // Filter cars if searchText is not empty
+        if (this.searchText) {
+          this.filterCars();
+        }
       },
       (error) => {
         console.error('Error fetching car details:', error);

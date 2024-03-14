@@ -1,5 +1,5 @@
 <aside>
-    <header>
+    <header (click)="navigateTo('/admin')">
         <div>
             <p>Rent-a-Ride</p>
         </div>
@@ -19,7 +19,7 @@
            User Details Page
         </div>
         <div class="search">
-            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off" autocomplete="off" [(ngModel)]="searchText" (keyup)="filterUsers()"><i class="fa fa-search"></i>
+            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off" [(ngModel)]="searchText" (keyup)="filterUsers()"><i class="fa fa-search"></i>
         </div>
     </header>
     

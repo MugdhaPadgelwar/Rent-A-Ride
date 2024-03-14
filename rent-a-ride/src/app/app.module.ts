@@ -1,4 +1,4 @@
-import { FilterPipe } from './pipe/filter.pipe';
+import { FilterPipe } from './pipe/Userfilter.pipe';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -36,6 +36,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 import { SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { ModelFilterPipe } from './pipe/Carfilter.pipe';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -68,7 +69,7 @@ import { SuccessDialogComponent } from './success-dialog/success-dialog.componen
     ErrorPageComponent,
     SuccessDialogComponent,
     FilterPipe,
-    
+    ModelFilterPipe,
   
   ],
   imports: [
