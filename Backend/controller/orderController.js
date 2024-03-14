@@ -138,9 +138,35 @@ const cancleOrder =
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
+
+const getMyBookings =
+  (verifyToken,
+  async (req, res) => {
+    try {
+      const userData = req.decoded;
+      const userId = userData.userId;
+
+      // Query bookings with the matching user_id
+      const myBookings = await Order.find({ userId })
+
+      res.status(200).json({
+        success: true,
+        message: "My bookings retrieved successfully!",
+        bookings: myBookings,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+    }
+  });
+
 module.exports = {
   placedOrder,
   orderById,
   allorders,
   cancleOrder,
+  getMyBookings,
 };

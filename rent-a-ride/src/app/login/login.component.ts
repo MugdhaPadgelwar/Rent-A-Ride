@@ -44,10 +44,14 @@ export class LoginComponent {
           console.log('Signin successful', response);
           const token = response.token;
           const role = response.role
-          if (token && role) {
+          const userID = response.userId
+          console.log(userID);
+          
+          if (token && role && userID) {
             console.log(token);
             localStorage.setItem('userToken', token);
             localStorage.setItem('role',role)
+            localStorage.setItem('userID',userID)
             this.authService.logIn()
             // Navigate to the home page if the token is present
             if(role=='user')

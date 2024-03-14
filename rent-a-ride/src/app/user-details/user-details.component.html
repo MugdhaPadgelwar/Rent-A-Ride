@@ -1,5 +1,5 @@
 <aside>
-    <header>
+    <header (click)="navigateTo('/admin')">
         <div>
             <p>Rent-a-Ride</p>
         </div>
@@ -19,7 +19,7 @@
            User Details Page
         </div>
         <div class="search">
-            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
+            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off" [(ngModel)]="searchText" (keyup)="filterUsers()"><i class="fa fa-search"></i>
         </div>
     </header>
     
@@ -41,12 +41,12 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let user of users">
-                <tr>
+            <ng-container *ngFor="let user of users | filter: searchText">
+                <tr *ngIf="!searchText || user.name.toLowerCase().includes(searchText.toLowerCase())">
                     <td>{{ user._id }}</td>
                     <td>{{ user.userName }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.phone }}</td>
+                    <td>{{ user.mobileNumber }}</td>
                     <td>{{ user.gender }}</td>
                     <td>{{ user.age }}</td>
                 </tr>

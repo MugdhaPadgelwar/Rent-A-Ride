@@ -1,21 +1,5 @@
 <div class="register-form">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>Full Name</label>
-      <input
-        type="text"
-        formControlName="fullname"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['fullname'].errors }"
-      />
-      @if (submitted && f['fullname'].errors) {
-      <div class="invalid-feedback">
-        @if (f['fullname'].errors['required']) {
-        <div>Fullname is required</div>
-        }
-      </div>
-      }
-    </div>
 
     <div class="form-group">
       <label>Username</label>
@@ -91,29 +75,12 @@
     </div>
 
     <div class="form-group">
-      <label>Date of Birth</label>
-      <input
-        type="date"
-        formControlName="dob"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }"
-      />
-      @if (submitted && f['dob'].errors) {
-      <div class="invalid-feedback">
-        @if (f['dob'].errors['required']) {
-        <div>DOB is required</div>
-        }
-      </div>
-      }
-    </div>
-
-    <div class="form-group">
-      <label>Address</label>
+      <label>Age</label>
       <input
         type="text"
-        formControlName="address"
+        formControlName="age"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+        [ngClass]="{ 'is-invalid': submitted && f['age'].errors }"
       />
     </div>
 
