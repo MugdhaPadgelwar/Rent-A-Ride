@@ -1,4 +1,5 @@
 /* Import necessary modules */
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,6 +7,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { response } from 'express';
 
 /**
  * Component for renting a car.
@@ -18,12 +21,16 @@ import {
 export class RentCarComponent implements OnInit {
   /** Define FormGroup variable for car form */
   carForm!: FormGroup;
-
+  city:any;
+  locationId:any;
+  token:any;
   /**
    * Constructor with dependency injection of FormBuilder.
    * @param formBuilder FormBuilder instance for building form controls.
    */
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private http:HttpClient,private route:ActivatedRoute) {
+
+  }
 
   /** Initialize the component */
   ngOnInit(): void {
@@ -48,6 +55,37 @@ export class RentCarComponent implements OnInit {
         ],
       ], // Car insurance number input
     });
+
+    this.route.queryParams.subscribe({
+      next:(data:any)=>{
+        this.city = data.city
+        console.log(this.city);
+        
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
+    this.token = localStorage.getItem('userToken')
+    console.log(this.token);
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Example header, customize as needed
+      Authorization: `Bearer ${this.token}`,
+    });
+    this.http.get<any[]>(`http://localhost:3001/locations/location?location=${this.city}`,{headers}).subscribe({
+      next:(response:any)=>{
+        console.log(response);
+        this.locationId = response._id
+
+        
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
   }
 
   /** Function to handle form submission */
@@ -55,6 +93,44 @@ export class RentCarComponent implements OnInit {
     if (this.carForm.valid) {
       console.log('Form submitted successfully!'); // Log success message if form is valid
       console.log('Form Data:', this.carForm.value); // Log form data
+      const userId = localStorage.getItem('userID')
+      const carDetails = {
+        userId:userId,
+        locationId:this.locationId,
+        carModel:this.carForm.value.carModel,
+        carBrand:this.carForm.value.carBrand,
+        carYear:this.carForm.value.carYear,
+        carImage:this.carForm.value.carImage,
+        carNoPlate:this.carForm.value.carNoPlate,
+        carCapacity:this.carForm.value.carCapacity,
+        carType:this.carForm.value.carType,
+        carFuelType:this.carForm.value.carFuelType,
+        carMileage:this.carForm.value.carMileage,
+        carPricePerHour:this.carForm.value.carPricePerHour,
+        carInsuranceNumber:this.carForm.value.carInsuranceNumber,
+        availability:true
+
+
+      }
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json', // Example header, customize as needed
+        Authorization: `Bearer ${this.token}`,
+      });
+      this.http.post('http://localhost:3001/cars/add',carDetails,{headers}).subscribe({
+        next:(response)=>{
+          console.log("done");
+
+          
+        },
+        error:(err)=>{
+          console.log(err);
+          
+        }
+      })
+
+
+      
+
     } else {
       console.log('Form is invalid. Please fill all required fields.'); // Log error message if form is invalid
     }

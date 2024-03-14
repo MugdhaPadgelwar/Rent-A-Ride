@@ -83,7 +83,8 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
     
   
   ],
-  providers: [provideClientHydration(), provideAnimationsAsync(),{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },],
+  // providers: [provideClientHydration(), provideAnimationsAsync(),{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },],
+  providers:[{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },provideAnimationsAsync()],
 
   bootstrap: [AppComponent],
 })

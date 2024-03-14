@@ -27,7 +27,7 @@
 
   <div class="container-fluid py-5 bg-light">
     <div class="container pt-5 pb-3">
-      <h1 class="display-4 text-uppercase text-center mb-5">
+      <h1 class="display-4 text-uppercase text-center mb-5" >
         Search for Cities
       </h1>
       <div class="row justify-content-center">
@@ -38,14 +38,15 @@
               id="cityDropdown"
               name="city"
               [(ngModel)]="selectedCity"
+              
             >
               <option *ngFor="let city of cities" [value]="city.value">
                 {{ city.label }}
               </option>
             </select>
           </div>
-          <div class="text-center">
-            <a routerLink="/home" class="btn btn-primary py-2 px-4" (click)="OnSearch()"
+          <div class="text-center" (click)="onSearch()">
+            <a  class="btn btn-primary py-2 px-4" 
               >Search</a
             >
           </div>

@@ -55,7 +55,7 @@ export class LoginComponent {
             this.authService.logIn()
             // Navigate to the home page if the token is present
             if(role=='user')
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
             else{
               this.router.navigate(['/admin'])
             }
