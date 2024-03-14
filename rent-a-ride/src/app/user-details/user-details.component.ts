@@ -20,6 +20,8 @@ export class UserDetailsComponent {
    */
   users: any= [];
 
+  searchText: string = '';
+
   navigateTo(route: string): void {
     // Use the Angular Router to navigate to the specified route
     this.router.navigate([`/${route}`]);
@@ -32,10 +34,26 @@ export class UserDetailsComponent {
     }
   }
 
+  // This method is called whenever the user changes the search text
+  onSearchChange(): void {
+    this.filterUsers();
+  }
+
   ngOnInit() {
     this.fetchUserDetails();
     // this.token = localStorage.getItem('userToken');
   // console.log(token);
+  }
+
+  // Add filterUsers method to filter the users array
+  filterUsers(): void {
+    if (this.searchText) {
+      this.users = this.users.filter((user: any) =>
+        user.userName.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      this.fetchUserDetails(); // Reset the users array to the original list when search text is empty
+    }
   }
 
   fetchUserDetails() {
@@ -56,11 +74,11 @@ export class UserDetailsComponent {
       
 
       // Make the HTTP GET request to the backend API for fetching user details
-      this.http.get('http://localhost:3001/admin/users/list',{headers}).subscribe(
+      this.http.get<any[]>('http://localhost:3001/admin/users/list',{headers}).subscribe(
         (response) => {
           // Update your users array or perform any necessary logic with the response
           console.log('User details:', response);
-          this.users = response
+          this.users = this.searchText ? this.filterUsers() : response;
         },
         (error) => {
           console.error('Error fetching user details:', error);

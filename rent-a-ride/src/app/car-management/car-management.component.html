@@ -1,5 +1,5 @@
 <aside>
-    <header>
+    <header (click)="navigateTo('/admin')">
         <div>
             <p>Rent-a-Ride</p>
         </div>
@@ -19,7 +19,7 @@
            Car Details Page
         </div>
         <div class="search">
-            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off"><i class="fa fa-search"></i>
+            <input type="text" name="search" placeholder="Type here to search..." autocomplete="off" [(ngModel)]="searchText" (keyup)="filterCars()"><i class="fa fa-search"></i>
         </div>
     </header>
     
@@ -46,18 +46,20 @@
             </thead>
             <tbody>
                 <!-- Add rows with data here -->
-                <tr *ngFor="let car of cars">
-                    <td>{{ car.userId }}</td> 
-                    <td>{{ car._id }}</td>
-                    <td>{{ car.carBrand }}</td>
-                    <td>{{ car.carModel }}</td>
-                    <td>{{ car.carYear }}</td>
-                    <td>{{ car.carNoPlate }}</td>
-                    <td>{{ car.carCapacity }}</td>
-                    <td>{{ car.carType }}</td>
-                    <td>{{ car.carFuelType }}</td>
-                    <td>{{ car.carPricePerHour }}</td>
-                </tr>
+                <ng-container *ngFor="let car of cars | modelFilter: searchText">
+                    <tr *ngIf="!searchText || car.name.toLowerCase().includes(searchText.toLowerCase())">
+                        <td>{{ car.userId }}</td> 
+                        <td>{{ car._id }}</td>
+                        <td>{{ car.carBrand }}</td>
+                        <td>{{ car.carModel }}</td>
+                        <td>{{ car.carYear }}</td>
+                        <td>{{ car.carNoPlate }}</td>
+                        <td>{{ car.carCapacity }}</td>
+                        <td>{{ car.carType }}</td>
+                        <td>{{ car.carFuelType }}</td>
+                        <td>{{ car.carPricePerHour }}</td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
   </main>

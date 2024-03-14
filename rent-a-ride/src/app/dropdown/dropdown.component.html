@@ -6,8 +6,8 @@
       alt="Description of the image"
   /></a>
   <ul [ngClass]="{ active: dropdownActive }">
-    <li><a href="#">Edit Profile</a></li>
-    <li><a href="#">My Booking</a></li>
-    <li><a href="#">Log Out</a></li>
+    <li (click)="navigateTo('/editprofile')">Edit Profile</li>
+    <li><a routerLink="/booking">My Booking</a></li>
+    <li (click)="logOut()">Log Out</li>
   </ul>
 </div>

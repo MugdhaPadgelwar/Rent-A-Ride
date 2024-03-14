@@ -22,7 +22,7 @@ table {
 th, td {
     border: 1px solid black;
     padding: 15px;
-    text-align: left;
+    text-align: center;
 }
 
 /* Table Header Styles */
@@ -92,11 +92,6 @@ aside header > div {
 }
 
 .side-navigation {
-    font-size: 14px; 
-}
-
-
-.side-navigation {
     font-size: 14px;
 }
 
@@ -119,6 +114,7 @@ aside header > div {
     background-color: #233342;
     color: white;
 }
+
 
 main {
     float: right;
@@ -185,7 +181,11 @@ main {
     margin-top: 30px; 
     color: orange; 
     font-size: 30px;
-} 
+}  
+
+.list li{
+    margin-bottom: 20px;
+}
 
 
 

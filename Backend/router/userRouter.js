@@ -13,6 +13,7 @@ const { verifyToken } = require("../middleware/auth");
 
 
 
+
 /**
  * @swagger
  * components:
@@ -407,6 +408,9 @@ router.delete("/delete_id", userController.deleteByUserId);
  *               error: Internal Server Error
  */
 
-router.delete("/delete_image", userController.deleteImageById);
-router.use(verifyToken);
+router.delete("/delete_image", userController.deleteImageById);  
+router.put("/reset-password",userController.resetpassword);
+
+
+// router.use(verifyToken);
 module.exports = router;
