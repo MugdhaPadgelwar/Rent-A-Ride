@@ -37,13 +37,13 @@ export class ProductDetailPageComponent {
       description: 'Sample Razorpay demo',
       currency: 'INR',
       amount: 300000,
-      name: 'Mugdha',
-      key: 'rzp_test_D7Ve9gsjct6KgY',
+      name: 'Shruti',
+      key: 'rzp_test_rcZDiWvY5D4oKi',
       image: '',
       prefill: {
-        name: 'Mugdha Padgelwar',
-        email: 'mugdhapadgelwar2002@gmail.com',
-        contact: '8459247750',
+        name: 'Shruti Shrivastav',
+        email: 'shrutishrivastav938@gmail.com',
+        contact: '8624833069',
       },
       theme: {
         color: '#f37254',
