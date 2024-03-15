@@ -1,8 +1,10 @@
 // Import middleware
+const { log } = require("console");
 const { verifyToken,isAdmin } = require("../middleware/auth");
 
 //Import Model
 const Order = require("../models/Order");
+const Car = require("../models/Car.js")
 
 require("dotenv").config();
 const {
@@ -138,30 +140,28 @@ const cancleOrder =
       res.status(500).json({ error: "Internal Server Error" });
     }
   });
-
-const getMyBookings =
-  (verifyToken,
-  async (req, res) => {
+  const getMyBookings =  (verifyToken, async (req, res) => {
     try {
-      const userData = req.decoded;
-      const userId = userData.userId;
+        const userId = req.query.userId;
 
-      // Query bookings with the matching user_id
-      const myBookings = await Order.find({ userId })
+        // Fetch bookings for the current user and populate car details
+        const myBookings = await Order.find({ userId });
 
-      res.status(200).json({
-        success: true,
-        message: "My bookings retrieved successfully!",
-        bookings: myBookings,
-      });
+        res.status(200).json({
+            success: true,
+            message: "My bookings retrieved successfully!",
+            bookings: myBookings,
+        });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        success: false,
-        message: "Internal Server Error",
-      });
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
     }
-  });
+});
+
+  
 
 module.exports = {
   placedOrder,

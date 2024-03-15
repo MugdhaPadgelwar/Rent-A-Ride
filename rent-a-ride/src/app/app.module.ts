@@ -41,6 +41,7 @@ import { ModelFilterPipe } from './pipe/Carfilter.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import { MyCarsComponent } from './my-cars/my-cars.component';
+import { BookingService } from './booking.service';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -71,12 +72,13 @@ import { MyCarsComponent } from './my-cars/my-cars.component';
     AdminComponent,
     DropdownComponent,
     ErrorPageComponent,
-    MyBookingsComponent,
     LoaderComponent,
     SuccessDialogComponent,
     FilterPipe,
-    ModelFilterPipe,
+    ModelFilterPipe, 
     MyCarsComponent,
+    MyBookingsComponent,
+    
   
   ],
   imports: [
@@ -86,11 +88,11 @@ import { MyCarsComponent } from './my-cars/my-cars.component';
     FormsModule,
     HttpClientModule,
     CommonModule,
-    
+
   
   ],
   // providers: [provideClientHydration(), provideAnimationsAsync(),{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },],
-  providers:[{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },provideAnimationsAsync()],
+  providers:[{ provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },provideAnimationsAsync(),BookingService],
 
   bootstrap: [AppComponent],
 })
