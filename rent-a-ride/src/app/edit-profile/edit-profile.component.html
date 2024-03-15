@@ -4,9 +4,11 @@
     <div class="form-group">
       <label>Username</label>
       <input
-        type="text"
+      type="text"
+      readonly
         formControlName="username"
         class="form-control"
+        [(ngModel)]="userName"
         [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
       />
       @if (submitted && f['username'].errors) {
@@ -48,9 +50,12 @@
     <div class="form-group">
       <label>Email</label>
       <input
+
         type="text"
+        readonly
         formControlName="email"
         class="form-control"
+        [(ngModel)]="email"
         [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
       />
       @if (submitted && f['email'].errors) {

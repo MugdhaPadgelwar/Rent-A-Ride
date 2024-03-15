@@ -15,10 +15,12 @@ export class CarListingComponent implements OnInit {
   constructor(private http:HttpClient){}
   ngOnInit(): void {
     this.http.get('http://localhost:3001/cars/all').subscribe({
-      next:(response)=>{
+      next:(response:any)=>{
         console.log(response);
         
-        this.carList = response
+        this.carList = response.filter((car: any) => car.availability === true );
+      
+        
       },
       error:(err)=>{
         console.log(err);

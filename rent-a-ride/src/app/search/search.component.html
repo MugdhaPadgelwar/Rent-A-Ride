@@ -30,22 +30,23 @@
     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
       <label style="color: #1c1e32" for="pickupLocation">Pickup Location</label>
       <input
-        type="text"
-        #pickupLocation
-        class="form-control p-4"
-        id="pickupLocation"
-        placeholder="Pickup Location"
+      type="text"
+      [(ngModel)]="pickupLocation"
+      class="form-control p-4"
+      id="pickupLocation"
+      placeholder="Pickup Location"
       />
     </div>
     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
       <label style="color: #1c1e32" for="dropLocation">Drop Location</label>
 
       <input
-        type="text"
-        #dropLocation
-        class="form-control p-4"
-        id="dropLocation"
-        placeholder="Drop Location"
+      type="text"
+      [(ngModel)]="dropLocation"
+      class="form-control p-4"
+      id="dropLocation"
+      placeholder="Drop Location"
+      
       />
     </div>
     <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -54,6 +55,7 @@
       >
       <input
         type="datetime-local"
+        [(ngModel)]="pickupDate"
         class="form-control p-4"
         id="pickupDateTime"
         placeholder="Pickup Date&Time"
@@ -65,6 +67,7 @@
       >
       <input
         type="datetime-local"
+        [(ngModel)]="dropOffDate"
         class="form-control p-4"
         id="dropoffDateTime"
         placeholder="Dropoff Date&Time"
@@ -78,6 +81,7 @@
         class="btn btn-primary btn-block"
         type="submit"
         style="padding: 13px"
+        (click)="submitDeliveryInfo()"
       >
         Save
       </button>
