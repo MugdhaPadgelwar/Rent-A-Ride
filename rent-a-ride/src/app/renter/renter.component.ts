@@ -7,7 +7,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { response } from 'express';
 
 /**
@@ -28,7 +28,7 @@ export class RentCarComponent implements OnInit {
    * Constructor with dependency injection of FormBuilder.
    * @param formBuilder FormBuilder instance for building form controls.
    */
-  constructor(private formBuilder: FormBuilder,private http:HttpClient,private route:ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder,private http:HttpClient,private route:ActivatedRoute,private router:Router) {
 
   }
 
@@ -74,7 +74,7 @@ export class RentCarComponent implements OnInit {
       'Content-Type': 'application/json', // Example header, customize as needed
       Authorization: `Bearer ${this.token}`,
     });
-    this.http.get<any[]>(`http://localhost:3001/locations/location?location=${this.city}`,{headers}).subscribe({
+    this.http.get<any[]>(`http://localhost:3001/cities/location?location=${this.city}`,{headers}).subscribe({
       next:(response:any)=>{
         console.log(response);
         this.locationId = response._id
@@ -119,11 +119,12 @@ export class RentCarComponent implements OnInit {
       this.http.post('http://localhost:3001/cars/add',carDetails,{headers}).subscribe({
         next:(response)=>{
           console.log("done");
-
-          
+          alert("Car added successfully")
+          this.router.navigate(['/home'])
         },
         error:(err)=>{
           console.log(err);
+          alert("there was some problem while posting car")
           
         }
       })

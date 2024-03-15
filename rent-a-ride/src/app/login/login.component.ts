@@ -66,6 +66,9 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Signup failed', error);
+          alert("Enter correct email or password")
+          
+          
         }
       });
     } else {
