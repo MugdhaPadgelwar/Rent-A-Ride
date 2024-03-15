@@ -40,6 +40,7 @@ import { SuccessDialogComponent } from './success-dialog/success-dialog.componen
 import { ModelFilterPipe } from './pipe/Carfilter.pipe';
 import { LoaderComponent } from './loader/loader.component';
 import { LoaderInterceptor } from './interceptor/loader.interceptor';
+import { MyCarsComponent } from './my-cars/my-cars.component';
 // import { AuthGuardService } from './auth-guard-service';
 
 
@@ -75,6 +76,7 @@ import { LoaderInterceptor } from './interceptor/loader.interceptor';
     SuccessDialogComponent,
     FilterPipe,
     ModelFilterPipe,
+    MyCarsComponent,
   
   ],
   imports: [

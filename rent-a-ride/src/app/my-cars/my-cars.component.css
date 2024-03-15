@@ -1,0 +1,26 @@
+.small-card {
+    height: 500px; /* Adjust the height as per your requirement */
+    overflow-y: auto; /* Enable vertical scroll if content exceeds height */
+} 
+
+.reduced-width {
+    width: 20%; /* Adjust the width as needed */
+} 
+
+.img-fluid float-right{
+    margin-left: 50px;
+}  
+
+.col-sm-6{
+    margin-left: 50px;  
+   
+} 
+
+.navbar {
+    background-color: #1c1e32 ;
+    width: 2000px;
+    height: 80px;
+} 
+.navbar-brand{
+    font-size: 30px;
+}
