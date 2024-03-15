@@ -19,6 +19,7 @@ import { BookingDetailsComponent } from './booking-details/booking-details.compo
 import { CarManagementComponent } from './car-management/car-management.component';
 import { MyBookingsComponent } from './my-bookings/my-bookings.component';
 import { AuthGuardService } from './auth-guard-service';
+import { MyCarsComponent } from './my-cars/my-cars.component';
 
 const routes: Routes = [
   { path: '', component: CityComponent },
@@ -101,7 +102,10 @@ const routes: Routes = [
     path: 'booking',
     component: MyBookingsComponent,
   }, 
-
+  {
+    path: 'my_cars',
+    component: MyCarsComponent,
+  },
   {
     path: '**', 
     component: ErrorPageComponent,
