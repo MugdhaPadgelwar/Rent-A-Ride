@@ -145,7 +145,7 @@ const cancleOrder =
         const userId = req.query.userId;
 
         // Fetch bookings for the current user and populate car details
-        const myBookings = await Order.find({ userId }).populate('carId');
+        const myBookings = await Order.find({ userId });
 
         res.status(200).json({
             success: true,
