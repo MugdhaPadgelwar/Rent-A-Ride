@@ -21,6 +21,8 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
   token: string | null = localStorage.getItem('userToken');
+  userName:string = ''
+  email:string=''
 
   /** User ID extracted from the token */
   userId: string | null = localStorage.getItem('userID');
@@ -77,7 +79,20 @@ export class EditProfileComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
+
     });
+    const userId = localStorage.getItem("userID")
+    this.http.get(`http://localhost:3001/users/user_id?userId=${userId}`).subscribe({
+      next:(response:any)=>{
+        this.userName = response.userName
+        this.email = response.email
+
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
   }
 
   /**
