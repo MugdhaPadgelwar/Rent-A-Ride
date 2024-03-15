@@ -13,7 +13,8 @@
     </div>
     <!-- card right -->
     <div class="product-content">
-      <h2 class="product-title">{{ brand }},{{ model }}</h2>
+      <app-loader></app-loader>
+      <h2 class="product-title">{{ carDetail.carBrand }},{{ carDetail.carModel}}</h2>
 
       <div class="product-rating">
         <i class="fas fa-star"></i>
@@ -26,32 +27,32 @@
 
       <div class="product-price">
         <p class="new-price">
-          Price/h: <span>{{ price }}</span>
+          Price/h: <span>{{ carDetail.carPricePerHour }}</span>
         </p>
       </div>
 
       <div class="product-detail">
         <ul>
           <li>
-            Brand: <span>{{ brand }}</span>
+            Brand: <span>{{ carDetail.carBrand }}</span>
           </li>
           <li>
-            Model: <span>{{ model }}</span>
+            Model: <span>{{ carDetail.carModel }}</span>
           </li>
           <li>
-            Capacity: <span>{{ capacity }}</span>
+            Capacity: <span>{{ carDetail.carCapacity }}</span>
           </li>
           <li>
-            Type: <span>{{ type }}</span>
+            Type: <span>{{ carDetail.carType }}</span>
           </li>
           <li>
-            Fuel Type: <span>{{ fuelType }}</span>
+            Fuel Type: <span>{{ carDetail.carFuelType }}</span>
           </li>
           <li>
-            Mileage: <span>{{ mileage }}</span>
+            Mileage: <span>{{ carDetail.carMileage }}</span>
           </li>
           <li>
-            Year: <span>{{ year }}</span>
+            Year: <span>{{ carDetail.carYear }}</span>
           </li>
         </ul>
       </div>

@@ -43,7 +43,7 @@
           <div class="text-right">
             <h3 class="text-uppercase text-light mb-3">Rent out a Car?</h3>
 
-            <a routerLink="/renter" class="btn btn-primary py-2 px-4" href=""
+            <a [routerLink]="['/renter']" [queryParams]="{city:city}" class="btn btn-primary py-2 px-4" href=""
               >Start Now</a
             >
           </div>

@@ -164,6 +164,8 @@ router.get("/modelName", carController.getByModelName);
  */
 router.get("/getCarByLocationId", carController.getCarByLocationId);
 
+
+router.get('/car',carController.getById);
 router.use(verifyToken);
 
 /**
@@ -267,6 +269,8 @@ router.put("/updateCars", carController.updateCars);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete("/deleteCars", carController.deleteCars);  
+
+
 
 
 

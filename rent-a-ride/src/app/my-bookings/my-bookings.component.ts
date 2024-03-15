@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';   
-
+import { Component,OnInit } from '@angular/core';    
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 interface Booking {
   brand: string;
   model: string;
@@ -21,39 +21,37 @@ interface Booking {
   styleUrl: './my-bookings.component.css'
 })
 export class MyBookingsComponent implements OnInit {
-  bookings: Booking[] = []; // Assuming you have a Booking model defined
+  token: string | null = localStorage.getItem('userToken');
+  userId: string | null = localStorage.getItem('userID');
+  bookings: any[] = []; // Assuming you have a Booking model defined
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     // Assuming you fetch bookings data from a service or API
-    this.bookings = [
-      {
-        brand: 'Toyota',
-        model: 'Camry',
-        year: 2023,
-        carNoPlate: 'ABC123',
-        capacity: '5-seater',
-        type: 'SUV',
-        fuelType: 'Petrol',
-        pricePerHour: '$50',
-        totalPrice: '$200',
-        image: 'https://imgd.aeplcdn.com/370x208/n/cw/ec/130591/fronx-exterior-right-front-three-quarter-109.jpeg?isig=0&q=80'
-      },
-      {
-        brand: 'Honda',
-        model: 'Accord',
-        year: 2022,
-        carNoPlate: 'XYZ456',
-        capacity: '4-seater',
-        type: 'Sedan',
-        fuelType: 'Diesel',
-        pricePerHour: '$40',
-        totalPrice: '$160',
-        image: 'https://imgd.aeplcdn.com/370x208/n/cw/ec/130591/fronx-exterior-right-front-three-quarter-109.jpeg?isig=0&q=80'
+    this.fetchBookings();
+  } 
+  async fetchBookings() {
+    try {
+      // Fetch bookings for the user
+      const url = `http://localhost:3001/orders/mybookings?userId=${this.userId}`;
+      const response = await this.http.get<any>(url, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.token}`,
+        }),
+      }).toPromise();
+
+      // Check if response is undefined or not an array
+      if (!Array.isArray(response)) {
+        throw new Error('Response is not an array');
       }
-      // Add more booking objects as needed
-    ];
+
+      return response;
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+      throw error;
+    }
   }
 
   cancelBooking(booking: Booking): void {

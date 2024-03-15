@@ -412,5 +412,5 @@ router.delete("/delete_image", userController.deleteImageById);
 router.put("/reset-password",userController.resetpassword);
 
 
-// router.use(verifyToken);
+
 module.exports = router;
