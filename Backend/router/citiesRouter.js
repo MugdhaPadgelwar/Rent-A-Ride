@@ -60,7 +60,7 @@ const citiesController = require("../controller/citiesController");
  */
 
 router.get('/location',citiesController.getCityByName)
-router.use(verifyToken, isAdmin);
+// router.use(verifyToken, isAdmin);
 
 /**
  * @swagger
