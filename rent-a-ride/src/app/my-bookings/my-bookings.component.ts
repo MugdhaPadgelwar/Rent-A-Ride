@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 interface Booking {
+  id: string,
   carBrand: string;
   carModel: string;
   carYear: number;
@@ -98,6 +99,7 @@ export class MyBookingsComponent implements OnInit {
         // }
         
         console.log(booking);
+        booking.id = booking._id;
         return booking;
         
       });
@@ -106,13 +108,29 @@ export class MyBookingsComponent implements OnInit {
     });
   }
 
-  cancelBooking(booking: any): void {
-    // Implement cancellation logic here
-    console.log('Booking canceled:', booking);
-  }
-
-  giveFeedback(booking: any): void {
-    // Implement feedback logic here
-    console.log('Feedback provided for booking:', booking);
+  cancelBooking(booking: Booking): void {
+    const bookingId = booking.id; // Assuming bookingId is available in the Booking interface
+    const token = localStorage.getItem('userToken');
+  
+    if (!token) {
+      console.error('User token not available');
+      return;
+    }
+  
+    this.http.delete<any>(`http://localhost:3001/orders/cancel?orderId=${bookingId}`, { 
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    }).subscribe(
+      (response) => {
+        console.log('Booking Canceled:', booking);
+        // Assuming you want to remove the canceled booking from the UI
+        this.bookings = this.bookings.filter(b => b.id !== booking.id);
+      },
+      (error) => {
+        console.error('Error canceling booking:', error);
+      }
+    );
   }
 }
