@@ -18,6 +18,7 @@ export class CarListingComponent implements OnInit {
   selectedMileage: string = "all"
   selectedYear:string="all"
 
+
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
     this.http.get('http://localhost:3001/cars/all').subscribe({
@@ -36,13 +37,6 @@ export class CarListingComponent implements OnInit {
   }
 
   applyFilters(): void {
-    console.log("Selected brand: " + this.selectedBrand);
-    console.log("Selected mode: " + this.selectedMode);
-    console.log("Selected mileage: " + this.selectedMileage);
-    console.log("Selected Year: " + this.selectedYear);
-    console.log("Original car list:");
-
-
     this.filteredCarList = this.carList.filter((car: any) => {
       // Check if carBrand, carType, and carMileage are defined
       if (!car.carBrand || !car.carType || !car.carMileage) {
@@ -55,15 +49,15 @@ export class CarListingComponent implements OnInit {
       const selectedModeLower = this.selectedMode.trim().toLowerCase();
       const selectedMileageLower = this.selectedMileage.trim().toLowerCase();
       const selectedYearLower=this.selectedYear.trim().toLowerCase();
-      console.log("selected " + selectedMileageLower);
+
 
       // Convert car brand, mode, and mileage to lowercase
       const carBrandLower = car.carBrand.trim().toLowerCase();
       const carModeLower = car.carType.trim().toLowerCase();
       const carMileageLower: number = car.carMileage
       const carYear:number=car.carYear
-      console.log("the car Year is " + carYear)
-      console.log("the car mileage is " + carMileageLower)
+
+
 
       // Filter by brand
       if (selectedBrandLower !== 'all' && carBrandLower !== selectedBrandLower) {
@@ -79,34 +73,48 @@ export class CarListingComponent implements OnInit {
 
       // Filter by mileage
       // Filter by mileage
+      if (selectedMileageLower !== "all") {
+        if (selectedMileageLower === "less10" && !(carMileageLower <= 10)) {
+            console.log("Excluding car with mileage greater than 10");
+            return false;
+        }
+        if (selectedMileageLower === "10-20" && !(carMileageLower >= 10 && carMileageLower <= 20)) {
+            console.log("Excluding car with mileage outside the range of 10 and 20");
+            return false;
+        }
+      }
+      //Filter by Year
       if (selectedYearLower !== "all") {
-        if (selectedYearLower === "less10" && carMileageLower <= 10) {
-          console.log("Excluding car with mileage less than 10");
-          return true;
-        }
-        if (selectedYearLower === "10-20" && !(carMileageLower >= 10 && carMileageLower <= 20)) {
-          console.log("Excluding car with mileage outside the range of 10 and 20");
+        if (selectedYearLower === "2011" && carYear !== 2011) {
+          console.log("Excluding car with year 2011");
           return false;
-        }
       }
+        if (selectedYearLower === "2012" && carYear !== 2012) {
+          console.log("Excluding car with year 2012");
+          return false;
+      }
+        if (selectedYearLower === "2013" && carYear !== 2013) {
+          console.log("Excluding car with year 2013");
+          return false;
+      }
+        if (selectedYearLower === "2014" && carYear !== 2014) {
+          console.log("Excluding car with year 2014");
+          return false;
+      }
+        if (selectedYearLower === "2015" && carYear !== 2015) {
+            console.log("Excluding car with year 2015");
+            return false;
+        }
+        if (selectedYearLower === "2016" && carYear !== 2016) {
+            console.log("Excluding car with year 2016");
+            return false;
+        }
+    }
 
-      //By Year
-      if (selectedYear !== "all") {
-        if (selectedMileageLower === "2015" && !(carYear == 2015)) {
-          console.log("Excluding car with mileage Year is 2015");
-          return false;
-        }
-        if (selectedMileageLower === "2016" && !(carMileageLower==2016)) {
-          console.log("car Year is 2016");
-          return false;
-        }
-      }
 
       return true;
     });
 
-    console.log("Filtered car list:");
-    console.log(this.filteredCarList);
   }
 
 
