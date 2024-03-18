@@ -119,12 +119,6 @@ const cancleOrder =
         return res.status(400).json({ error: "Order ID is required." });
       }
 
-      // Validate cancellation reason
-      cancellationReasonValidation(req.body.cancellationReason);
-
-      // Validate cancellation date and time
-      cancellationDateAndTimeValidation(req.body.cancellationDateAndTime);
-
       // Check if the order exists
       const order = await Order.findById(orderId);
       if (!order) {
