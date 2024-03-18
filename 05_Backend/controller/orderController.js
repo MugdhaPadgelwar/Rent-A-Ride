@@ -1,9 +1,9 @@
 // Import middleware
 const { log } = require("console");
-const { verifyToken,isAdmin } = require("../middleware/auth");
+const { verifyToken,isAdmin } = require("../middleware/auth.js");
 
 //Import Model
-const Order = require("../models/Order");
+const Order = require("../models/Order.js");
 const Car = require("../models/Car.js")
 
 require("dotenv").config();
