@@ -1,4 +1,4 @@
-import { SuccessDialogComponent } from './../success-dialog/success-dialog.component';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
